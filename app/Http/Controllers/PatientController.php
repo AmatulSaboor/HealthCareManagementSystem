@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\DoctorDetail;
 use App\Models\DoctorWorkingDay;
-use App\Models\Specialization;
-use App\Models\User;
 use DateInterval;
 use DateTime;
 use Exception;
