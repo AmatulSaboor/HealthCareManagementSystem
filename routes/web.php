@@ -37,7 +37,7 @@ Route::group(
             Route::resource('appointment', AppointmentController::class);
             Route::get('/get_doctors_by_field/{field_id}', [PatientController::class, 'get_doctors_by_field']);
             Route::get('/get_time_intervals_by_doctor_id/{doctor_id}', [PatientController::class, 'get_time_intervals_by_doctor_id']);
-            Route::get('/get_working_days_by_doctor_id/{doctor_id}', [PatientController::class, 'get_working_days_by_doctor_id']);
         });
+        Route::get('/get_working_days_by_doctor_id/{doctor_id}', [PatientController::class, 'get_working_days_by_doctor_id']);
     }
 );

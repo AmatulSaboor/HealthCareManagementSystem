@@ -66,7 +66,7 @@ class PatientController extends Controller
     public function get_working_days_by_doctor_id($doctor_id)
     {
         try {
-            $days = DoctorWorkingDay::where('user_id', $doctor_id)->get(['day']);
+            $days = DoctorWorkingDay::where('user_id', $doctor_id)->pluck('day');
             return response()->json($days);
         } catch (Exception $e) {
 

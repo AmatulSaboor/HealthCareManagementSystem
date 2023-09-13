@@ -21,15 +21,12 @@
         <label>Choose Doctor</label>
         <select id="doctor_dropdown" name="doctor_id">
             <option value="" disabled selected hidden>choose doctor</option>
-            {{-- <option value=20>naila</option>
-            <option value=2>summy</option>
-            <option value=10>madeeha</option> --}}
         </select>
         @error('doctor_id')
         <div class="alert alert-danger">{{$message}}</div>
         @enderror
         <label for="appointment_date">Appointment Date</label>
-        <input id="appointment_date" type="date" name ="appointment_date" value="{{old('appointment_date')}}"  max="{{date('Y-m-d', strtotime("+3 months", strtotime(date('Y-m-d'))))}}" />
+        <input id="appointment_date" type="date" name ="appointment_date" value="{{old('appointment_date')}}" min="{{date('Y-m-d', strtotime("+1 day", strtotime(date('Y-m-d'))))}}"  max="{{date('Y-m-d', strtotime("+3 months", strtotime(date('Y-m-d'))))}}" />
         @error('appointment_date')
         <div class="alert alert-danger">{{$message}}</div>
         @enderror
@@ -37,7 +34,6 @@
         <select id="appointment_time_dropdwon" name="appointment_time">
             <option value="" disabled selected hidden>choose time</option>
         </select>
-        {{-- <input id="appointment_time" type="time" name ="appointment_time" value="{{old('appointment_time')}}"/> --}}
         @error('appointment_time')
         <div class="alert alert-danger">{{$message}}</div>
         @enderror
@@ -45,12 +41,14 @@
     </form>
 @push('js')
 <script>
+    let working_days = [];
     $(document).ready(function () {
         $('#doctor_dropdown').on('change', function () {
             var selected_value = $(this).val();
             getDoctorDetails(selected_value)
             ajaxGet("{{url('get_working_days_by_doctor_id')}}/"+selected_value,{},(status,data)=>{
                 if (status){
+                    working_days = data;
                     console.log("success:",data);
                     // $("#appointment_time_dropdwon").empty();
                     // for(let item of data){
@@ -65,7 +63,8 @@
     $(document).ready(function () {
         $("#appointment_date").on('input', function () {
             var selected_date = new Date($(this).val());
-            if (selected_date.getDay() === 0) {
+            console.log(working_days)
+            if (working_days.includes(selected_date.getDay())) {
                     alert("Sundays are not allowed. Please choose a different date.");
                     this.value = "";
                 }

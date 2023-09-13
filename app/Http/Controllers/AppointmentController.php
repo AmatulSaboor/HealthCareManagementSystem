@@ -18,7 +18,14 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        try{
+            $appointments = Appointment::all();
+            // dd($appointments[0]->doctorUser->name);
+            dd($appointments);
+            return view('patient/patient')->with(['appointments' => $appointments]);
+        }catch(Exception $e){
+
+        }
     }
 
     /**
