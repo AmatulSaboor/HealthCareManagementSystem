@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ScheduleAppointmentRequest;
+use App\Models\Appointment;
+use App\Models\Specialization;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -23,7 +28,12 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        try {
+            $specializations = Specialization::all();
+            return view('patient/book_appointment')->with(['fields' => $specializations, 'doctors' => []]);
+        } catch (Exception $e) {
+            return redirect('patient/book_appointment')->with(['error_message' => 'something went wrong']);
+        }
     }
 
     /**
@@ -32,9 +42,21 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ScheduleAppointmentRequest $request)
     {
-        //
+        try{
+            $check_appointment = Appointment::where(['doctor_id' => $request['doctor_id'], 'appointment_date' => $request['appointment_date']])->get();
+            if($check_appointment == null){
+                $request->merge(['patient_id' => Auth::id()]);
+                $appointment = Appointment::create($request->all());
+                // dd($appointment);
+                return redirect('patient_dashboard');
+            }else{
+                return redirect('appointment/create')->with(['error_message' => 'the appointment is already booked']);
+            }
+        }catch(Exception $e){
+            return redirect('patient/appointment')->with(['error_message' => 'something went wrong']);
+        }
     }
 
     /**

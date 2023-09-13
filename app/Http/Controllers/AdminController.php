@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Designation;
 use App\Models\DoctorDetail;
+use App\Models\DoctorWorkingDay;
 use App\Models\Education;
+use App\Models\Role;
 use App\Models\Specialization;
 use App\Models\User;
 use Exception;
@@ -54,21 +56,29 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         try {
-            dd($request);
+            // dd($request);
             DB::beginTransaction();
-            $input1['name'] = $request['first_name'] . ' ' . $request['last_name'];
-            $input1['email'] = $request['email'];
-            $input1['password'] = Hash::make($request['password']);
-            $input1['role_id'] = $request[2];
-            $doctor = User::create($input1);
-
+            $request->merge(['role_id'=> Role::ROLE_DOCTOR, 'name' => $request['first_name'] . ' ' . $request['last_name']]);
+            $user = $request->only('role_id', 'name', 'email', 'password');
+            // dd($user);
+            // $user['name'] = $request['first_name'] . ' ' . $request['last_name'];
+            // $user['email'] = $request['email'];
+            // $user['password'] = Hash::make($request['password']);
+            // $user['role_id'] = Role::ROLE_DOCTOR;
+            $doctor = User::create($user);
             $request['user_id'] = $doctor->id;
+            foreach ($request['working_days'] as $doctor_day) {
+                DoctorWorkingDay::create(['user_id' => $doctor->id, 'day' => $doctor_day]);
+            }
+            // dd(DoctorWorkingDay::all());
+            $request['working_days'] = '';
             DoctorDetail::create($request->all());
+            // dd('in here');
             DB::commit();
-            return redirect('admin/admin_dashboard');
+            return redirect('/doctor');
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect('/create_doctor')->with(['error_message' => 'something went wrong']);
+            return redirect('/doctor')->with(['error_message' => $e->getMessage()]);
         }
     }
 
@@ -113,7 +123,11 @@ class AdminController extends Controller
     {
         try {
             $doctor = User::find($id);
-            $doctor->doctorDetail->update($request->all());
+            $doctor->doctorDetail->save($request->all());
+            // foreach ($request['working_days'] as $doctor_day) {
+            //     DoctorWorkingDay::create(['user_id' => $doctor->id, 'day' => $doctor_day]);
+            // }
+
             return redirect('admin/admin_dashboard');
         } catch (Exception $e) {
             return redirect('admin/admin')->with(['error_message' => 'something went wrong']);
@@ -128,20 +142,20 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        try{
+        try {
             DB::beginTransaction();
             $doctor = User::find($id);
             // dd($doctor);
             // dd($doctor->doctorDetail);
-            if($doctor){
+            if ($doctor) {
                 $doctor->doctorDetail()->delete();
             }
             // dd($doctor);
             // dd($doctor->doctorDetail());
             $doctor->delete();
-            DB::commit(); 
+            DB::commit();
             return redirect('admin/admin_dashboard');
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             return redirect('admin/admin')->with(['error_message' => 'something went wrong']);
         }

@@ -75,11 +75,11 @@
         <input type="radio" id="female" name="gender" value="female"/>
         <label for="female">female</label>
         <label for="working_days">Working Days</label>
-        <input type="checkbox" value="Monday" name="working_days[]"/><label>Monday</label>
-        <input type="checkbox" value="Tuesday" name="working_days[]"/><label>Tuesday</label>
-        <input type="checkbox" value="Wednesday" name="working_days[]"/><label>Wednesday</label>
-        <input type="checkbox" value="Thursday" name="working_days[]"/><label>Thursday</label>
-        <input type="checkbox" value="Friday" name="working_days[]"/><label>Friday</label>
+        <input type="checkbox" value=1 name="working_days[]"/><label>Monday</label>
+        <input type="checkbox" value=2 name="working_days[]"/><label>Tuesday</label>
+        <input type="checkbox" value=3 name="working_days[]"/><label>Wednesday</label>
+        <input type="checkbox" value=4 name="working_days[]"/><label>Thursday</label>
+        <input type="checkbox" value=5 name="working_days[]"/><label>Friday</label>
         {{-- <input id="working_days" type="text" name ="working_days" value="{{old('working_days')}}"/>
         @error('working_days')
         <div class="alert alert-danger">{{$message}}</div>

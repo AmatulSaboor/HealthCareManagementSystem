@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class DoctorDetail extends Model
 {
     use HasFactory;
-    protected $fillable = ['first_name', 'last_name', 'education_id', 'designation_id', 'specialization_id', 'experience', 'dob', 'gender', 'image_link', 'working_days', 'start_time', 'end_time', 'charges', 'isActive', 'user_id'];
+    protected $fillable = ['education_id', 'designation_id', 'specialization_id', 'experience', 'dob', 'gender', 'image_link', 'working_days', 'start_time', 'end_time', 'charges', 'isActive', 'user_id'];
 
     public function education()
     {
@@ -24,5 +24,13 @@ class DoctorDetail extends Model
     public function designation()
     {
         return $this->belongsTo(Designation::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function doctorWorkingDays()
+    {
+        return $this->hasMany(DoctorWorkingDay::class);
     }
 }

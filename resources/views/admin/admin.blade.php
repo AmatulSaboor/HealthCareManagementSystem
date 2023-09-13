@@ -11,6 +11,7 @@
     <table>
         <tr>
             <th>Name</th>
+            <th>Email</th>
             <th>Eductaion</th>
             <th>Specialization</th>
             <th>Designation</th>
@@ -24,9 +25,10 @@
             <th></th>
         </tr>
         @foreach($doctors as $doctor)
-        @if($doctor && $doctor->doctorDetail)
         <tr>
             <td>{{$doctor->name}}</td>
+            <td>{{$doctor->email}}</td>
+            @if($doctor && $doctor->doctorDetail)
             <td>{{$doctor->doctorDetail->education->name}}</td>
             <td>{{$doctor->doctorDetail->specialization->name}}</td>
             <td>{{$doctor->doctorDetail->designation->name}}</td>
@@ -36,16 +38,16 @@
             <td>{{$doctor->doctorDetail->working_days}}</td>
             <td>{{$doctor->doctorDetail->start_time. ' to ' .$doctor->doctorDetail->end_time}}</td>
             <td>{{$doctor->doctorDetail->charges}}</td>
-            <td><a href="{{url('doctor').'/'.$doctor->id}}">Edit</a></td>
+            @endif
+            <td><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}">Edit</a></td>
             <th>
-                <form action="{{url('doctor').'/'.$doctor->id.'/edit'}}" method ="POST">
+                <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
                 @csrf
                 @method('delete')
                     <input type="submit" value ="delete"/>
                 </form>
             </th>
         </tr>
-        @endif
         @endforeach
     </table>
 </div>

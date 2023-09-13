@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditPatientRequest extends FormRequest
+class ScheduleAppointmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class EditPatientRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'field_id' => 'required',
+            'doctor_id' => 'required',
+            'appointment_date' => 'required|date|after:now',
+            'appointment_time' => 'required',
         ];
     }
 }
