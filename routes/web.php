@@ -13,7 +13,7 @@ Route::get('/', function () {
         switch (Auth::user()->role_id) {
             case Role::ROLE_ADMIN:
                 // return redirect('/admin_dashboard');
-                return redirect('/doctor');
+                return redirect('/admin_dashboard');
             case Role::ROLE_DOCTOR:
                 return redirect('/doctor_dashboard');
             case Role::ROLE_PATIENT:
@@ -27,13 +27,14 @@ Route::group(
     ['middleware' => ['auth']],
     function () {
         Route::group(['middleware' => 'role:'.Role::ROLE_ADMIN], function () {
-            Route::resource('doctor', AdminController::class);
+            Route::get('/admin_dashboard', [AdminController::class, 'admin']);
+            Route::resource('/doctor', AdminController::class);
         });
         Route::group(['middleware' => 'role:'.Role::ROLE_DOCTOR], function () {
             Route::get('/doctor_dashboard', [DoctorController::class, 'index']);
         });
         Route::group(['middleware' => 'role:'.Role::ROLE_PATIENT], function () {
-            Route::get('/patient_dashboard', [PatientController::class, 'index']);
+            Route::get('/patient_dashboard', [AppointmentController::class, 'index']);
             Route::resource('appointment', AppointmentController::class);
             Route::get('/get_doctors_by_field/{field_id}', [PatientController::class, 'get_doctors_by_field']);
             Route::get('/get_time_intervals_by_doctor_id/{doctor_id}', [PatientController::class, 'get_time_intervals_by_doctor_id']);

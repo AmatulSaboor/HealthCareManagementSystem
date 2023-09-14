@@ -18,12 +18,10 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        try{
+        try {
             $appointments = Appointment::all();
-            // dd($appointments[0]->doctorUser->name);
-            dd($appointments);
             return view('patient/patient')->with(['appointments' => $appointments]);
-        }catch(Exception $e){
+        } catch (Exception $e) {
 
         }
     }
@@ -51,18 +49,17 @@ class AppointmentController extends Controller
      */
     public function store(ScheduleAppointmentRequest $request)
     {
-        try{
-            $check_appointment = Appointment::where(['doctor_id' => $request['doctor_id'], 'appointment_date' => $request['appointment_date']])->get();
-            if($check_appointment == null){
+        try {
+            $check_appointment = Appointment::where(['doctor_id' => $request['doctor_id'], 'appointment_date' => $request['appointment_date'], 'appointment_time' => $request['appointment_time']])->get();
+            if (count($check_appointment) <= 0) {
                 $request->merge(['patient_id' => Auth::id()]);
-                $appointment = Appointment::create($request->all());
-                // dd($appointment);
+                Appointment::create($request->all());
                 return redirect('patient_dashboard');
-            }else{
+            } else {
                 return redirect('appointment/create')->with(['error_message' => 'the appointment is already booked']);
             }
-        }catch(Exception $e){
-            return redirect('patient/appointment')->with(['error_message' => 'something went wrong']);
+        } catch (Exception $e) {
+            return redirect('appointment/create')->with(['error_message' => $e]);
         }
     }
 

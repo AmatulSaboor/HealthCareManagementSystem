@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddEditDoctorRequest;
 use App\Models\Designation;
 use App\Models\DoctorDetail;
 use App\Models\DoctorWorkingDay;
@@ -20,13 +21,21 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function admin()
+    {
+        try {
+            return view('admin/admin');
+        } catch (Exception $e) {
+            return redirect('admin/admin_dashboard')->with(['error_message' => 'something went wrong']);
+        }
+    }
     public function index()
     {
         try {
             $doctors = User::where('role_id', 2)->get();
-            return view('admin/admin')->with(['doctors' => $doctors]);
+            return view('admin/show_doctors')->with(['doctors' => $doctors]);
         } catch (Exception $e) {
-            return redirect('admin/admin_dashboard')->with(['error_message' => 'something went wrong']);
+            return redirect('admin/show_doctors')->with(['error_message' => 'something went wrong']);
         }
     }
 
@@ -53,12 +62,12 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddEditDoctorRequest $request)
     {
         try {
             // dd($request);
             DB::beginTransaction();
-            $request->merge(['role_id'=> Role::ROLE_DOCTOR, 'name' => $request['first_name'] . ' ' . $request['last_name']]);
+            $request->merge(['role_id' => Role::ROLE_DOCTOR, 'name' => $request['first_name'] . ' ' . $request['last_name']]);
             $user = $request->only('role_id', 'name', 'email', 'password');
             // dd($user);
             // $user['name'] = $request['first_name'] . ' ' . $request['last_name'];
@@ -119,7 +128,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AddEditDoctorRequest $request, $id)
     {
         try {
             $doctor = User::find($id);
