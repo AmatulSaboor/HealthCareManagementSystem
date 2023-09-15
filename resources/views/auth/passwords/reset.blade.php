@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<link rel="stylesheet" href="{{ url('css/login.css') }}"> 
+
+<div class="container" style="background-image: url('{{ 'images/login-bg.jpeg' }}');">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card reset-card">
                 <div class="card-header">{{ __('Reset Password') }}</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('password.update') }}">
@@ -40,7 +42,7 @@
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary reset-password">
                                     {{ __('Reset Password') }}
                                 </button>
                             </div>

@@ -1,0 +1,28 @@
+.login-btn {
+    background-color: #370461 !important;
+    border : 1px solid #370461 ;
+}
+
+.btn-link , .btn-link:hover {
+    color: #370c5a;
+}
+
+.login-cont {
+
+height: 600px!important;
+background-repeat: no-repeat;
+background-size: cover;
+
+}
+
+.login-card , .reset-card{
+    background-color:rgba(99, 98, 98, 0.5);
+    position: relative;
+    top:200px;
+    color:white;
+}
+
+.reset-password , .confirm-password {
+    background-color: #370461 !important;
+    border: 1px solid #370461;
+}

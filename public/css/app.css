@@ -11972,3 +11972,25 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+
+.logo {
+  height: 60px;
+}
+
+.login-link {
+    border : 1px solid #370461 ;
+    background-color:#370461 ;
+    color: white !important;
+    padding: 4px 15px 4px 15px;
+    border-radius: 10px;
+}
+
+.register-link {
+  border : 1px solid #a879ce ;
+    background-color:#a879ce ;
+    color: white !important;
+    padding: 4px 15px 4px 15px;
+    border-radius: 10px;
+    
+}

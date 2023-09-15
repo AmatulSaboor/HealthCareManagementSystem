@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+<link rel="stylesheet" href="{{ url('css/login.css') }}"> 
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -22,7 +24,7 @@
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary confirm-password">
                                     {{ __('Confirm Password') }}
                                 </button>
                                 @if (Route::has('password.request'))

@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<link rel="stylesheet" href="{{ url('css/login.css') }}"> 
+ 
+<div class="container login-cont" style="background-image: url('{{ 'images/login-bg.jpeg' }}');">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card login-card">
+                <div class="card-header text-center"><b>{{ __('Health Care Login') }}</b></div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -42,7 +44,7 @@
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary login-btn">
                                     {{ __('Login') }}
                                 </button>
                                 @if (Route::has('password.request'))
@@ -52,6 +54,7 @@
                                 @endif
                             </div>
                         </div>
+                      
                     </form>
                 </div>
             </div>

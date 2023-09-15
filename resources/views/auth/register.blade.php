@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<link rel="stylesheet" href="{{ url('css/register.css') }}"> 
+
+<div class="container register-cont " style="background-image: url('{{ 'images/login-bg.jpeg' }}');">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+            <div class="card register-card">
+                <div class="card-header text-center"><b>{{ __('Health Care Register') }}</b></div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -49,13 +51,13 @@
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary register-btn">
                                     {{ __('Register') }}
                                 </button>
                             </div>
                         </div>
                         <div class="row mb-3" >
-                            <label class="col-md-10 col-form-label text-md-right"><b>Note:</b> Only patients can register. If you are a doctor, please contact the admin</label>
+                            <label class="col-md-10 col-form-label text-md-right"><marquee class="note"><b>Note:</b> Only patients can register. If you are a doctor, please contact the admin<marquee></label>
                         </div>  
                     </form>
                 </div>
