@@ -27,5 +27,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('calculateAge', function ($dob) {
             return "<?php echo \Carbon\Carbon::parse($dob)->age; ?>";
         });
+        Blade::directive('sweetAlert', function ($msg) {
+            return "<?php showSwalPopUp($msg); ?>";
+        });
     }
 }

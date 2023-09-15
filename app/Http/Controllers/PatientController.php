@@ -30,7 +30,7 @@ class PatientController extends Controller
         $end_time = new DateTime($doctor_times['end_time']);
         $current_time = $start_time;
         while ($current_time <= $end_time) {
-            $intervals[] = $current_time->format('H:i');
+            $intervals[] = $current_time->format('h:ia');
             $current_time->add(new DateInterval('PT30M'));
         }
         return $intervals;

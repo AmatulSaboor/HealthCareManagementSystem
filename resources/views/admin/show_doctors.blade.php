@@ -20,7 +20,8 @@
             <th>Gender</th>
             <th>Working Days</th>
             <th>Timings</th>
-            <th>Charges</th>
+            <th>Conusltaion Fee</th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>
@@ -32,25 +33,33 @@
             <td>{{$doctor->doctorDetail->education->name}}</td>
             <td>{{$doctor->doctorDetail->specialization->name}}</td>
             <td>{{$doctor->doctorDetail->designation->name}}</td>
-            <td>{{$doctor->doctorDetail->experience}}</td>
+            <td>{{$doctor->doctorDetail->experience}} year(s)</td>
             <td>@calculateAge($doctor->doctorDetail->dob)</td>
             <td>{{$doctor->doctorDetail->gender}}</td>
-            <td>{{$doctor->doctorDetail->working_days}}</td>
-            <td>{{$doctor->doctorDetail->start_time. ' to ' .$doctor->doctorDetail->end_time}}</td>
-            <td>{{$doctor->doctorDetail->charges}}</td>
+            <td>
+                @foreach($doctor->doctorWorkingDays as $doctor_day)
+                {{$doctor_day->day}}
+                @endforeach
+            </td>
+            <td>{{ date('h:i A', strtotime($doctor->doctorDetail->start_time)). ' to ' .date('h:i A', strtotime($doctor->doctorDetail->end_time))}}</td>
+            <td>{{$doctor->doctorDetail->conusltaion_fee}}</td>
             @endif
+            <td><a href="">Activate</a></td>
             <td><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}">Edit</a></td>
             <th>
                 <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
                 @csrf
                 @method('delete')
-                    <input type="submit" value ="delete"/>
+                    <input type="submit" value ="delete" />
                 </form>
             </th>
         </tr>
         @endforeach
     </table>
 </div>
+@if(session('success_message'))
+    @sweetAlert(session('success_message'))
+@endif
 @push('js')
 @endpush
 @endsection

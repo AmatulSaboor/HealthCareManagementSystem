@@ -5,13 +5,14 @@ namespace App\Models;
 use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -56,4 +57,21 @@ class User extends Authenticatable
     {
         return $this->hasOne(PatientDetail::class);
     }
+    public function doctorWorkingDays()
+    {
+        return $this->hasMany(DoctorWorkingDay::class);
+    }
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'id', 'patient_id');
+    }
+    public function getFirstNameAttribute()
+    {
+        return explode(' ', $this->attributes['name'])[0] ?? '';
+    }
+    public function getLastNameAttribute()
+    {
+        return explode(' ', $this->attributes['name'])[1] ?? '';
+    }
+
 }

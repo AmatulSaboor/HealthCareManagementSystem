@@ -7,11 +7,12 @@ use App\Models\Education;
 use App\Models\Specialization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DoctorDetail extends Model
 {
-    use HasFactory;
-    protected $fillable = ['education_id', 'designation_id', 'specialization_id', 'experience', 'dob', 'gender', 'image_link', 'working_days', 'start_time', 'end_time', 'charges', 'isActive', 'user_id'];
+    use HasFactory, SoftDeletes;
+    protected $fillable = ['education_id', 'designation_id', 'specialization_id', 'experience', 'dob', 'gender', 'image_link', 'start_time', 'end_time', 'conusltaion_fee', 'isActive', 'user_id'];
 
     public function education()
     {
