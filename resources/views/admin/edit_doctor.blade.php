@@ -131,9 +131,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="consultation_fee">Consultation Fee</label>
-                                <input type="text" class="form-control" id="consultation_fee" name="consultation_fee" value="{{ old('consultation_fee', $doctor->doctorDetail->consultation_fee) }}" placeholder="Fee should be between Rs.500 and Rs.5000" />
-                                @error('consultation_fee')
+                                <label for="conusltation_fee">Consultation Fee</label>
+                                <input type="text" class="form-control" id="conusltation_fee" name="conusltaion_fee" value="{{ old('conusltaion_fee', $doctor->doctorDetail->conusltaion_fee) }}" placeholder="Fee should be between Rs.500 and Rs.5000" />
+                                @error('conusltaion_fee')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

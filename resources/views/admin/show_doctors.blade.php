@@ -57,10 +57,11 @@
         </tr>
         @endforeach
     </table>
+    {{$doctors->links()}}
 </div>
-<!-- @if(session('success_message'))
+{{-- @if(session('success_message'))
     @sweetAlert(session('success_message'))
-@endif -->
+@endif --}}
 @push('js')
 @endpush
 @endsection

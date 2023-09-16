@@ -8,6 +8,7 @@ use App\Models\Education;
 use App\Models\Designation;
 use App\Models\DoctorDetail;
 use App\Models\Specialization;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\DoctorWorkingDay;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,7 @@ class AdminController extends Controller
     public function index()
     {
         try {
-            $doctors = User::where('role_id', 2)->get();
+            $doctors = User::where('role_id', 2)->paginate(1);
             // map working days here may be
             return view('admin/show_doctors')->with(['doctors' => $doctors]);
         } catch (Exception $e) {
@@ -102,9 +103,10 @@ class AdminController extends Controller
         }
     }
 
-    public function update(EditDoctorRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
+            // dd('in here');
             DB::beginTransaction();
             $doctor = User::find($id);
             $doctor->update(['name' => $request['first_name'] . ' ' . $request['last_name']]);
