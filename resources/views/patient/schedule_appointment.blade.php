@@ -4,7 +4,7 @@
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-<h4>Book Appointment</h4>
+<h4>Schedule Appointment</h4>
     <span>{{session()->get('error_message')}}</span>
     <form action="{{url('appointment')}}" method="POST" class="form-container">
         @csrf
@@ -20,7 +20,7 @@
         @enderror
         <label>Choose Doctor</label>
         <select id="doctor_dropdown" name="doctor_id">
-            <option value="" disabled selected hidden>choose doctor</option>
+            <option value="" disabled selected>choose field first</option>
         </select>
         @error('doctor_id')
         <div class="alert alert-danger">{{$message}}</div>
@@ -32,13 +32,14 @@
         @enderror
         <label for="appointment_time_dropdwon">Appointment Time</label>
         <select id="appointment_time_dropdwon" name="appointment_time">
-            <option value="" disabled selected hidden>choose time</option>
+            <option value="" disabled selected>choose doctor first</option>
         </select>
         @error('appointment_time')
         <div class="alert alert-danger">{{$message}}</div>
         @enderror
         <input type ="submit" value ="Schedule" name ="submit"/>
     </form>
+    <a href="{{url('appointment')}}">Cancel</a>
 @push('js')
 <script>
     let working_days = [];
@@ -59,8 +60,7 @@
                 }
             })
         });
-    });
-    $(document).ready(function () {
+        
         $("#appointment_date").on('input', function () {
             var selected_date = new Date($(this).val());
             console.log(working_days)
@@ -68,9 +68,9 @@
                     alert("Sundays are not allowed. Please choose a different date.");
                     this.value = "";
                 }
-        });
-    });
-    $(document).ready(function () {
+            }
+        );
+
         $("#field_id").on('change',function () {
             let params = $(this).val();
             ajaxGet("{{url('get_doctors_by_field')}}/"+params,{},(status,data)=>{
@@ -99,7 +99,8 @@
                 }else{
                     console.log("error:",data);
                 }
-            })
+            }
+        )
     }
 </script>
 @endpush

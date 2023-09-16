@@ -25,7 +25,7 @@ class AdminController extends Controller
         try {
             return view('admin/admin');
         } catch (Exception $e) {
-            return redirect('admin/admin')->with(['error_message' => 'something went wrong']);
+            return redirect('admin/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
     public function index()
@@ -36,7 +36,7 @@ class AdminController extends Controller
             return view('admin/show_doctors')->with(['doctors' => $doctors]);
         } catch (Exception $e) {
             dd($e);
-            return redirect('/doctors')->with(['error_message' => 'something went wrong']);
+            return redirect('/doctors')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
     public function create()
@@ -53,7 +53,7 @@ class AdminController extends Controller
                 'specializations' => $specializations
             ]);
         } catch (Exception $e) {
-            return redirect('admin/admin_dashboard')->with(['error_message' => 'something went wrong']);
+            return redirect('admin/admin_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
     public function store(AddDoctorRequest $request)
@@ -99,11 +99,11 @@ class AdminController extends Controller
                 'end_times' => $this->end_times
             ]);
         } catch (Exception $e) {
-            return redirect('admin/admin')->with(['error_message' => 'something went wrong']);
+            return redirect('admin/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(EditDoctorRequest $request, $id)
     {
         try {
             // dd('in here');
@@ -132,8 +132,8 @@ class AdminController extends Controller
     {
         try {
             $doctor = User::find($id);
-            // dd($doctor->appointments);
-            $upcoming_appointments = $doctor->appointments;
+            dd($doctor->doctorAppointments);
+        $upcoming_appointments = $doctor->appointments;
             if (count($upcoming_appointments) <= 0) {
                 DB::beginTransaction();
                 if ($doctor) {
@@ -143,11 +143,11 @@ class AdminController extends Controller
                 DB::commit();
                 return redirect('doctor')->with(['success_message' => "Doctor deleted suceessfuly"]);
             } else {
-                return redirect('doctor')->with(['failure_message' => "You can't delete doctor, becaushe he/she has appointments"]);
+                return redirect('doctor')->with(['error_message' => "You can't delete doctor, becaushe he/she has appointments"]);
             }
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect('doctor')->with(['error_message' => 'something went wrong']);
+            return redirect('doctor')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 }

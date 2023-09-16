@@ -61,9 +61,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(DoctorWorkingDay::class);
     }
-    public function appointments()
+    public function patientAppointments()
     {
         return $this->hasMany(Appointment::class, 'id', 'patient_id');
+    }
+    public function doctorAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'id', 'doctor_id');
     }
     public function getFirstNameAttribute()
     {

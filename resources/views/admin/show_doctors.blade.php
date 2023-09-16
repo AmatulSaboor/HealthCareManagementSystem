@@ -34,7 +34,7 @@
             <td>{{$doctor->doctorDetail->specialization->name}}</td>
             <td>{{$doctor->doctorDetail->designation->name}}</td>
             <td>{{$doctor->doctorDetail->experience}} year(s)</td>
-            <td>@calculateAge($doctor->doctorDetail->dob)</td>
+            <td>@calculateAge($doctor->doctorDetail->dob) years</td>
             <td>{{$doctor->doctorDetail->gender}}</td>
             <td>
                 @foreach($doctor->doctorWorkingDays as $doctor_day)
@@ -42,7 +42,7 @@
                 @endforeach
             </td>
             <td>{{ date('h:i A', strtotime($doctor->doctorDetail->start_time)). ' to ' .date('h:i A', strtotime($doctor->doctorDetail->end_time))}}</td>
-            <td>{{$doctor->doctorDetail->conusltaion_fee}}</td>
+            <td>Rs. {{$doctor->doctorDetail->conusltaion_fee}}</td>
             @endif
             <td><button class="activate"><a href="" class="activate">Activate</a></button></td>
             <td><button class="edit"><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}" class="edit">Edit</a></button></td>
@@ -50,8 +50,7 @@
                 <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
                 @csrf
                 @method('delete')
-                    <!-- <input type="submit" value ="delete" /> -->
-                    <button type="submit" value="delete" class="delete"><a href="" class="delete">Delete</a></button>
+                    <button type="submit" value="delete" class="delete">Delete</button>
                 </form>
             </th>
         </tr>
