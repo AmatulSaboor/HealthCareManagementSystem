@@ -19,12 +19,14 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/ajax_call.js') }}" defer></script>
     <script src="{{ asset('js/swal_popup.js') }}" defer></script>
+  
 
     <!-- Fonts -->
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.3/dist/sweetalert2.min.css">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -33,7 +35,10 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+       
             <div class="container">
+                <!-- start -->
+             
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <!-- {{ config('app.name', 'Laravel') }} -->
                     <img src="{{url('/images/logo.PNG')}}" class="logo">
@@ -96,5 +101,6 @@
         </main>
     </div>
     @stack('js')
+    
 </body>
 </html>

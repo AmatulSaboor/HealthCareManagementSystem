@@ -26,104 +26,167 @@
                         </li>
                     </ul>
                     <div class="tab-content" id="stepper-content">
-                        <div class="tab-pane fade show active" id="step1">
-                            <h3>Registeration Info</h3>
+                    <div class="tab-pane fade show active" id="step1">
+                        <h3 class="my-2 text-center">Registration Info</h3>
+                        <div class="form-group">
                             <label for="first_name">First Name</label>
-                            <input id="first_name" type="text" name ="first_name" value="{{old('first_name', $doctor->first_name)}}" placeholder="enter first name"/>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name', $doctor->first_name) }}" placeholder="Enter first name" />
                             @error('first_name')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                            <label for="last_name">Last Name</label>
-                            <input id="last_name" type="text" name ="last_name" value="{{old('last_name', $doctor->last_name)}}"  placeholder="enter last name"/>
-                            @error('last_name')
-                            <div class="alert alert-danger">{{$message}}</div>
+                            <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="tab-pane fade" id="step2">
-                            <h3>Professional Info</h3>
-                            <label>Specialization</label>
-                            <select name="specialization_id">
-                                @foreach($specializations as $specialization)
-                                <option value="{{$specialization->id}}" {{old('specialization_id', $doctor->doctorDetail->specialization_id) == $specialization->id ? 'selected' : ''}}>{{$specialization->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('specialization_id')
-                            <div class="alert alert-danger">{{$message}}</div>
+
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name', $doctor->last_name) }}" placeholder="Enter last name" />
+                            @error('last_name')
+                            <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            <label>Designation</label>
-                            <select name="designation_id">
-                                @foreach($designations as $designation)
-                                <option value="{{$designation->id}}" {{old('designation_id', $doctor->doctorDetail->designation_id) == $designation->id ? 'selected' : ''}}>{{$designation->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('designation_id')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                            <div class="checkbox-container">
-                                <label for="working_days">Working Days</label>
-                                <input type="checkbox" value=1 name="working_days[]" {{in_array(1, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ? 'checked' : ''}}/><label>Mon</label>
-                                <input type="checkbox" value=2 name="working_days[]" {{in_array(2, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ?  'checked' : ''}}/><label>Tue</label>
-                                <input type="checkbox" value=3 name="working_days[]" {{in_array(3, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ?  'checked' : ''}}/><label>Wed</label>
-                                <input type="checkbox" value=4 name="working_days[]" {{in_array(4, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ?  'checked' : ''}}/><label>Thur</label>
-                                <input type="checkbox" value=5 name="working_days[]" {{in_array(5, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ? 'checked' : ''}}/><label>Fri</label>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="step2">
+                            <h3 class="my-2 text-center">Professional Info</h3>
+                            <div class="form-group">
+                                <label for="specialization">Specialization</label>
+                                <select class="form-control" id="specialization" name="specialization_id">
+                                    @foreach($specializations as $specialization)
+                                    <option value="{{ $specialization->id }}" {{ old('specialization_id', $doctor->doctorDetail->specialization_id) == $specialization->id ? 'selected' : '' }}>
+                                        {{ $specialization->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('specialization_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="designation">Designation</label>
+                                <select class="form-control" id="designation" name="designation_id">
+                                    @foreach($designations as $designation)
+                                    <option value="{{ $designation->id }}" {{ old('designation_id', $doctor->doctorDetail->designation_id) == $designation->id ? 'selected' : '' }}>
+                                        {{ $designation->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('designation_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group checkbox-container">
+                                <label>Working Days</label>
+                                <div class="form-check">
+                                    <input class="form-check-input ms-2" type="checkbox" id="working_day_mon" value="1" name="working_days[]" {{ in_array(1, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ? 'checked' : '' }}>
+                                    <label class="form-check-label mx-1" for="working_day_mon">Mon</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="working_day_tue" value="2" name="working_days[]" {{ in_array(2, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ? 'checked' : '' }}>
+                                    <label class="form-check-label mx-1" for="working_day_tue">Tue</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="working_day_wed" value="3" name="working_days[]" {{ in_array(3, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ? 'checked' : '' }}>
+                                    <label class="form-check-label mx-1" for="working_day_wed">Wed</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="working_day_thu" value="4" name="working_days[]" {{ in_array(4, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ? 'checked' : '' }}>
+                                    <label class="form-check-label mx-1" for="working_day_thu">Thur</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="working_day_fri" value="5" name="working_days[]" {{ in_array(5, old('working_days', $doctor->doctorWorkingDays->pluck('day')->toArray())) ? 'checked' : '' }}>
+                                    <label class="form-check-label mx-1" for="working_day_fri">Fri</label>
+                                </div>
                             </div>
                             @error('working_days')
-                            <div class="alert alert-danger">{{$message}}</div>
+                            <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            <label for="start_time">Start Time</label>
-                            <select name="start_time">
-                                @foreach($start_times as $start_time)
-                                <option value="{{$start_time}}" {{old('start_time', date('h:i A', strtotime($doctor->doctorDetail->start_time))) == $start_time ? 'selected' : ''}}>{{$start_time}}</option>
-                                @endforeach
-                            </select>
-                            @error('start_time')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                            <label for="end_time">End Time</label>
-                            <select name="end_time">
-                                @foreach($end_times as $end_time)
-                                <option value="{{$end_time}}" {{old('end_time', date('h:i A', strtotime($doctor->doctorDetail->end_time))) == $end_time ? 'selected' : ''}}>{{$end_time}}</option>
-                                @endforeach
-                            </select>      
-                            @error('end_time')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                            <label for="conusltaion_fee">Conusltaion Fee</label>
-                            <input id="conusltaion_fee" type="text" name ="conusltaion_fee" value="{{old('conusltaion_fee', $doctor->doctorDetail->conusltaion_fee)}}"  placeholder="fee should be between Rs.500 and Rs.5000"/>
-                            @error('conusltaion_fee')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
+
+                            <div class="form-group">
+                                <label for="start_time">Start Time</label>
+                                <select class="form-control" id="start_time" name="start_time">
+                                    @foreach($start_times as $start_time)
+                                    <option value="{{ $start_time }}" {{ old('start_time', date('h:i A', strtotime($doctor->doctorDetail->start_time))) == $start_time ? 'selected' : '' }}>
+                                        {{ $start_time }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('start_time')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="end_time">End Time</label>
+                                <select class="form-control" id="end_time" name="end_time">
+                                    @foreach($end_times as $end_time)
+                                    <option value="{{ $end_time }}" {{ old('end_time', date('h:i A', strtotime($doctor->doctorDetail->end_time))) == $end_time ? 'selected' : '' }}>
+                                        {{ $end_time }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('end_time')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="consultation_fee">Consultation Fee</label>
+                                <input type="text" class="form-control" id="consultation_fee" name="consultation_fee" value="{{ old('consultation_fee', $doctor->doctorDetail->consultation_fee) }}" placeholder="Fee should be between Rs.500 and Rs.5000" />
+                                @error('consultation_fee')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
+
                         <div class="tab-pane fade" id="step3">
-                            <h3>Personal Info</h3>
-                            <label>Education</label>
-                            <select name="education_id">
+                        <h3 class="my-2 text-center">Personal Info</h3>
+
+                        <div class="form-group">
+                            <label for="education">Education</label>
+                            <select class="form-control" id="education" name="education_id">
                                 @foreach($educations as $education)
-                                <option value="{{$education->id}}" {{old('education_id', $doctor->doctorDetail->education_id) ==$education->id ? 'selected' : ''}}>{{$education->name}}</option>
+                                <option value="{{ $education->id }}" {{ old('education_id', $doctor->doctorDetail->education_id) == $education->id ? 'selected' : '' }}>
+                                    {{ $education->name }}
+                                </option>
                                 @endforeach
                             </select>
                             @error('education_id')
-                            <div class="alert alert-danger">{{$message}}</div>
+                            <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            <label for="experience">Experience</label>
-                            <input id="experience" type="text" name ="experience" value="{{old('experience', $doctor->doctorDetail->experience)}}"  placeholder="experience in years"/>
-                            @error('experience')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                            <label for="dob">Date of Birth</label>
-                            <input id="dob" type="date" name ="dob" value="{{old('dob', $doctor->doctorDetail->dob)}}" min="{{date('Y-m-d', strtotime("-80 years", strtotime(date('Y-m-d'))))}}"  max="{{date('Y-m-d', strtotime("-20 years", strtotime(date('Y-m-d'))))}}" />
-                            @error('dob')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                            <div class="radiobutton-container">
-                                <label>Gender</label>
-                                <input type="radio" id="male" name="gender" value="Male" {{old('gender', $doctor->doctorDetail->gender) == 'Male' ? 'checked' : ''}}/>
-                                <label for="male">male</label>
-                                <input type="radio" id="female" name="gender" value="Female" {{old('gender', $doctor->doctorDetail->gender) == 'Female' ? 'checked' : ''}}/>
-                                <label for="female">female</label>
-                            </div>
-                            <input type ="submit" value = "Update" name ="submit"/>
                         </div>
+
+                        <div class="form-group">
+                            <label for="experience">Experience</label>
+                            <input type="text" class="form-control" id="experience" name="experience" value="{{ old('experience', $doctor->doctorDetail->experience) }}" placeholder="Experience in years" />
+                            @error('experience')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $doctor->doctorDetail->dob) }}" min="{{ date('Y-m-d', strtotime("-80 years", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d', strtotime("-20 years", strtotime(date('Y-m-d')))) }}" />
+                            @error('dob')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group radiobutton-container">
+                            <label>Gender</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="gender_male" name="gender" value="Male" {{ old('gender', $doctor->doctorDetail->gender) == 'Male' ? 'checked' : '' }}>
+                                <label class="form-check-label ms-2" for="gender_male">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="gender_female" name="gender" value="Female" {{ old('gender', $doctor->doctorDetail->gender) == 'Female' ? 'checked' : '' }}>
+                                <label class="form-check-label ms-2" for="gender_female">Female</label>
+                            </div>
+                        </div>
+
+                        <input type="submit" class="btn btn-primary update-btn" value="Update" name="submit" />
+                    </div>
+
                     </div>
                 </div>
             </div> 

@@ -7,7 +7,7 @@
 <div class="container" class ="index">
     <h4>Doctors List</h4>
     <span>{{session()->get('error_message')}}</span>
-    <form action="{{url('doctor/create')}}"><button>Add New Doctor</button></form>
+    <form action="{{url('doctor/create')}}" class="d-flex justify-content-end"><button>+ Add New Doctor</button></form>
     <table>
         <tr>
             <th>Name</th>
@@ -44,22 +44,23 @@
             <td>{{ date('h:i A', strtotime($doctor->doctorDetail->start_time)). ' to ' .date('h:i A', strtotime($doctor->doctorDetail->end_time))}}</td>
             <td>{{$doctor->doctorDetail->conusltaion_fee}}</td>
             @endif
-            <td><a href="">Activate</a></td>
-            <td><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}">Edit</a></td>
+            <td><button class="activate"><a href="" class="activate">Activate</a></button></td>
+            <td><button class="edit"><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}" class="edit">Edit</a></button></td>
             <th>
                 <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
                 @csrf
                 @method('delete')
-                    <input type="submit" value ="delete" />
+                    <!-- <input type="submit" value ="delete" /> -->
+                    <button type="submit" value="delete" class="delete"><a href="" class="delete">Delete</a></button>
                 </form>
             </th>
         </tr>
         @endforeach
     </table>
 </div>
-@if(session('success_message'))
+<!-- @if(session('success_message'))
     @sweetAlert(session('success_message'))
-@endif
+@endif -->
 @push('js')
 @endpush
 @endsection

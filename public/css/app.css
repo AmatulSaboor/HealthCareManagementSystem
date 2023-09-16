@@ -94,10 +94,10 @@
   --bs-tertiary-bg: #f8f9fa;
   --bs-tertiary-bg-rgb: 248, 249, 250;
   --bs-heading-color: inherit;
-  --bs-link-color: #0d6efd;
+  --bs-link-color: #370461;
   --bs-link-color-rgb: 13, 110, 253;
   --bs-link-decoration: underline;
-  --bs-link-hover-color: #0a58ca;
+  --bs-link-hover-color: #652a96;
   --bs-link-hover-color-rgb: 10, 88, 202;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
@@ -2323,14 +2323,14 @@ textarea.form-control-lg {
 }
 
 .form-check {
-  display: block;
+  display: flex;
   min-height: 1.44rem;
   padding-left: 1.5em;
   margin-bottom: 0.125rem;
 }
 .form-check .form-check-input {
-  float: left;
-  margin-left: -1.5em;
+  /* float: left;
+  margin-left: -1.5em; */
 }
 
 .form-check-reverse {
@@ -2377,8 +2377,8 @@ textarea.form-control-lg {
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 .form-check-input:checked {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: #370461;
+  border-color: #370461;
 }
 .form-check-input:checked[type=checkbox] {
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
@@ -2387,8 +2387,8 @@ textarea.form-control-lg {
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
 .form-check-input[type=checkbox]:indeterminate {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: #370461;
+  border-color: #370461;
   --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
 }
 .form-check-input:disabled {
@@ -3223,6 +3223,12 @@ textarea.form-control-lg {
   --bs-gradient: none;
 }
 
+.btn-purple {
+  --bs-btn-color: #370461;
+  --bs-btn-border-color: #370461;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: #8b4dbd;
+}
 .btn-outline-danger {
   --bs-btn-color: #dc3545;
   --bs-btn-border-color: #dc3545;
@@ -6278,17 +6284,17 @@ textarea.form-control-lg {
   }
 }
 @media (max-width: 575.98px) and (prefers-reduced-motion: reduce) {
-  .offcanvas-sm {
+  /* .offcanvas-sm {
     transition: none;
-  }
+  } */
 }
 @media (max-width: 575.98px) {
   .offcanvas-sm.offcanvas-start {
-    top: 0;
+    /* top: 0;
     left: 0;
     width: var(--bs-offcanvas-width);
     border-right: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
-    transform: translateX(-100%);
+    transform: translateX(-100%); */
   }
   .offcanvas-sm.offcanvas-end {
     top: 0;
@@ -6434,17 +6440,17 @@ textarea.form-control-lg {
   }
 }
 @media (max-width: 991.98px) and (prefers-reduced-motion: reduce) {
-  .offcanvas-lg {
+  /* .offcanvas-lg {
     transition: none;
-  }
+  } */
 }
 @media (max-width: 991.98px) {
   .offcanvas-lg.offcanvas-start {
-    top: 0;
+    /* top: 0;
     left: 0;
     width: var(--bs-offcanvas-width);
     border-right: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
-    transform: translateX(-100%);
+    transform: translateX(-100%); */
   }
   .offcanvas-lg.offcanvas-end {
     top: 0;
@@ -6512,17 +6518,17 @@ textarea.form-control-lg {
   }
 }
 @media (max-width: 1199.98px) and (prefers-reduced-motion: reduce) {
-  .offcanvas-xl {
+  /* .offcanvas-xl {
     transition: none;
-  }
+  } */
 }
 @media (max-width: 1199.98px) {
   .offcanvas-xl.offcanvas-start {
-    top: 0;
+    /* top: 0;
     left: 0;
     width: var(--bs-offcanvas-width);
     border-right: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
-    transform: translateX(-100%);
+    transform: translateX(-100%); */
   }
   .offcanvas-xl.offcanvas-end {
     top: 0;
@@ -6590,17 +6596,17 @@ textarea.form-control-lg {
   }
 }
 @media (max-width: 1399.98px) and (prefers-reduced-motion: reduce) {
-  .offcanvas-xxl {
+  /* .offcanvas-xxl {
     transition: none;
-  }
+  } */
 }
 @media (max-width: 1399.98px) {
   .offcanvas-xxl.offcanvas-start {
-    top: 0;
+    /* top: 0;
     left: 0;
     width: var(--bs-offcanvas-width);
     border-right: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
-    transform: translateX(-100%);
+    transform: translateX(-100%); */
   }
   .offcanvas-xxl.offcanvas-end {
     top: 0;
@@ -6666,16 +6672,16 @@ textarea.form-control-lg {
   transition: var(--bs-offcanvas-transition);
 }
 @media (prefers-reduced-motion: reduce) {
-  .offcanvas {
+  /* .offcanvas {
     transition: none;
-  }
+  } */
 }
 .offcanvas.offcanvas-start {
-  top: 0;
+  /* top: 0;
   left: 0;
   width: var(--bs-offcanvas-width);
   border-right: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
-  transform: translateX(-100%);
+  transform: translateX(-100%); */
 }
 .offcanvas.offcanvas-end {
   top: 0;
