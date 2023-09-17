@@ -27,11 +27,11 @@ Route::group(
     ['middleware' => ['auth']],
     function () {
         Route::group(['middleware' => 'role:' . Role::ROLE_ADMIN], function () {
-            Route::get('/admin_dashboard', [AdminController::class, 'admin']);
-            Route::resource('/doctor', AdminController::class);
+            Route::get('/admin_dashboard', [AdminController::class, 'index']);
+            Route::resource('/doctor', DoctorController::class);
         });
         Route::group(['middleware' => 'role:' . Role::ROLE_DOCTOR], function () {
-            Route::get('/doctor_dashboard', [DoctorController::class, 'index']);
+            Route::get('/doctor_dashboard', [DoctorController::class, 'doctor']);
         });
         Route::group(['middleware' => 'role:' . Role::ROLE_PATIENT], function () {
             Route::get('/patient_dashboard', [PatientController::class, 'index']);

@@ -5,8 +5,14 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Hi {{$patient->name}}</p>
-    <p>Hi {{$appointment->id}}</p>
-    <p>This is testing for Amatul and Mahnoor project :D</p>
+    <p>Dear {{$patient->name}}</p>
+    <p>You have booked an appointment with us. Details are given below:</p>
+    <p> <b> For : </b> {{$appointment->doctorUser->doctorDetail->specialization->name}}</p>
+    <p> <b> Doctor: </b> {{$appointment->doctorUser->name}}</p>
+    <p> <b> Date: </b> {{$appointment->appointment_date}}</p>
+    <p> <b> Time: </b> {{$appointment->appointment_time}}</p>
+    <p>Please reach on time</p>
+    <p>Regards,</p>
+    <p>Admin</p>
 </body>
 </html>

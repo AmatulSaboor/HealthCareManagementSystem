@@ -5,7 +5,9 @@
 @endpush
 @section('content')
 <h4>Schedule Appointment</h4>
-    <span>{{session()->get('error_message')}}</span>
+@if(session()->get('error_message'))
+<div class="alert alert-danger">{{session()->get('error_message')}}</div>
+@endif
     <form action="{{url('appointment')}}" method="POST" class="form-container">
         @csrf
         <label>Select Field</label>
@@ -65,11 +67,11 @@
         $("#appointment_date").on('input', function () {
             let selected_date = new Date($(this).val());
             if(selected_date.getDay() == 0){
-                alert("Doctor not working on sundays");
+                infoPopUp("Doctor not working on Sundays");
                     this.value = "";
             }
             else if (working_days.length > 0 && !working_days.includes(selected_date.getDay())) {
-                    alert("Doctor not working on this day of the week");
+                    infoPopUp("Doctor not working on this day of the week");
                     this.value = "";
                 }
             }
@@ -96,6 +98,7 @@
                     getDoctorDetails(data[0].user_id, timeUrl, dayUrl)}
             }else{console.log("error:",data);}
         })
+        infoPopUp("{{ session('add_appointment_err_msg') }}");
     }
 
     // --------- FUNCTION : get doctor details on doctor selection (timings and working hours) -------------
@@ -122,6 +125,6 @@
             }
         )
     }
-</script> 
+</script>
 @endpush
 @endsection

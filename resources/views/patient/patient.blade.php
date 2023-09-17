@@ -4,7 +4,9 @@
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-<span>{{session()->get('error_message')}}</span>
+@if(session()->get('error_message'))
+<div class="alert alert-danger">{{session()->get('error_message')}}</div>
+@endif
 <div class="container index">
     <form action="{{url('appointment/create')}}"><button>Book an Appointment</button></form>
     <form action="{{url('appointment')}}"><button>Appointment List</button></form>

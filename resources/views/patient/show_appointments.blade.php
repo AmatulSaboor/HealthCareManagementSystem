@@ -5,34 +5,43 @@
 @endpush
 @section('content')
 <h4>Appointments List</h4>
+@if(session()->get('error_message'))
+<div class="alert alert-danger">{{session()->get('error_message')}}</div>
+@endif
 <form action="{{url('appointment/create')}}"><button>Schedule an Appointment</button></form>
-    <span>{{session()->get('error_message')}}</span>
-    <table>
-        <tr>
-            <th>For</th>
-            <th>Doctor</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th></th>
-            <th></th>
-        </tr>
-        @foreach($appointments as $appointment)
-        <tr>
-            <td>{{$appointment->doctorUser->doctorDetail->specialization->name}}</td>
-            <td>{{$appointment->doctorUser->name}}</td>
-            <td>{{$appointment->appointment_date}}</td>
-            <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
-            <td><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}">Reschedule</a></td>
-            <th>
-                <form action="{{url('appointment').'/'.$appointment->id}}" method ="POST">
-                @csrf
-                @method('delete')
-                    <input type="submit" value ="Cancel"/>
-                </form>
-            </th>
-        </tr>
-        @endforeach
-    </table>
+<span>{{session()->get('error_message')}}</span>
+<table>
+    <tr>
+        <th>For</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach($appointments as $appointment)
+    <tr>
+        <td>{{$appointment->doctorUser->doctorDetail->specialization->name}}</td>
+        <td>{{$appointment->doctorUser->name}}</td>
+        <td>{{$appointment->appointment_date}}</td>
+        <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
+        <td><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}">Reschedule</a></td>
+        <th>
+            <form id="delete_form_{{$appointment->id}}" action="{{url('appointment').'/'.$appointment->id}}" method ="POST">
+            @csrf
+            @method('delete')
+                <button type="button" onclick="confirmationPopUp({{ $appointment->id }}, 'delete_form_', 'appointment')">Cancel</button>
+            </form>
+        </th>
+    </tr>
+    @endforeach
+</table>
 @push('js')
+<script>
+$(document).ready(function () {
+    sucessPopUp("{{ session('sent_email_msg') }}");
+    errorPopUp("{{ session('error_message') }}");
+});
+</script>
 @endpush
 @endsection

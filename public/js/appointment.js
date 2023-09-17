@@ -19,11 +19,11 @@ $(document).ready(function () {
     $("#appointment_date").on('input', function () {
         let selected_date = new Date($(this).val());
         if(selected_date.getDay() == 0){
-            alert("Doctor not working on sundays");
+            infoPopUp("Doctor not working on Sundays");
                 this.value = "";
         }
         else if (working_days.length > 0 && !working_days.includes(selected_date.getDay())) {
-                alert("Doctor not working on this day of the week");
+                infoPopUp("Doctor not working on this day of the week");
                 this.value = "";
             }
         }
