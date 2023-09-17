@@ -14,6 +14,7 @@ use App\Models\DoctorWorkingDay;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddDoctorRequest;
 use App\Http\Requests\EditDoctorRequest;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -31,7 +32,7 @@ class AdminController extends Controller
     public function index()
     {
         try {
-            $doctors = User::where('role_id', 2)->paginate(1);
+            $doctors = User::where('role_id', 2)->paginate(3);
             // map working days here may be
             return view('admin/show_doctors')->with(['doctors' => $doctors]);
         } catch (Exception $e) {
@@ -61,6 +62,7 @@ class AdminController extends Controller
         try {
             DB::beginTransaction();
             $request->merge(['role_id' => Role::ROLE_DOCTOR, 'name' => $request['first_name'] . ' ' . $request['last_name']]);
+            $request['password'] = Hash::make($request['password']);
             $user = $request->only('role_id', 'name', 'email', 'password');
             $doctor = User::create($user);
             $request['user_id'] = $doctor->id;
@@ -71,7 +73,7 @@ class AdminController extends Controller
             }
             DoctorDetail::create($request->all());
             DB::commit();
-            return redirect('/doctor');
+            return redirect('/doctor')->with(['success_message' => "Doctor added suceessfuly"]);;
         } catch (Exception $e) {
             DB::rollBack();
             dd($e->getMessage());
@@ -133,7 +135,7 @@ class AdminController extends Controller
         try {
             $doctor = User::find($id);
             dd($doctor->doctorAppointments);
-        $upcoming_appointments = $doctor->appointments;
+            $upcoming_appointments = $doctor->appointments;
             if (count($upcoming_appointments) <= 0) {
                 DB::beginTransaction();
                 if ($doctor) {

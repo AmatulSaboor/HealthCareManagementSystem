@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ScheduleAppointmentRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DoctorWorkingDay;
 use App\Models\Specialization;
@@ -15,26 +16,17 @@ use DateTime;
 
 class AppointmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         try {
-            $appointments = Appointment::all();
+            $appointments = Appointment::where(['patient_id' => Auth::user()->id])->get();
             return view('patient/show_appointments')->with(['appointments' => $appointments]);
         } catch (Exception $e) {
-
+            dd($e);
+            return redirect('patient_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         try {
@@ -45,20 +37,14 @@ class AppointmentController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ScheduleAppointmentRequest $request)
     {
         try {
             $check_appointment = Appointment::where(['doctor_id' => $request['doctor_id'], 'appointment_date' => $request['appointment_date'], 'appointment_time' => $request['appointment_time']])->get();
             if (count($check_appointment) <= 0) {
                 $request->merge(['patient_id' => Auth::id()]);
-                Appointment::create($request->all());
-                return redirect('appointment');
+                $appointment = Appointment::create($request->all());
+                return redirect('/send_email'. '/' . $appointment->id );
             } else {
                 return redirect('appointment/create')->with(['error_message' => 'the appointment is already booked']);
             }
@@ -67,35 +53,46 @@ class AppointmentController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
-        //
+        try {
+            $appointment = Appointment::find($id);
+            $specializations = Specialization::all();
+            return view('patient/reschedule_appointment')->with(['fields' => $specializations, 'appointment' => $appointment]);
+        } catch (Exception $e) {
+            return redirect('appointment')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+        }
     }
     public function update(ScheduleAppointmentRequest $request, $id)
     {
-        //
+        try {
+            $check_appointment = Appointment::where(['doctor_id' => $request['doctor_id'], 'appointment_date' => $request['appointment_date'], 'appointment_time' => $request['appointment_time']])->get();
+            if (count($check_appointment) <= 0) {
+                $request->merge(['patient_id' => Auth::id()]);
+                $appointment = Appointment::find($id);
+                $appointment->update($request->all());
+                return redirect('appointment');
+            } else {
+                return redirect('appointment/edit')->with(['error_message' => 'the appointment is already booked']);
+            }
+        } catch (Exception $e) {
+            return redirect('appointment/edit')->with(['error_message' => $e]);
+        }
     }
 
     public function destroy($id)
     {
-        //
+        try {
+            $appointment = Appointment::find($id);
+            $appointment->delete();
+            return redirect('appointment')->with(['success_message' => "appointment cancelled suceessfuly"]);
+        } catch (Exception $e) {
+            return redirect('appointment')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+        }
     }
     public function get_time_intervals_by_doctor_id($doctor_id)
     {
@@ -115,7 +112,6 @@ class AppointmentController extends Controller
         }
     }
 
-
     public function get_doctors_by_field($field_id)
     {
         try {
@@ -130,7 +126,9 @@ class AppointmentController extends Controller
     public function get_working_days_by_doctor_id($doctor_id)
     {
         try {
-            $days = DoctorWorkingDay::where('user_id', $doctor_id)->pluck('day');
+            $days = User::find($doctor_id)->doctorWorkingDays->pluck('day');
+            // dd($days);
+            // $days = DoctorWorkingDay::where('user_id', $doctor_id)->pluck('day');
             return response()->json($days);
         } catch (Exception $e) {
             return redirect('appointment/create')->with(['error_message' => $e]);

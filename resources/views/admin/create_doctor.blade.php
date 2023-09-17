@@ -237,15 +237,12 @@
             </div> 
         </div>
     </form>
+    <button class="btn btn-primary mt-3" id="prevBtn" onclick="prevStep()">Previous</button>
+    <button class="btn btn-primary mt-3 ml-3" id="nextBtn" onclick="nextStep()">Next</button>
     <a href="{{url('doctor')}}">Cancel</a>
 </div>
 @push('js')
-<script>
-    $(document).ready(function () {
-        $('#stepper-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        });
-    });
-</script>
+<script src="{{asset('js/stepper.js')}}"></script>
 @endpush
 @endsection
 

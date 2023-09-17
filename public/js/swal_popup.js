@@ -1,8 +1,8 @@
-console.log('in swal');
 function showSwalPopUp(msg){
+    if(msg){
     Swal.fire(
     'Success!',
     msg,
     'success'
-);
+)};
 }

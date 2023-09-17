@@ -18,7 +18,7 @@
         </tr>
         @foreach($appointments as $appointment)
         <tr>
-            <td>{{1}}</td>
+            <td>{{$appointment->doctorUser->doctorDetail->specialization->name}}</td>
             <td>{{$appointment->doctorUser->name}}</td>
             <td>{{$appointment->appointment_date}}</td>
             <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
