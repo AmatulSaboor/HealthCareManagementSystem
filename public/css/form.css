@@ -60,12 +60,20 @@ button:hover {
     color: white !important;
 }
 
+.activate:hover , .edit:hover , .delete:hover , .add-doctor-btn:hover{
+    text-decoration: none !important;
+    color: white !important;
+    background-color: #9c7eb6 !important;
+}
+
 .delete {
     background-color: white;
     color: #797081;
     text-decoration: none;
     font-weight: bold;
 }
+
+
 
 .update-btn , .schedule-btn {
     background-color: #370461;
@@ -75,3 +83,23 @@ button:hover {
 .book-app-row {
     background-color: white;
 }
+
+/* .prev-btn {
+    background-color: #9c7eb6 !important;
+    border-color: #9c7eb6 !important;
+}
+
+.next-btn , .cancel-btn{
+    background-color: #370461;
+    border-color: #370461;
+}
+
+.next-btn:hover , .cancel-btn:hover  {
+    background-color: #9c7eb6;
+    border-color: #9c7eb6;
+}
+*/
+.cancel-btn {
+    text-decoration: none;
+    color: white;
+} 

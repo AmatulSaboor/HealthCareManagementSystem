@@ -31,42 +31,42 @@
                             <h3 class="my-2 text-center">Account Info</h3>
 
                             <div class="form-group">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name">First Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" placeholder="Enter first name" />
                                 @error('first_name')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="last_name">Last Name</label>
+                                <label for="last_name">Last Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" placeholder="Enter last name" />
                                 @error('last_name')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="email">Email</label>
+                                <label for="email">Email <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter email" />
                                 @error('email')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="password">Password</label>
+                                <label for="password">Password <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}" placeholder="Enter password" />
                                 @error('password')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="password_confirmation">Confirm Password</label>
+                                <label for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Re-enter password" />
                                 @error('password_confirmation')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -76,7 +76,7 @@
 
                             <!-- Specialization -->
                             <div class="form-group">
-                                <label for="specialization_id">Specialization</label>
+                                <label for="specialization_id">Specialization <span class="text-danger">*</span></label>
                                 <select class="form-control" id="specialization_id" name="specialization_id">
                                     @foreach($specializations as $specialization)
                                         <option value="{{ $specialization->id }}" {{ old('specialization_id') == $specialization->id ? 'selected' : '' }}>
@@ -85,13 +85,13 @@
                                     @endforeach
                                 </select>
                                 @error('specialization_id')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- Designation -->
                             <div class="form-group">
-                                <label for="designation_id">Designation</label>
+                                <label for="designation_id">Designation <span class="text-danger">*</span></label>
                                 <select class="form-control" id="designation_id" name="designation_id">
                                     @foreach($designations as $designation)
                                         <option value="{{ $designation->id }}" {{ old('designation_id') == $designation->id ? 'selected' : '' }}>
@@ -100,36 +100,36 @@
                                     @endforeach
                                 </select>
                                 @error('designation_id')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- Working Days -->
                             <div class="form-group">
-                                <label>Working Days</label>
+                                <label>Working Days <span class="text-danger">*</span></label>
                                 <div class="checkbox-container">
-                                    <div class="form-check">
+                                    <div class="form-check d-block">
                                         <input class="form-check-input" type="checkbox" id="working_day_1" name="working_days[]" value="1"{{ in_array(1, old('working_days', [])) ? 'checked' : '' }}>
                                             <label class="form-check-label mx-1" for="working_day_1" >Mon</label>
-                                            <input class="form-check-input" type="checkbox" id="working_day_1" name="working_days[]" value="2"{{ in_array(2, old('working_days', [])) ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="checkbox" id="working_day_2" name="working_days[]" value="2"{{ in_array(2, old('working_days', [])) ? 'checked' : '' }}>
                                             <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Tues</label>
-                                            <input class="form-check-input" type="checkbox" id="working_day_1" name="working_days[]" value="3"{{ in_array(3, old('working_days', [])) ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="checkbox" id="working_day_3" name="working_days[]" value="3"{{ in_array(3, old('working_days', [])) ? 'checked' : '' }}>
                                             <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Wed</label>
-                                            <input class="form-check-input " type="checkbox" id="working_day_1" name="working_days[]" value="4"{{ in_array(4, old('working_days', [])) ? 'checked' : '' }}>
+                                            <input class="form-check-input " type="checkbox" id="working_day_4" name="working_days[]" value="4"{{ in_array(4, old('working_days', [])) ? 'checked' : '' }}>
                                             <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Thursday</label>
-                                            <input class="form-check-input" type="checkbox" id="working_day_1" name="working_days[]" value="5"{{ in_array(5, old('working_days', [])) ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="checkbox" id="working_day_5" name="working_days[]" value="5"{{ in_array(5, old('working_days', [])) ? 'checked' : '' }}>
                                             <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Fri</label>
                                     </div>
                                     <!-- Repeat the above block for other days -->
                                 </div>
                                 @error('working_days')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- Start Time -->
                             <div class="form-group">
-                                <label for="start_time">Start Time</label>
+                                <label for="start_time">Start Time <span class="text-danger">*</span></label>
                                 <select class="form-control" id="start_time" name="start_time">
                                     @foreach($start_times as $start_time)
                                         <option value="{{ $start_time }}" {{ old('start_time') == $start_time ? 'selected' : '' }}>
@@ -138,13 +138,13 @@
                                     @endforeach
                                 </select>
                                 @error('start_time')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- End Time -->
                             <div class="form-group">
-                                <label for="end_time">End Time</label>
+                                <label for="end_time">End Time <span class="text-danger">*</span></label>
                                 <select class="form-control" id="end_time" name="end_time">
                                     @foreach($end_times as $end_time)
                                         <option value="{{ $end_time }}" {{ old('end_time') == $end_time ? 'selected' : '' }}>
@@ -153,17 +153,17 @@
                                     @endforeach
                                 </select>
                                 @error('end_time')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- Consultation Fee -->
                             <div class="form-group">
-                                <label for="conusltaion_fee">Consultation Fee</label>
+                                <label for="conusltaion_fee">Consultation Fee <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="conusltaion_fee" name="conusltaion_fee"
                                     value="{{ old('conusltaion_fee') }}" placeholder="Fee should be between Rs.500 and Rs.5000" />
                                 @error('conusltaion_fee')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -173,7 +173,7 @@
 
                             <!-- Education -->
                             <div class="form-group">
-                                <label for="education_id">Education</label>
+                                <label for="education_id">Education <span class="text-danger">*</span></label>
                                 <select class="form-control" id="education_id" name="education_id">
                                     @foreach($educations as $education)
                                         <option value="{{ $education->id }}" {{ old('education_id') == $education->id ? 'selected' : '' }}>
@@ -182,33 +182,33 @@
                                     @endforeach
                                 </select>
                                 @error('education_id')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- Experience -->
                             <div class="form-group">
-                                <label for="experience">Experience</label>
+                                <label for="experience">Experience <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="experience" name="experience"
                                     value="{{ old('experience') }}" placeholder="Experience in years" />
                                 @error('experience')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- Date of Birth -->
                             <div class="form-group">
-                                <label for="dob">Date of Birth</label>
+                                <label for="dob">Date of Birth <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="dob" name="dob"
                                     value="{{ old('dob') }}" min="{{ date('Y-m-d', strtotime("-80 years")) }}" max="{{ date('Y-m-d', strtotime("-20 years")) }}" />
                                 @error('dob')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- Gender -->
                             <div class="form-group">
-                                <label>Gender</label>
+                                <label>Gender <span class="text-danger">*</span></label>
                                 <div class="radiobutton-container">
                                     <div class="form-check form-check">
                                         <input class="form-check-input" type="radio" id="male" name="gender" value="Male"
@@ -237,9 +237,11 @@
             </div> 
         </div>
     </form>
-    <button class="btn btn-primary mt-3" id="prevBtn" onclick="prevStep()">Previous</button>
-    <button class="btn btn-primary mt-3 ml-3" id="nextBtn" onclick="nextStep()">Next</button>
-    <a href="{{url('doctor')}}">Cancel</a>
+    <div>
+        <button class="btn btn-primary mt-3 prev-btn" id="prevBtn" onclick="prevStep()">Previous</button>
+        <button class="btn btn-primary mt-3 ml-3 next-btn" id="nextBtn" onclick="nextStep()">Next</button>
+        <button class="btn btn-primary mt-3 ml-3 cancel-btn"><a href="{{url('doctor')}}" class="cancel-btn">Cancel</a></button>
+    </div>
 </div>
 @push('js')
 <script src="{{asset('js/stepper.js')}}"></script>

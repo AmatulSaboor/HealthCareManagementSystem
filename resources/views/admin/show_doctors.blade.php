@@ -2,12 +2,13 @@
 @push('css')
 <link href="{{ asset('css/table.css')}}" rel="stylesheet">
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet"> -->
 @endpush
 @section('content')
 <div class="container" class ="index">
     <h4>Doctors List</h4>
     <span>{{session()->get('error_message')}}</span>
-    <form action="{{url('doctor/create')}}" class="d-flex justify-content-end"><button>+ Add New Doctor</button></form>
+    <form action="{{url('doctor/create')}}" class="d-flex justify-content-end"><button class="add-doctor-btn">+ Add New Doctor</button></form>
     <table>
         <tr>
             <th>Name</th>
@@ -56,8 +57,9 @@
         </tr>
         @endforeach
     </table>
+{{ $doctors->links() }}
 </div>
-{!! $doctors->links() !!}
+
 {{-- @if(session('success_message'))
     @sweetAlert(session('success_message'))
 @endif --}}
