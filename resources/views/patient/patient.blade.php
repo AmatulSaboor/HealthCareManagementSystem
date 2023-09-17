@@ -5,7 +5,7 @@
 @endpush
 @section('content')
 <span>{{session()->get('error_message')}}</span>
-<div class="container" class ="index">
+<div class="container index">
     <form action="{{url('appointment/create')}}"><button>Book an Appointment</button></form>
     <form action="{{url('appointment')}}"><button>Appointment List</button></form>
 </div>

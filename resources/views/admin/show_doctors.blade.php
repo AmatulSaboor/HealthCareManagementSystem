@@ -62,5 +62,12 @@
     @sweetAlert(session('success_message'))
 @endif --}}
 @push('js')
+<script>
+    $(document).ready(function () {
+    let sessionMessage = "{{ session('success_message') }}";
+    console.log(sessionMessage);
+    showSwalPopUp(sessionMessage);
+    });
+</script>
 @endpush
 @endsection

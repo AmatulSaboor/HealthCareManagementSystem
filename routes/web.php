@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Role;
@@ -38,6 +39,7 @@ Route::group(
             Route::get('/get_doctors_by_field/{field_id}', [AppointmentController::class, 'get_doctors_by_field']);
             Route::get('/get_time_intervals_by_doctor_id/{doctor_id}', [AppointmentController::class, 'get_time_intervals_by_doctor_id']);
             Route::get('/get_working_days_by_doctor_id/{doctor_id}', [AppointmentController::class, 'get_working_days_by_doctor_id']);
+            Route::get('/send_email/{appointment_id}', [EmailController::class, 'send_mail']);
         });
     }
 );
