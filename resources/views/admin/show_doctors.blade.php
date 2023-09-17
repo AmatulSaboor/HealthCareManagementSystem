@@ -56,8 +56,8 @@
         </tr>
         @endforeach
     </table>
-    {{$doctors->links()}}
 </div>
+{!! $doctors->links() !!}
 {{-- @if(session('success_message'))
     @sweetAlert(session('success_message'))
 @endif --}}

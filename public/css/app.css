@@ -12000,3 +12000,8 @@ textarea.form-control-lg {
     border-radius: 10px;
     
 }
+
+.humburger-icon {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
