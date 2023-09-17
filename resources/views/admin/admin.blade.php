@@ -4,7 +4,7 @@
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-<div class="container index">
+<div class="container">
     <form action="{{url('doctor/create')}}"><button>Add Doctor</button></form>
     <form action="{{url('doctor')}}"><button>Doctors List</button></form>
 </div>

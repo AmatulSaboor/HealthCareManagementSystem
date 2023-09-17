@@ -2,46 +2,63 @@
 @push('css')
 <link href="{{ asset('css/table.css')}}" rel="stylesheet">
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{ url('css/login.css') }}"> 
+
 @endpush
 @section('content')
-<h4>Schedule Appointment</h4>
+<h4 class="font-weight-bold text-center mb-3">Schedule Appointment</h4>
 @if(session()->get('error_message'))
 <div class="alert alert-danger">{{session()->get('error_message')}}</div>
 @endif
-    <form action="{{url('appointment')}}" method="POST" class="form-container">
-        @csrf
-        <label>Select Field</label>
-        <select id="field_id" name="field_id" data-doctorUrl="{{url('get_doctors_by_field')}}">
-            <option value="" hidden>choose field</option>
+<div class="container">
+<form action="{{ url('appointment') }}" method="POST" class="form-container">
+    @csrf
+    <div class="form-group">
+        <label for="field_id">Select Field</label>
+        <select id="field_id" name="field_id" data-doctorUrl="{{ url('get_doctors_by_field') }}" class="form-control custom-select">
+            <option value="" hidden>Choose field</option>
             @foreach($fields as $field)
-            <option value="{{$field->id}}" {{ old('field_id') == $field->id ? 'selected' : '' }} >{{$field->name}}</option>
+                <option value="{{ $field->id }}" {{ old('field_id') == $field->id ? 'selected' : '' }}>{{ $field->name }}</option>
             @endforeach
         </select>
         @error('field_id')
-        <div class="alert alert-danger">{{$message}}</div>
+        <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <label>Choose Doctor</label>
-        <select id="doctor_dropdown" name="doctor_id" data-timeUrl="{{url('get_time_intervals_by_doctor_id')}}" data-dayUrl="{{url('get_working_days_by_doctor_id')}}">
-            <option value="" disabled selected>choose field first</option>
+    </div>
+    <div class="form-group">
+        <label for="doctor_dropdown">Choose Doctor</label>
+        <select id="doctor_dropdown" name="doctor_id" data-timeUrl="{{ url('get_time_intervals_by_doctor_id') }}" data-dayUrl="{{ url('get_working_days_by_doctor_id') }}" class="form-control custom-select">
+            <option value="" disabled selected>Choose field first</option>
         </select>
         @error('doctor_id')
-        <div class="alert alert-danger">{{$message}}</div>
+        <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <label for="appointment_date">Appointment Date</label><span id="doctor_days"></span>
-        <input id="appointment_date" type="date" name ="appointment_date" value="{{old('appointment_date')}}" min="{{date('Y-m-d', strtotime("+1 day", strtotime(date('Y-m-d'))))}}"  max="{{date('Y-m-d', strtotime("+3 months", strtotime(date('Y-m-d'))))}}" />
+    </div>
+    <div class="form-group">
+        <label for="appointment_date">Appointment Date</label>
+        <span id="doctor_days"></span>
+        <input id="appointment_date" type="date" name="appointment_date" value="{{ old('appointment_date') }}" min="{{ date('Y-m-d', strtotime("+1 day", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d', strtotime("+3 months", strtotime(date('Y-m-d')))) }}" class="form-control "/>
         @error('appointment_date')
-        <div class="alert alert-danger">{{$message}}</div>
+        <div class="alert alert-danger">{{ $message }}</div>
         @enderror
+    </div>
+    <div class="form-group">
         <label for="appointment_time_dropdwon">Appointment Time</label>
-        <select id="appointment_time_dropdwon" name="appointment_time">
-            <option value="" disabled selected>choose doctor first</option>
+        <select id="appointment_time_dropdwon" name="appointment_time" class="form-control custom-select">
+            <option value="" disabled selected>Choose doctor first</option>
         </select>
         @error('appointment_time')
-        <div class="alert alert-danger">{{$message}}</div>
+        <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <input type ="submit" value ="Schedule" name ="submit"/>
-    </form>
-    <a href="{{url('appointment')}}">Cancel</a>
+    </div>
+    <div class="text-center">
+        <input type="submit" class="btn btn-primary login-btn" value="Schedule" name="submit" />
+    </div>
+   
+</form>
+    <button class="btn btn-primary mt-3 ml-3 cancel-btn"><a href="{{url('appointment')}}" class="cancel-btn">Cancel</a></button>
+</div>
+
 @push('js')
 <script src="{{ asset('js/ajax_call.js') }}"></script>
 {{-- <script src="{{ asset('js/appointment.js') }}"></script> --}}

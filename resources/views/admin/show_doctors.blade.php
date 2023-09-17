@@ -5,10 +5,17 @@
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet"> -->
 @endpush
 @section('content')
-<div class="container" class ="index">
-    <h4>Doctors List</h4>
-    <span>{{session()->get('error_message')}}</span>
-    <form action="{{url('doctor/create')}}" class="d-flex justify-content-end"><button class="add-doctor-btn">+ Add New Doctor</button></form>
+<span>{{session()->get('error_message')}}</span>
+
+    <div class="container" >
+    <form action="{{url('doctor/create')}}" class="d-flex justify-content-between">
+  
+          <h3 class="d-flex align-items-end mb-0 font-weight-bold">Doctors List</h3>  
+    
+        <button class="add-doctor-btn">+ Add New Doctor</button>
+    </form>
+
+<div>
     <table>
         <tr>
             <th>Name</th>
@@ -57,8 +64,10 @@
         </tr>
         @endforeach
     </table>
-{{ $doctors->links() }}
 </div>
+</div>
+{{ $doctors->links() }}
+
 
 {{-- @if(session('success_message'))
     @sweetAlert(session('success_message'))

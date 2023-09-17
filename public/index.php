@@ -1,4 +1,3 @@
-<link rel="icon" type="image/png" sizes="33x33" href="/images/favicon.PNG">
 <?php
 
 use Illuminate\Contracts\Http\Kernel;

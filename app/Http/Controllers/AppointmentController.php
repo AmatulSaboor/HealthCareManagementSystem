@@ -113,6 +113,7 @@ class AppointmentController extends Controller
     {
         try {
             $doctors = DoctorDetail::where('specialization_id', $field_id)->with('user')->get();
+            // dd($doctors);
             return response()->json($doctors);
         } catch (Exception $e) {
             return redirect('appointment/create')->with(['error_message' => 'something went wrong, refresh the page and try again']);
