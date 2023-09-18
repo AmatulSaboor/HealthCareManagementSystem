@@ -20,7 +20,7 @@ class AppointmentController extends Controller
             $appointments = Appointment::where(['patient_id' => Auth::user()->id])->get();
             return view('patient/show_appointments')->with(['appointments' => $appointments]);
         } catch (Exception $e) {
-            return redirect('patient_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+            return redirect('patient')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 
@@ -113,7 +113,6 @@ class AppointmentController extends Controller
     {
         try {
             $doctors = DoctorDetail::where('specialization_id', $field_id)->with('user')->get();
-            // dd($doctors);
             return response()->json($doctors);
         } catch (Exception $e) {
             return redirect('appointment/create')->with(['error_message' => 'something went wrong, refresh the page and try again']);

@@ -32,6 +32,7 @@
 <body>
     <div id="app">
 <!-- sidebar -->
+@auth
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
@@ -53,14 +54,14 @@
     </div>
   </div>
 </div>
-
+@endauth
 <!-- sidebar end -->
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <!--  -->
+            @auth
             <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" class="humburger-icon ms-3">
                 <img src="{{url('/images/humburger-icon.png')}}" style="height:20px">
             </button>
-            <!--  -->
+            @endauth
             <div class="container ms-0">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{url('/images/logo.PNG')}}" class="logo">
