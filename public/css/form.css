@@ -75,11 +75,14 @@ button:hover {
 
 
 
-.update-btn , .schedule-btn {
+.update-btn , .schedule-btn , .schedule-btn {
     background-color: #370461;
     border: 1px solid #370461;
 }
 
+.schedule-btn:hover , .cancel-app {
+    background-color: #797081 !important;
+}
 .book-app-row {
     background-color: white;
 }
@@ -99,7 +102,28 @@ button:hover {
     border-color: #9c7eb6;
 }
 */
-.cancel-btn {
+.cancel-btn{
     text-decoration: none;
     color: white;
 } 
+
+.add-doc-form{
+
+    background-color:rgba(99, 98, 98, 0.5);
+}
+.cancel-app {
+    background-color: #797081;
+    color: white;
+}
+
+.reschedule {
+    background-color: #370461;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.reschedule:hover {
+    background-color: #797081;
+    color: white !important;
+    text-decoration: none !important;
+}

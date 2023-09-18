@@ -6,11 +6,11 @@
 
 @endpush
 @section('content')
-<div class="container" class ="index">
+<div class="container" >
     <h4>Create Doctor</h4>
     {{-- TODO: error span message --}}
     <span>{{session()->get('error_message')}}</span>
-    <form action="{{url('doctor')}}" method="POST" class="form-container">
+    <form action="{{url('doctor')}}" method="POST" class="form-container add-doc-form">
         @csrf
         <div class="container mt-4">
             <div class="row">
@@ -28,7 +28,7 @@
                     </ul>
                     <div class="tab-content" id="stepper-content">
                         <div class="tab-pane fade show active" id="step1">
-                            <h3 class="my-2 text-center">Account Info</h3>
+                            <h3 class="mb-2 mt-4 text-center">Account Info</h3>
 
                             <div class="form-group">
                                 <label for="first_name">First Name <span class="text-danger">*</span></label>
@@ -72,12 +72,12 @@
                         </div>
 
                        <div class="tab-pane fade" id="step2">
-                        <h3>Professional Info</h3>
+                        <h3 class="mb-2 mt-4 text-center">Professional Info</h3>
 
                             <!-- Specialization -->
                             <div class="form-group">
                                 <label for="specialization_id">Specialization <span class="text-danger">*</span></label>
-                                <select class="form-control" id="specialization_id" name="specialization_id">
+                                <select class="form-control custom-select" id="specialization_id" name="specialization_id">
                                     @foreach($specializations as $specialization)
                                         <option value="{{ $specialization->id }}" {{ old('specialization_id') == $specialization->id ? 'selected' : '' }}>
                                             {{ $specialization->name }}
@@ -92,7 +92,7 @@
                             <!-- Designation -->
                             <div class="form-group">
                                 <label for="designation_id">Designation <span class="text-danger">*</span></label>
-                                <select class="form-control" id="designation_id" name="designation_id">
+                                <select class="form-control custom-select" id="designation_id" name="designation_id">
                                     @foreach($designations as $designation)
                                         <option value="{{ $designation->id }}" {{ old('designation_id') == $designation->id ? 'selected' : '' }}>
                                             {{ $designation->name }}
@@ -130,7 +130,7 @@
                             <!-- Start Time -->
                             <div class="form-group">
                                 <label for="start_time">Start Time <span class="text-danger">*</span></label>
-                                <select class="form-control" id="start_time" name="start_time">
+                                <select class="form-control custom-select" id="start_time" name="start_time">
                                     @foreach($start_times as $start_time)
                                         <option value="{{ $start_time }}" {{ old('start_time') == $start_time ? 'selected' : '' }}>
                                             {{ $start_time }}
@@ -145,7 +145,7 @@
                             <!-- End Time -->
                             <div class="form-group">
                                 <label for="end_time">End Time <span class="text-danger">*</span></label>
-                                <select class="form-control" id="end_time" name="end_time">
+                                <select class="form-control custom-select" id="end_time" name="end_time">
                                     @foreach($end_times as $end_time)
                                         <option value="{{ $end_time }}" {{ old('end_time') == $end_time ? 'selected' : '' }}>
                                             {{ $end_time }}
@@ -169,12 +169,12 @@
                         </div>
 
                         <div class="tab-pane fade" id="step3">
-                            <h3>Personal Info</h3>
+                            <h3 class="mb-2 mt-4 text-center">Personal Info</h3>
 
                             <!-- Education -->
                             <div class="form-group">
                                 <label for="education_id">Education <span class="text-danger">*</span></label>
-                                <select class="form-control" id="education_id" name="education_id">
+                                <select class="form-control custom-select" id="education_id" name="education_id">
                                     @foreach($educations as $education)
                                         <option value="{{ $education->id }}" {{ old('education_id') == $education->id ? 'selected' : '' }}>
                                             {{ $education->name }}
