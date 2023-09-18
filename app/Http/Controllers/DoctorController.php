@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use Exception;
 use App\Models\User;
 use App\Models\Role;
@@ -11,6 +12,7 @@ use App\Models\DoctorDetail;
 use App\Models\Specialization;
 use Illuminate\Support\Carbon;
 use App\Models\DoctorWorkingDay;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddDoctorRequest;
 use App\Http\Requests\EditDoctorRequest;
@@ -21,18 +23,10 @@ class DoctorController extends Controller
     private $start_times = ['09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'];
     private $end_times = ['11:00 AM', '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM'];
 
-    public function doctor()
-    {
-        try {
-            return view('doctor/doctor');
-        } catch (Exception $e) {
-            return redirect('doctor_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
-        }
-    }
     public function index()
     {
         try {
-            $doctors = User::where('role_id', 2)->paginate(3);
+            $doctors = User::where('role_id', Role::ROLE_DOCTOR)->paginate(3);
             // map working days here may be
             return view('admin/show_doctors')->with(['doctors' => $doctors]);
         } catch (Exception $e) {
@@ -81,7 +75,7 @@ class DoctorController extends Controller
             return redirect('/doctor')->with(['error_message' => $e->getMessage()]);
         }
     }
-
+    
     public function show($id)
     {
         //
@@ -105,7 +99,7 @@ class DoctorController extends Controller
             return redirect('admin/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-
+    
     public function update(EditDoctorRequest $request, $id)
     {
         try {
@@ -151,6 +145,33 @@ class DoctorController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             return redirect('doctor')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+        }
+    }
+    public function doctor()
+    {
+        try {
+            return view('doctor/doctor');
+        } catch (Exception $e) {
+            return redirect('doctor_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+        }
+    }
+    public function get_patient($id)
+    {
+        try {
+            $patient = User::find($id);
+            return view('doctor/show_patient_profile')->with(['patient' => $patient]);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect('doctor_appointments')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+        }
+    }
+    public function get_appointments()
+    {
+        try {
+            $appointments = Appointment::where(['doctor_id' => Auth::user()->id])->paginate(3);
+            return view('doctor/show_appointments')->with(['appointments' => $appointments]);
+        } catch (Exception $e) {
+            return redirect('doctor_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 }

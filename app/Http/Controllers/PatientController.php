@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EditPatientRequest;
+use Illuminate\Support\Facades\DB;
 use App\Models\PatientDetail;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
@@ -16,14 +16,11 @@ class PatientController extends Controller
         return view('patient/patient');
     }
 
-    public function create()
-    {
-        //
-    }
+    
 
     public function store(Request $request)
     {
-        //
+        
     }
 
     public function show($id)

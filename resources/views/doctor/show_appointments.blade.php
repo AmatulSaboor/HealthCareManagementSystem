@@ -8,10 +8,7 @@
 <div class="alert alert-danger">{{session()->get('error_message')}}</div>
 @endif
 <div class="container">
-    <form action="{{url('appointment/create')}}" class="d-flex justify-content-between">
-        <h4 class="d-flex align-items-end mb-0">Appointments List</h4>
-        <button class="schedule-btn">Schedule an Appointment</button>
-    </form>
+    <h4 class="d-flex align-items-end mb-0">Appointments List</h4>
     <div>
         <table>
             <tr>
@@ -19,8 +16,7 @@
                 <th>Doctor</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th></th>
-                <th></th>
+                <th>Patient</th>
             </tr>
             @foreach($appointments as $appointment)
             <tr>
@@ -28,17 +24,8 @@
                 <td>{{$appointment->doctorUser->name}}</td>
                 <td>{{$appointment->appointment_date}}</td>
                 <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
-                <td><button class="reschedule"><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}"
-                            class="reschedule">Reschedule</a></button></td>
-                <th>
-                    <form id="delete_form_{{$appointment->id}}" action="{{url('appointment').'/'.$appointment->id}}"
-                        method="POST">
-                        @csrf
-                        @method('delete')
-                        <button type="button" class="cancel-app"
-                            onclick="confirmationPopUp({{ $appointment->id }}, 'delete_form_', 'appointment')">Cancel</button>
-                    </form>
-                </th>
+                <td><button class="reschedule"><a href="{{url('doctor_patient').'/'.$appointment->patientUser->id}}"
+                            class="reschedule">{{$appointment->patientUser->name}}</a></button></td>
             </tr>
             @endforeach
         </table>

@@ -4,9 +4,14 @@
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 @endpush
 @section('content')
+@if(session()->get('error_message'))
+<div class="alert alert-danger">{{session()->get('error_message')}}</div>
+@endif
 <div class="container">
     <form action="{{url('doctor/create')}}"><button>Add Doctor</button></form>
     <form action="{{url('doctor')}}"><button>Doctors List</button></form>
+    <form action="{{url('appointment_lists')}}"><button>Appointments List</button></form>
+    <form action="{{url('patient_lists')}}"><button>Patients List</button></form>
 </div>
 @push('js')
 @endpush

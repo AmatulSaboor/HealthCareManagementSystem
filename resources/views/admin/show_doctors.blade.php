@@ -5,8 +5,9 @@
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet"> -->
 @endpush
 @section('content')
-<span>{{session()->get('error_message')}}</span>
-
+@if(session()->get('error_message'))
+<div class="alert alert-danger">{{session()->get('error_message')}}</div>
+@endif
     <div class="container" >
     <form action="{{url('doctor/create')}}" class="d-flex justify-content-between">
   

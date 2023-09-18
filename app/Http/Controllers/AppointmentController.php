@@ -17,7 +17,7 @@ class AppointmentController extends Controller
     public function index()
     {
         try {
-            $appointments = Appointment::where(['patient_id' => Auth::user()->id])->get();
+            $appointments = Appointment::where(['patient_id' => Auth::user()->id])->paginate(3);
             return view('patient/show_appointments')->with(['appointments' => $appointments]);
         } catch (Exception $e) {
             return redirect('patient')->with(['error_message' => 'something went wrong, refresh the page and try again']);
@@ -50,10 +50,7 @@ class AppointmentController extends Controller
         }
     }
 
-    public function show($id)
-    {
-    }
-
+    
     public function edit($id)
     {
         try {
@@ -80,7 +77,7 @@ class AppointmentController extends Controller
             return redirect('appointment/'. $id.'/edit')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-
+    
     public function destroy($id)
     {
         try {
@@ -91,6 +88,7 @@ class AppointmentController extends Controller
             return redirect('appointment')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
+    
     public function get_time_intervals_by_doctor_id($doctor_id)
     {
         try {
@@ -108,7 +106,6 @@ class AppointmentController extends Controller
             return redirect('appointment/create')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-
     public function get_doctors_by_field($field_id)
     {
         try {
