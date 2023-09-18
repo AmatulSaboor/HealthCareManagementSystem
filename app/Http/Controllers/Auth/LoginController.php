@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\PatientDetail;
 use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -61,15 +62,12 @@ class LoginController extends Controller
                 $request->session()->put('auth.password_confirmed_at', time());
             }
             if (Auth::user()->role_id == Role::ROLE_ADMIN) {
-                return redirect('/doctor');
-            }
-            elseif (Auth::user()->role_id == Role::ROLE_DOCTOR) {
+                return redirect('/admin');
+            } elseif (Auth::user()->role_id == Role::ROLE_DOCTOR) {
                 return redirect('/doctor_dashboard');
-            }
-            elseif (Auth::user()->role_id == Role::ROLE_PATIENT) {
-                return redirect('/patient_dashboard');
-            }
-            else{
+            } elseif (Auth::user()->role_id == Role::ROLE_PATIENT) {
+                return redirect('/patient');
+            } else {
                 return redirect('/');
             }
             // return $this->sendLoginResponse($request);
