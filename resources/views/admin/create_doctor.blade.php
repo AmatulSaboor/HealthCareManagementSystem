@@ -242,6 +242,9 @@
 </div>
 @push('js')
 <script src="{{asset('js/stepper.js')}}"></script>
+$(document).ready(function() {
+    infoPopUp("{{ session('add_appointment_err_msg') }}");
+});
 @endpush
 @endsection
 

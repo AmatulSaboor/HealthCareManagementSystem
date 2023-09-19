@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\PasswordComplexityRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AddDoctorRequest extends FormRequest
 {
@@ -16,14 +17,14 @@ class AddDoctorRequest extends FormRequest
         return [
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
-            'email' => 'required|email',
+            'email' => ['required', 'email', Rule::unique('users', 'email')->whereNull('deleted_at')],
             'password' => ['required', 'min:8', new PasswordComplexityRule],
             'password_confirmation' => 'required|same:password',
             'education_id' => 'integer',
             'designation_id' => 'required|integer',
             'specialization_id' => 'required|integer',
             'experience' => 'nullable|integer|min:0',
-            'dob' => 'nullable|date|after:'. now()->subYears(80)->format('Y-m-d').'|before:'. now()->subYears(20)->format('Y-m-d'),
+            'dob' => 'nullable|date|after:' . now()->subYears(80)->format('Y-m-d') . '|before:' . now()->subYears(20)->format('Y-m-d'),
             'gender' => '',
             'image_link' => 'nullable|string',
             'working_days' => 'required|array',
