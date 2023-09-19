@@ -33,10 +33,9 @@ class EmailController extends Controller
             $doctor = User::find($data['doctor_id']);
             $doctor_name = $doctor->name;
             Mail::to([$patient->email])->send(new AppointmentCancellation($patient, $doctor_name, $data['date'], $data['time']));
-            return redirect('admin')->with(['sent_email_msg' => 'The appointment has been cancelled and an email has been sent to the patient']);
+            return redirect('appointment_lists')->with(['sent_email_msg' => 'The appointment has been cancelled and an email has been sent to the patient']);
         }catch(Exception $e){
-            dd($e->getMessage());
-            return redirect('admin')->with(['sent_email_msg' => 'The appointment has been cancelled but there was an error in sending email']);
+            return redirect('appointment_lists')->with(['sent_email_msg' => 'The appointment has been cancelled but there was an error in sending email']);
         }
     }
 }

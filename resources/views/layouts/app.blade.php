@@ -8,14 +8,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    {{-- scripts --}}
+    <!-- Script Files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.3/dist/sweetalert2.all.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/swal_popup.js') }}" defer></script>
     
-    {{-- css files --}}
+    <!-- CSS Files -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.3/dist/sweetalert2.min.css">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -34,7 +34,7 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
 
-        {{-- sidebar --}}
+        <!-- Side Bar -->
         <div class="offcanvas-body small">
             <ul >
                 <li class="dropdown-item">{{auth()->user()->name}}</li>
@@ -72,7 +72,7 @@
             </button>
             @endauth
 
-            {{-- navbar --}}
+            <!-- Nav Bar -->
             <div class="container ms-0">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{url('/images/logo.PNG')}}" class="logo">
@@ -123,7 +123,7 @@
             </div>
         </nav>
 
-        {{-- content --}}
+        <!-- Content -->
         <main class="py-4">
             @yield('content')
         </main>

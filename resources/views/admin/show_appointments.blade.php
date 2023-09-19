@@ -4,10 +4,10 @@
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-@if(session()->get('error_message'))
-<div class="alert alert-danger">{{session()->get('error_message')}}</div>
-@endif
 <div class="container">
+    @if(session()->get('error_message'))
+    <div class="alert alert-danger">{{session()->get('error_message')}}</div>
+    @endif
     <h4 class="d-flex align-items-end mb-0">Appointments List (by appointment date order)</h4>
     <div>
         <table>
@@ -46,7 +46,6 @@
 <script>
 $(document).ready(function() {
     sucessPopUp("{{ session('sent_email_msg') }}");
-    errorPopUp("{{ session('error_message') }}");
 });
 </script>
 @endpush

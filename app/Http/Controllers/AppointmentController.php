@@ -17,7 +17,7 @@ class AppointmentController extends Controller
     public function index()
     {
         try {
-            $appointments = Appointment::where(['patient_id' => Auth::user()->id])->orderBy('appointment_date', 'asc')->paginate(2);
+            $appointments = Appointment::where(['patient_id' => Auth::user()->id])->orderBy('appointment_date', 'asc')->paginate(5);
             return view('patient/show_appointments')->with(['appointments' => $appointments]);
         } catch (Exception $e) {
             return redirect('patient')->with(['error_message' => 'something went wrong, refresh the page and try again']);
@@ -50,7 +50,6 @@ class AppointmentController extends Controller
         }
     }
 
-    
     public function edit($id)
     {
         try {
@@ -71,24 +70,24 @@ class AppointmentController extends Controller
                 $appointment->update($request->all());
                 return redirect('appointment');
             } else {
-                return redirect('appointment/'. $id.'/edit')->with(['edit_appointment_err_msg' => 'The appointment is already booked']);
+                return redirect('appointment/' . $id . '/edit')->with(['edit_appointment_err_msg' => 'The appointment is already booked']);
             }
         } catch (Exception $e) {
-            return redirect('appointment/'. $id.'/edit')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+            return redirect('appointment/' . $id . '/edit')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-    
+
     public function destroy($id)
     {
         try {
             $appointment = Appointment::find($id);
             $appointment->delete();
-            return redirect('appointment')->with(['success_message' => "appointment cancelled suceessfuly"]);
+            return redirect('appointment');
         } catch (Exception $e) {
             return redirect('appointment')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-    
+
     public function get_time_intervals_by_doctor_id($doctor_id)
     {
         try {

@@ -4,10 +4,10 @@
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-@if(session()->get('error_message'))
-<div class="alert alert-danger">{{session()->get('error_message')}}</div>
-@endif
 <div class="container">
+    @if(session()->get('error_message'))
+    <div class="alert alert-danger">{{session()->get('error_message')}}</div>
+    @endif
     <h4 class="d-flex align-items-end mb-0">Appointments List (by recent date order)</h4>
     <div>
         <table>
@@ -24,8 +24,9 @@
                 <td>{{$appointment->doctorUser->name}}</td>
                 <td>{{$appointment->appointment_date}}</td>
                 <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
-                <td><button class="reschedule"><a href="{{url('doctor_patient').'/'.$appointment->patientUser->id}}"
-                            class="reschedule">{{$appointment->patientUser->name}}</a></button></td>
+                <td><button class="reschedule"><a href="{{url('doctor_patient').'/'.$appointment->patientUser->id}}" class="reschedule">
+                    {{$appointment->patientUser->name}}</a></button>
+                </td>
             </tr>
             @endforeach
         </table>

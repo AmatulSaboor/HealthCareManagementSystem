@@ -5,9 +5,10 @@
 @endpush
 @section('content')
 <div class="container" class ="index">
+    @if(session()->get('error_message'))
+    <div class="alert alert-danger">{{session()->get('error_message')}}</div>
+    @endif
     <h4>Update Doctor</h4>
-    {{-- TODO: error span message --}}
-    <span>{{session()->get('error_message')}}</span>
     <form action="{{url('doctor'.'/'.$doctor->id)}}" method="POST" class="form-container">
         @csrf
         @method('put')
@@ -35,7 +36,6 @@
                             <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
-
                         <div class="form-group">
                             <label for="last_name">Last Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name', $doctor->last_name) }}" placeholder="Enter last name" />
@@ -44,7 +44,6 @@
                             @enderror
                         </div>
                     </div>
-
                     <div class="tab-pane fade" id="step2">
                             <h3 class="mb-2 mt-4 text-center">Professional Info</h3>
                             <div class="form-group">
@@ -60,7 +59,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="designation">Designation <span class="text-danger">*</span></label>
                                 <select class="form-control custom-select" id="designation" name="designation_id">
@@ -74,7 +72,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="form-group checkbox-container d-block">
                                 <label>Working Days <span class="text-danger">*</span></label>
                                 <div class="form-check">
@@ -101,7 +98,6 @@
                             @error('working_days')
                             <div class="text-danger mt-2">{{ $message }}</div>
                             @enderror
-
                             <div class="form-group">
                                 <label for="start_time">Start Time <span class="text-danger">*</span></label>
                                 <select class="form-control custom-select" id="start_time" name="start_time">
@@ -115,7 +111,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="end_time">End Time <span class="text-danger">*</span></label>
                                 <select class="form-control custom-select" id="end_time" name="end_time">
@@ -129,7 +124,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="conusltation_fee">Consultation Fee <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="conusltation_fee" name="conusltaion_fee" value="{{ old('conusltaion_fee', $doctor->doctorDetail->conusltaion_fee) }}" placeholder="Fee should be between Rs.500 and Rs.5000" />
@@ -138,55 +132,48 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="tab-pane fade" id="step3">
-                        <h3 class="mb-2 mt-4 text-center">Personal Info</h3>
-
-                        <div class="form-group">
-                            <label for="education">Education</label>
-                            <select class="form-control custom-select" id="education" name="education_id">
-                                @foreach($educations as $education)
-                                <option value="{{ $education->id }}" {{ old('education_id', $doctor->doctorDetail->education_id) == $education->id ? 'selected' : '' }}>
-                                    {{ $education->name }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('education_id')
-                            <div class="text-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="experience">Experience</label>
-                            <input type="text" class="form-control" id="experience" name="experience" value="{{ old('experience', $doctor->doctorDetail->experience) }}" placeholder="Experience in years" />
-                            @error('experience')
-                            <div class="text-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $doctor->doctorDetail->dob) }}" min="{{ date('Y-m-d', strtotime("-80 years", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d', strtotime("-20 years", strtotime(date('Y-m-d')))) }}" />
-                            @error('dob')
-                            <div class="text-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group radiobutton-container">
-                            <label>Gender</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" id="gender_male" name="gender" value="Male" {{ old('gender', $doctor->doctorDetail->gender) == 'Male' ? 'checked' : '' }}>
-                                <label class="form-check-label ms-2" for="gender_male">Male</label>
+                            <h3 class="mb-2 mt-4 text-center">Personal Info</h3>
+                            <div class="form-group">
+                                <label for="education">Education</label>
+                                <select class="form-control custom-select" id="education" name="education_id">
+                                    @foreach($educations as $education)
+                                    <option value="{{ $education->id }}" {{ old('education_id', $doctor->doctorDetail->education_id) == $education->id ? 'selected' : '' }}>
+                                        {{ $education->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('education_id')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" id="gender_female" name="gender" value="Female" {{ old('gender', $doctor->doctorDetail->gender) == 'Female' ? 'checked' : '' }}>
-                                <label class="form-check-label ms-2" for="gender_female">Female</label>
+                            <div class="form-group">
+                                <label for="experience">Experience</label>
+                                <input type="text" class="form-control" id="experience" name="experience" value="{{ old('experience', $doctor->doctorDetail->experience) }}" placeholder="Experience in years" />
+                                @error('experience')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $doctor->doctorDetail->dob) }}" min="{{ date('Y-m-d', strtotime("-80 years", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d', strtotime("-20 years", strtotime(date('Y-m-d')))) }}" />
+                                @error('dob')
+                                <div class="text-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group radiobutton-container">
+                                <label>Gender</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="gender_male" name="gender" value="Male" {{ old('gender', $doctor->doctorDetail->gender) == 'Male' ? 'checked' : '' }}>
+                                    <label class="form-check-label ms-2" for="gender_male">Male</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="gender_female" name="gender" value="Female" {{ old('gender', $doctor->doctorDetail->gender) == 'Female' ? 'checked' : '' }}>
+                                    <label class="form-check-label ms-2" for="gender_female">Female</label>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary update-btn" value="Update" name="submit" />
                         </div>
-
-                        <input type="submit" class="btn btn-primary update-btn" value="Update" name="submit" />
-                    </div>
-
                     </div>
                 </div>
             </div> 
