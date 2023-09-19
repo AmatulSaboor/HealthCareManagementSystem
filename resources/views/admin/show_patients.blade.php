@@ -5,11 +5,18 @@
 @endpush
 @section('content')
 <div class="container" >
+
+    <!-- Error Message -->
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
+
+    <!-- Patients List Table -->
     <h3 class="d-flex align-items-end mb-0 font-weight-bold">Patients List (in alphabetical order)</h3>  
     <div>
+        @if($patients->isEmpty())
+        <label class="null-check">No patients have registered yet</label>
+        @else
         <table>
             <tr>
                 <th>Name</th>
@@ -38,6 +45,7 @@
             </tr>
             @endforeach
         </table>
+        @endif
     </div>
 </div>
 {{ $patients->links() }}

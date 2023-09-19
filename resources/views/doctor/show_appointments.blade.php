@@ -5,11 +5,18 @@
 @endpush
 @section('content')
 <div class="container">
+
+    <!-- Error Message -->
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
+
+    <!-- Appointments Table -->
     <h4 class="d-flex align-items-end mb-0">Appointments List (by recent date order)</h4>
     <div>
+        @if($appointments->isEmpty())
+        <label class="null-check">There are no appointments scheduled for you</label>
+        @else
         <table>
             <tr>
                 <th>For</th>
@@ -30,7 +37,9 @@
             </tr>
             @endforeach
         </table>
+        @endif
     </div>    
+    {{$appointments->links()}}
 </div>
 
 @push('js')

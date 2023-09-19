@@ -5,6 +5,8 @@
 @endpush
 @section('content')
 <div class="container" >
+
+    <!-- Error Message -->
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
@@ -12,7 +14,12 @@
         <h3 class="d-flex align-items-end mb-0 font-weight-bold">Doctors List</h3>  
         <button class="add-doctor-btn">+ Add New Doctor</button>
     </form>
+
+    <!-- Doctors List Table -->
     <div>
+        @if($doctors->isEmpty())
+        <label class="null-check">No registered doctor available</label>
+        @else
         <table>
             <tr>
                 <th>Name</th>
@@ -50,7 +57,13 @@
                 <td>Rs. {{$doctor->doctorDetail->conusltaion_fee}}</td>
                 @endif
                 <td><button class="activate"><a href="" class="activate">Activate</a></button></td>
-                <td><button class="edit"><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}" class="edit">Edit</a></button></td>
+
+                <!-- Edit Doctor -->
+                <td><button class="edit"><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}" class="edit">
+                    Edit</a></button>
+                </td>
+
+                <!-- Delete Doctor -->
                 <th>
                     <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
                     @csrf
@@ -61,6 +74,7 @@
             </tr>
             @endforeach
         </table>
+        @endif
     </div>
 </div>
 {{ $doctors->links() }}

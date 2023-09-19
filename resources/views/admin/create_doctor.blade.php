@@ -6,15 +6,21 @@
 @endpush
 @section('content')
 <div class="container" >
+
+    <!-- Error Message -->
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
+
+    <!-- Add Doctor Form -->
     <h4>Create Doctor</h4>
     <form action="{{url('doctor')}}" method="POST" class="form-container add-doc-form">
         @csrf
         <div class="container mt-4">
             <div class="row">
                 <div class="col-md-7">
+
+                    <!-- Stepper -->
                     <ul class="nav nav-tabs" id="stepper-tabs">
                         <li class="nav-item">
                             <a class="nav-link active" id="step1-tab" data-toggle="tab" href="#step1" class="step">Step 1</a>
@@ -27,7 +33,10 @@
                         </li>
                     </ul>
                     <div class="tab-content" id="stepper-content">
+
+                        <!--------------------------- Account Info Tab -------------------------->
                         <div class="tab-pane fade show active" id="step1">
+                            <!-- First Name -->
                             <h3 class="mb-2 mt-4 text-center">Account Info</h3>
                             <div class="form-group">
                                 <label for="first_name">First Name <span class="text-danger">*</span></label>
@@ -36,6 +45,7 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <!-- Last Name -->
                             <div class="form-group">
                                 <label for="last_name">Last Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" placeholder="Enter last name" />
@@ -43,6 +53,7 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <!-- Email -->
                             <div class="form-group">
                                 <label for="email">Email <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter email" />
@@ -50,6 +61,7 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <!-- Password -->
                             <div class="form-group">
                                 <label for="password">Password <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}" placeholder="Enter password" />
@@ -57,6 +69,7 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <!-- Confirm Password -->
                             <div class="form-group">
                                 <label for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Re-enter password" />
@@ -65,6 +78,8 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <!------------------ Professional Info Tab ------------------------->
                        <div class="tab-pane fade" id="step2">
                         <h3 class="mb-2 mt-4 text-center">Professional Info</h3>
                             <!-- Specialization -->
@@ -154,6 +169,8 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <!----------------- Personal Info Tab ------------------------->
                         <div class="tab-pane fade" id="step3">
                             <h3 class="mb-2 mt-4 text-center">Personal Info</h3>
                             <!-- Education -->

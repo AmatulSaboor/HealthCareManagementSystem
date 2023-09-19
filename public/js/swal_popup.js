@@ -1,3 +1,6 @@
+
+// ----------- swal pop up functions ------------ //
+
 function infoPopUp(msg){
     if(msg){
     Swal.fire(

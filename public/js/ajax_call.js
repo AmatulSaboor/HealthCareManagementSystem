@@ -1,3 +1,4 @@
+// Post Ajax Call function
 function ajaxPost(url, data, callback, formdata = true) {
     $.ajaxSetup({
         headers: {
@@ -36,19 +37,20 @@ function ajaxPost(url, data, callback, formdata = true) {
     }
 }
 
-    function ajaxGet(url, queryParam, callback) {
-        $.ajax({
-            method: "GET",
-            url: url,
-            data: queryParam,
-            dataType: 'json',
-            async: false,
-            success: function (rdata) {
-                callback(true, rdata)
-            }, error: function (edata) {
-    
-                callback(false, edata)
-            }
-        });
-    }
+// Get Ajax Call function
+function ajaxGet(url, queryParam, callback) {
+    $.ajax({
+        method: "GET",
+        url: url,
+        data: queryParam,
+        dataType: 'json',
+        async: false,
+        success: function (rdata) {
+            callback(true, rdata)
+        }, error: function (edata) {
+
+            callback(false, edata)
+        }
+    });
+}
     
