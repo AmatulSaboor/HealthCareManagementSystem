@@ -11,7 +11,10 @@ class AdminController extends Controller
     public function index()
     {
         try {
-            return view('admin/admin');
+            $response['patient_count'] = User::where('role_id', Role::ROLE_PATIENT)->count();
+            $response['doctor_count'] = User::where('role_id', Role::ROLE_DOCTOR)->count();
+            $response['appointment_count'] = Appointment::all()->count();
+            return view('admin/admin')->with('response', $response);
         } catch (Exception $e) {
             return redirect('/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
