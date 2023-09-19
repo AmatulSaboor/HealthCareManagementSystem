@@ -14,7 +14,7 @@
     <!-- Appointments Table -->
     <form action="{{url('appointment/create')}}" class="d-flex justify-content-between">
         <h4 class="d-flex align-items-end mb-0">Appointments List (recent first)</h4>
-        <button class="schedule-btn">+ Schedule an Appointment</button>
+        <button class="schedule-btn mb-2">+ Schedule an Appointment</button>
     </form>
     <div>
         @if($appointments->isEmpty())
@@ -35,14 +35,9 @@
                 <td>{{$appointment->doctorUser->name}}</td>
                 <td>{{$appointment->appointment_date}}</td>
                 <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
-
-                <!-- Reschedule Appointment -->
-                <td><button class="reschedule"><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}" class="reschedule">
-                    Reschedule</a></button>
-                </td>
-
-                <!-- Cancel Appointment -->
-                <td>
+                <td><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}"
+                            class="reschedule"><button class="reschedule">Reschedule </button></a></td>
+                <th>
                     <form id="delete_form_{{$appointment->id}}" action="{{url('appointment').'/'.$appointment->id}}"
                         method="POST">
                         @csrf
