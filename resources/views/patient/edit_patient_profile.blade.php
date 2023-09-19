@@ -76,13 +76,13 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group checkbox-container">
+                            <div class="form-group checkbox-container d-block">
                                 <label>Please check <span class="text-danger">*</span></label>
-                                <div class="form-check">
-                                    <input class="form-check-input ms-2" type="checkbox" id="is_BP_patient" value="1" name="is_BP_patient" {{ old('is_BP_patient', $patient->patientDetail->is_BP_patient) ? 'checked' : '' }}>
-                                    <label class="form-check-label mx-1" for="is_BP_patient">BP patient</label>
-                                    <input class="form-check-input ms-2" type="checkbox" id="is_heart_patient" value="1" name="is_heart_patient" {{ old('is_heart_patient', $patient->patientDetail->is_heart_patient) ? 'checked' : '' }}>
-                                    <label class="form-check-label mx-1" for="is_heart_patient">Heart Patient</label>
+                                <div class="form-check d-block">
+                                    <input class="form-check-input" type="checkbox" id="is_BP_patient" value="1" name="is_BP_patient" {{ old('is_BP_patient', $patient->patientDetail->is_BP_patient) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="is_BP_patient">BP patient</label>
+                                    <input class="form-check-input" type="checkbox" id="is_heart_patient" value="1" name="is_heart_patient" {{ old('is_heart_patient', $patient->patientDetail->is_heart_patient) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="is_heart_patient">Heart Patient</label>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,9 @@
     </form>
     <button class="btn btn-primary mt-3" id="prevBtn" onclick="prevStep()">Previous</button>
     <button class="btn btn-primary mt-3 ml-3" id="nextBtn" onclick="nextStep()">Next</button>
-    <a href="{{url('patient/'.$patient->id)}}">Cancel</a>
+    <!-- <a href="{{url('patient/'.$patient->id)}}">Cancel</a> -->
+    <a href="{{url('patient/'.$patient->id)}}" class="cancel-btn-profile"><button class="btn btn-primary mt-3 ml-3 cancel-btn-profile">Cancel </button></a>
+
 </div>
 @push('js')
 <script src="{{asset('js/stepper.js')}}"></script>

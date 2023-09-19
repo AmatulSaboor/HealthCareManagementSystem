@@ -6,7 +6,7 @@
 
 @endpush
 @section('content')
-<div class="container" class ="index">
+<div class="container" >
 
     <!-- Error Message -->
     @if(session()->get('error_message'))
@@ -14,87 +14,156 @@
     @endif
 
     <!-- Patient Profile -->
-    <h4>Your Profile</h4>
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-md-7">
+    <h4 class="text-center font-weight-bold">Your Profile</h4>
+    <section class="bg-light">
+        <div class="container">
+            <div class="main-body">
+        
 
-                    <!-- Stepper -->
-                    <ul class="nav nav-tabs" id="stepper-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="step1-tab" data-toggle="tab" href="#step1" class="step">Account Info</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="step2-tab" data-toggle="tab" href="#step2" class="step">Personal Info</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="step3-tab" data-toggle="tab" href="#step3" class="step">Health Info</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="stepper-content">
-
-                        <!-- Account Info Tab -->
-                        <div class="tab-pane fade show active" id="step1">
-                            {{-- <h3 class="my-2 text-center">Account Info</h3> --}}
-                            <div class="form-group">
-                                <label>Name : {{$patient->name}}</label>
-                            </div>
-                            <div class="form-group">
-                                <label>Email : {{$patient->email}}</label>
-                            </div>
-                        </div>
-
-                        <!-- Personal Info Tab -->
-                       <div class="tab-pane fade" id="step2">
-                            {{-- <h3 class="my-2 text-center">Personal Info</h3> --}}
-                            <div class="form-group">
-                                <label>D.O.B. {{$patient->patientDetail->dob}}</label>
-                            </div>
-                            <div class="form-group">
-                                <label >Phone Number : {{$patient->patientDetail->phone_number}} </label>
-                            </div>
-                            <div class="form-group">
-                                <label>Address: {{$patient->patientDetail->address}} </label>
-                            </div
-                            <div class="form-group">
-                                <label>City: {{$patient->patientDetail->city}} </label>
-                            </div>
-                            <div class="form-group">
-                                <label>Gender : {{$patient->patientDetail->gender}} </label>
-                            </div>
-                        </div>
-
-                        <!-- Health Info Tab -->
-                        <div class="tab-pane fade" id="step3">
-                            {{-- <h3 class="my-2 text-center">Health Info</h3> --}}
-                            <div class="form-group">
-                                <label>Weight : {{$patient->patientDetail->weight}} kgs</label>
-                            </div>
-                            <div class="form-group">
-                                <label>Height : {{$patient->patientDetail->height }}</label>
-                            </div>
-                            <div class="form-group">
-                                <label>Allergies : {{$patient->patientDetail->allergies }}</label>
-                            </div>
-                            <div class="form-group">
-                                <label>BP Patient : {{$patient->patientDetail->is_BP_patient == true ? 'Yes' : 'No'}}</label>
-                            </div>
-                            <div class="form-group">
-                                <label>Heart Patient : {{$patient->patientDetail->is_heart_patient == true ? 'Yes' : 'No' }}</label>
-                            </div>
-                        </div>
+            <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                        <h4>{{$patient->name}}</h4>
+                        <p class="text-secondary mb-1">{{$patient->email}}</p>
+                    </div>
                     </div>
                 </div>
-                <div class="col-md-5 d-flex justify-content-center align-items-center">
-                    <img src="{{'/images/add-doctor.png'}}" style="height:400px">
                 </div>
-            </div> 
+               
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->name}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->email}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Date of Birth</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->dob}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Mobile</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->phone_number}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Address</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->address}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">City</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->city}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Gender</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->gender}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Weight</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->weight}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Height</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->height}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Allergies</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->allergies}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Allergies</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->is_BP_patient == true ? 'Yes' : 'No'}}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Allergies</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{$patient->patientDetail->is_heart_patient == true ? 'Yes' : 'No' }}
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-12">
+                        <a class="btn btn-primary " target="__blank" href="{{url('patient/'.$patient->id.'/edit')}}">Edit</a>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
         </div>
-    <div>
+    </div>
+</section>
+    <!-- <div>
         <button class="btn btn-primary mt-3 prev-btn" id="prevBtn" onclick="prevStep()">Previous</button>
         <button class="btn btn-primary mt-3 ml-3 next-btn" id="nextBtn" onclick="nextStep()">Next</button>
         <button class="btn btn-primary mt-3 ml-3 cancel-btn"><a href="{{url('patient/'.$patient->id.'/edit')}}" class="cancel-btn">Edit</a></button>
-    </div>
+    </div> -->
 </div>
 @push('js')
 <script src="{{asset('js/stepper.js')}}"></script>
