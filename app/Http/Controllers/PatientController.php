@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EditPatientRequest;
+use App\Models\Appointment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\PatientDetail;
 use Illuminate\Http\Request;
@@ -14,7 +16,10 @@ class PatientController extends Controller
     public function index()
     {
         try {
-            return view('patient/patient');
+            $response['upcoming_appointments'] = Appointment::where([['appointment_date', '>', now()],['patient_id', '=', Auth::id()]])->count();
+            $response['prev_appointments'] = Appointment::where([['appointment_date', '<', now()],['patient_id', '=', Auth::id()]])->count();
+            $response['todays_appointments'] = Appointment::where([['appointment_date', '=' , now()],['patient_id', '=', Auth::id()]])->count();
+            return view('patient/patient')->with('response', $response);
         } catch (Exception $e) {
             return redirect('/patient')->with(['error_message', 'something went wrong, please refresh the page and try again']);
         }
