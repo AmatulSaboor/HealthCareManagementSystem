@@ -35,7 +35,6 @@
                 <th>Conusltaion Fee</th>
                 <th></th>
                 <th></th>
-                <th></th>
             </tr>
             @foreach($doctors as $doctor)
             <tr>
@@ -56,7 +55,6 @@
                 <td>{{ date('h:i A', strtotime($doctor->doctorDetail->start_time)). ' to ' .date('h:i A', strtotime($doctor->doctorDetail->end_time))}}</td>
                 <td>Rs. {{$doctor->doctorDetail->conusltaion_fee}}</td>
                 @endif
-                <td><button class="activate"><a href="" class="activate">Activate</a></button></td>
 
                 <!-- Edit Doctor -->
                 <td><button class="edit"><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}" class="edit">
@@ -65,11 +63,19 @@
 
                 <!-- Delete Doctor -->
                 <th>
-                    <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
+                    <form id="delete_form_{{$doctor->id}}" action="{{url('doctor').'/'.$doctor->id}}"
+                        method="POST">
+                        @csrf
+                        @method('delete')
+                        <button type="button" class="cancel-app"
+                            onclick="confirmationPopUp({{ $doctor->id }}, 'delete_form_', 'doctor')">Delete
+                        </button>
+                    </form>
+                    {{-- <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
                     @csrf
                     @method('delete')
                         <button type="submit" value="delete" class="delete">Delete</button>
-                    </form>
+                    </form> --}}
                 </th>
             </tr>
             @endforeach
@@ -81,6 +87,7 @@
 @push('js')
 <script>
     $(document).ready(function () {
+        sucessPopUp("{{ session('doctor_add_success_msg') }}");
         errorPopUp("{{ session('doctor_delete_err_msg') }}")
     });
 </script>

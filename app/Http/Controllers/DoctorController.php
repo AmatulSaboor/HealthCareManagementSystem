@@ -70,7 +70,7 @@ class DoctorController extends Controller
                 DoctorWorkingDay::create(['user_id' => $doctor->id, 'day' => $doctor_day]);
             }
             DB::commit();
-            return redirect('/doctor')->with(['success_message' => "Doctor added suceessfuly"]);
+            return redirect('/doctor')->with(['doctor_add_success_msg' => "Doctor added suceessfuly"]);
             ;
         } catch (Exception $e) {
             DB::rollBack();
