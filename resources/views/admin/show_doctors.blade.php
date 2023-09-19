@@ -2,7 +2,6 @@
 @push('css')
 <link href="{{ asset('css/table.css')}}" rel="stylesheet">
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet"> -->
 @endpush
 @section('content')
 @if(session()->get('error_message'))
@@ -10,12 +9,9 @@
 @endif
     <div class="container" >
     <form action="{{url('doctor/create')}}" class="d-flex justify-content-between">
-  
-          <h3 class="d-flex align-items-end mb-0 font-weight-bold">Doctors List</h3>  
-    
+        <h3 class="d-flex align-items-end mb-0 font-weight-bold">Doctors List (in alphabetical order)</h3>  
         <button class="add-doctor-btn">+ Add New Doctor</button>
     </form>
-
 <div>
     <table>
         <tr>
@@ -47,7 +43,7 @@
             <td>{{$doctor->doctorDetail->gender}}</td>
             <td>
                 @foreach($doctor->doctorWorkingDays as $doctor_day)
-                {{$doctor_day->day}}
+                {{$doctor_day->day_name}}
                 @endforeach
             </td>
             <td>{{ date('h:i A', strtotime($doctor->doctorDetail->start_time)). ' to ' .date('h:i A', strtotime($doctor->doctorDetail->end_time))}}</td>
@@ -78,7 +74,7 @@
     $(document).ready(function () {
     let sessionMessage = "{{ session('success_message') }}";
     console.log(sessionMessage);
-    showSwalPopUp(sessionMessage);
+    // showSwalPopUp(sessionMessage);
     });
 </script>
 @endpush

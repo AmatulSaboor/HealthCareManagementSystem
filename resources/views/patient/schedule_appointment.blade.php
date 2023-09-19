@@ -2,8 +2,7 @@
 @push('css')
 <link href="{{ asset('css/table.css')}}" rel="stylesheet">
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
-<link rel="stylesheet" href="{{ url('css/login.css') }}"> 
-
+<link href="{{ url('css/login.css') }}" rel="stylesheet"> 
 @endpush
 @section('content')
 <h4 class="font-weight-bold text-center mb-3">Schedule Appointment</h4>
@@ -37,7 +36,7 @@
     <div class="form-group">
         <label for="appointment_date">Appointment Date</label>
         <span id="doctor_days"></span>
-        <input id="appointment_date" type="date" name="appointment_date" value="{{ old('appointment_date') }}" min="{{ date('Y-m-d', strtotime("+1 day", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d', strtotime("+3 months", strtotime(date('Y-m-d')))) }}" class="form-control "/>
+        <input id="appointment_date" readonly type="date" name="appointment_date" value="{{ old('appointment_date') }}" min="{{ date('Y-m-d', strtotime("+1 day", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d', strtotime("+3 months", strtotime(date('Y-m-d')))) }}" class="form-control "/>
         @error('appointment_date')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -54,21 +53,26 @@
     <div class="text-center">
         <input type="submit" class="btn btn-primary login-btn" value="Schedule" name="submit" />
     </div>
-   
 </form>
     <button class="btn btn-primary mt-3 ml-3 cancel-btn"><a href="{{url('appointment')}}" class="cancel-btn">Cancel</a></button>
 </div>
-
 @push('js')
 <script src="{{ asset('js/ajax_call.js') }}"></script>
-{{-- <script src="{{ asset('js/appointment.js') }}"></script> --}}
 <script>
     let working_days = [];
+    const daysOfWeek = {
+    0 : "Sunday",
+    1 : "Monday",
+    2 : "Tuesday",
+    3 : "Wednesday",
+    4 : "Thursday",
+    5 : "Friday",
+    6 : "Saturday"
+    };
     $(document).ready(function () {
         let doctorUrl = $("#field_id").data('doctorurl');
         let dayUrl = $("#doctor_dropdown").data('dayurl');
         let timeUrl = $("#doctor_dropdown").data('timeurl');
-        // console.log(doctorUrl + ' | ' + dayUrl + ' | ' + timeUrl);
 
         if($("#field_id").val()){
             loadDoctors($("#field_id").val(), doctorUrl, timeUrl, dayUrl)
@@ -76,10 +80,11 @@
         $("#field_id").on('change',function () {
             let params = $(this).val(); 
             loadDoctors(params, doctorUrl, timeUrl, dayUrl);
+            
         })
         $('#doctor_dropdown').on('change', function () {
             let selected_doctor_id = $(this).val();
-            getDoctorDetails(selected_doctor_id, timeUrl, dayUrl)
+            getDoctorDetails(selected_doctor_id, timeUrl, dayUrl);
         });
         $("#appointment_date").on('input', function () {
             let selected_date = new Date($(this).val());
@@ -87,7 +92,7 @@
                 infoPopUp("Doctor not working on Sundays");
                     this.value = "";
             }
-            else if (working_days.length > 0 && !working_days.includes(selected_date.getDay())) {
+            else if (working_days.length > 0 && !working_days.includes(daysOfWeek[selected_date.getDay()])) {
                     infoPopUp("Doctor not working on this day of the week");
                     this.value = "";
                 }
@@ -118,11 +123,8 @@
         infoPopUp("{{ session('add_appointment_err_msg') }}");
     }
 
-    // --------- FUNCTION : get doctor details on doctor selection (timings and working hours) -------------
+    // --------- FUNCTION : get doctor details on doctor selection (timings and working days) -------------
     function getDoctorDetails(doctor_id, timeUrl, dayUrl){
-        $("#appointment_date").val("");  
-        let selected_date = $("#appointment_date").val();
-        console.log(selected_date);
         ajaxGet(timeUrl + "/" +doctor_id,{},(status,data)=>{
                 if (status){
                     $("#appointment_time_dropdwon").empty();
@@ -139,8 +141,9 @@
                 $("#doctor_days").empty();  
                 $("#doctor_days").append("Doctor working days are "+ working_days.join(', '));
             }else{console.log("day error:",data);}
-            }
+        }
         )
+        $("#appointment_date").attr('readonly',false);
     }
 </script>
 @endpush

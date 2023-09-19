@@ -26,7 +26,7 @@ class DoctorController extends Controller
     public function index()
     {
         try {
-            $doctors = User::where('role_id', Role::ROLE_DOCTOR)->paginate(3);
+            $doctors = User::where('role_id', Role::ROLE_DOCTOR)->orderBy('name', 'asc')->paginate(3);
             // map working days here may be
             return view('admin/show_doctors')->with(['doctors' => $doctors]);
         } catch (Exception $e) {
@@ -37,9 +37,9 @@ class DoctorController extends Controller
     public function create()
     {
         try {
-            $specializations = Specialization::all();
-            $designation = Designation::all();
-            $edcucations = Education::all();
+            $specializations = Specialization::orderBy('name', 'asc')->get();
+            $designation = Designation::orderBy('name', 'asc')->get();
+            $edcucations = Education::orderBy('name', 'asc')->get();
             return view('admin/create_doctor')->with([
                 'start_times' => $this->start_times,
                 'end_times' => $this->end_times,
@@ -48,7 +48,7 @@ class DoctorController extends Controller
                 'specializations' => $specializations
             ]);
         } catch (Exception $e) {
-            return redirect('admin/admin_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+            return redirect('admin')->with(['error_message' => $e->getMessage()]);
         }
     }
     public function store(AddDoctorRequest $request)
@@ -72,10 +72,10 @@ class DoctorController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             dd($e->getMessage());
-            return redirect('/doctor')->with(['error_message' => $e->getMessage()]);
+            return redirect('/doctor')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-    
+
     public function show($id)
     {
         //
@@ -84,9 +84,9 @@ class DoctorController extends Controller
     {
         try {
             $doctor = User::find($id);
-            $specializations = Specialization::all();
-            $designation = Designation::all();
-            $edcucations = Education::all();
+            $specializations = Specialization::orderBy('name', 'asc')->get();
+            $designation = Designation::orderBy('name', 'asc')->get();
+            $edcucations = Education::orderBy('name', 'asc')->get();
             return view('admin/edit_doctor')->with([
                 'doctor' => $doctor,
                 'educations' => $edcucations,
@@ -99,7 +99,7 @@ class DoctorController extends Controller
             return redirect('admin/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-    
+
     public function update(EditDoctorRequest $request, $id)
     {
         try {
@@ -129,14 +129,15 @@ class DoctorController extends Controller
     {
         try {
             $doctor = User::find($id);
-            dd($doctor->doctorAppointments);
-            $upcoming_appointments = $doctor->appointments;
-            if (count($upcoming_appointments) <= 0) {
+            $appointments = Appointment::where('doctor_id' , $doctor->id)->where('appointment_date', '>', now())->get();
+            // dd($appointments);
+            if (count($appointments) <= 0) {
                 DB::beginTransaction();
                 if ($doctor) {
                     $doctor->doctorDetail()->delete();
+                    $doctor->doctorWorkingDays()->delete();
+                    $doctor->delete();
                 }
-                $doctor->delete();
                 DB::commit();
                 return redirect('doctor')->with(['success_message' => "Doctor deleted suceessfuly"]);
             } else {
@@ -168,7 +169,7 @@ class DoctorController extends Controller
     public function get_appointments()
     {
         try {
-            $appointments = Appointment::where(['doctor_id' => Auth::user()->id])->paginate(3);
+            $appointments = Appointment::where(['doctor_id' => Auth::user()->id])->orderBy('appointment_date', 'asc')->paginate(3);
             return view('doctor/show_appointments')->with(['appointments' => $appointments]);
         } catch (Exception $e) {
             return redirect('doctor_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);

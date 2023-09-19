@@ -110,17 +110,16 @@
                                 <div class="checkbox-container">
                                     <div class="form-check d-block">
                                         <input class="form-check-input" type="checkbox" id="working_day_1" name="working_days[]" value="1"{{ in_array(1, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" >Mon</label>
+                                            <label class="form-check-label mx-1" for="working_day_1" >Monday</label>
                                             <input class="form-check-input" type="checkbox" id="working_day_2" name="working_days[]" value="2"{{ in_array(2, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Tues</label>
+                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Tuesday</label>
                                             <input class="form-check-input" type="checkbox" id="working_day_3" name="working_days[]" value="3"{{ in_array(3, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Wed</label>
+                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Wednesday</label>
                                             <input class="form-check-input " type="checkbox" id="working_day_4" name="working_days[]" value="4"{{ in_array(4, old('working_days', [])) ? 'checked' : '' }}>
                                             <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Thursday</label>
                                             <input class="form-check-input" type="checkbox" id="working_day_5" name="working_days[]" value="5"{{ in_array(5, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Fri</label>
+                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Friday</label>
                                     </div>
-                                    <!-- Repeat the above block for other days -->
                                 </div>
                                 @error('working_days')
                                 <div class="text-danger mt-2">{{ $message }}</div>
@@ -173,7 +172,7 @@
 
                             <!-- Education -->
                             <div class="form-group">
-                                <label for="education_id">Education <span class="text-danger">*</span></label>
+                                <label for="education_id">Education </label>
                                 <select class="form-control custom-select" id="education_id" name="education_id">
                                     @foreach($educations as $education)
                                         <option value="{{ $education->id }}" {{ old('education_id') == $education->id ? 'selected' : '' }}>
@@ -188,7 +187,7 @@
 
                             <!-- Experience -->
                             <div class="form-group">
-                                <label for="experience">Experience <span class="text-danger">*</span></label>
+                                <label for="experience">Experience </label>
                                 <input type="text" class="form-control" id="experience" name="experience"
                                     value="{{ old('experience') }}" placeholder="Experience in years" />
                                 @error('experience')
@@ -198,7 +197,7 @@
 
                             <!-- Date of Birth -->
                             <div class="form-group">
-                                <label for="dob">Date of Birth <span class="text-danger">*</span></label>
+                                <label for="dob">Date of Birth </label>
                                 <input type="date" class="form-control" id="dob" name="dob"
                                     value="{{ old('dob') }}" min="{{ date('Y-m-d', strtotime("-80 years")) }}" max="{{ date('Y-m-d', strtotime("-20 years")) }}" />
                                 @error('dob')
@@ -208,7 +207,7 @@
 
                             <!-- Gender -->
                             <div class="form-group">
-                                <label>Gender <span class="text-danger">*</span></label>
+                                <label>Gender </label>
                                 <div class="radiobutton-container">
                                     <div class="form-check form-check">
                                         <input class="form-check-input" type="radio" id="male" name="gender" value="Male"

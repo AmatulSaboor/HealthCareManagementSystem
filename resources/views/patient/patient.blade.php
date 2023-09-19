@@ -9,7 +9,7 @@
 @endif
 <div class="container index">
     <form action="{{url('patient/'. auth()->id())}}"><button>Show Profile</button></form>
-    <form action="{{url('appointment/create')}}"><button>Book an Appointment</button></form>
+    <form action="{{url('appointment/create')}}"><button>Schedule an Appointment</button></form>
     <form action="{{url('appointment')}}"><button>Appointment List</button></form>
 </div>
 @push('js')

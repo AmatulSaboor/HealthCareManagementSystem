@@ -9,7 +9,7 @@
 @endif
 <div class="container">
     <form action="{{url('appointment/create')}}" class="d-flex justify-content-between">
-        <h4 class="d-flex align-items-end mb-0">Appointments List</h4>
+        <h4 class="d-flex align-items-end mb-0">Appointments List (recent first)</h4>
         <button class="schedule-btn">Schedule an Appointment</button>
     </form>
     <div>
@@ -43,6 +43,7 @@
             @endforeach
         </table>
     </div>    
+    {{$appointments->links()}}   
 </div>
 
 @push('js')

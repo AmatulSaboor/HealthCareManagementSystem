@@ -8,7 +8,7 @@
 <div class="alert alert-danger">{{session()->get('error_message')}}</div>
 @endif
 <div class="container">
-    <h4 class="d-flex align-items-end mb-0">Appointments List</h4>
+    <h4 class="d-flex align-items-end mb-0">Appointments List (by appointment date order)</h4>
     <div>
         <table>
             <tr>
@@ -39,9 +39,9 @@
             </tr>
             @endforeach
         </table>
-    </div>    
+    </div> 
 </div>
-
+{{$appointments->links()}}   
 @push('js')
 <script>
 $(document).ready(function() {

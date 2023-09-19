@@ -7,6 +7,7 @@
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
+    <h3 class="d-flex align-items-end mb-0 font-weight-bold">Patients List (in alphabetical order)</h3>  
     <div class="container" >
         <div>
             <table>
@@ -45,7 +46,7 @@
 <script>
     $(document).ready(function () {
     let sessionMessage = "{{ session('success_message') }}";
-    showSwalPopUp(sessionMessage);
+    // showSwalPopUp(sessionMessage);
     });
 </script>
 @endpush
