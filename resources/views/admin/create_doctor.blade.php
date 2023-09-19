@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @push('css')
-<link href="{{ asset('css/table.css')}}" rel="stylesheet">
-<link href="{{ asset('css/form.css')}}" rel="stylesheet">
-<link rel="stylesheet" href="{{ url('css/login.css') }}"> 
-
+    <link href="{{ asset('css/table.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/form.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('css/login.css') }}"> 
 @endpush
 @section('content')
 <div class="container" >
+    @if(session()->get('error_message'))
+    <div class="alert alert-danger">{{session()->get('error_message')}}</div>
+    @endif
     <h4>Create Doctor</h4>
-    {{-- TODO: error span message --}}
-    <span>{{session()->get('error_message')}}</span>
-    <form action="{{url('doctor')}}" method="POST" class="form-container ">
+    <form action="{{url('doctor')}}" method="POST" class="form-container add-doc-form">
         @csrf
         <div class="container mt-4">
             <div class="row">
@@ -29,7 +29,6 @@
                     <div class="tab-content" id="stepper-content">
                         <div class="tab-pane fade show active" id="step1">
                             <h3 class="mb-2 mt-4 text-center">Account Info</h3>
-
                             <div class="form-group">
                                 <label for="first_name">First Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" placeholder="Enter first name" />
@@ -37,7 +36,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="last_name">Last Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" placeholder="Enter last name" />
@@ -45,7 +43,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="email">Email <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter email" />
@@ -53,7 +50,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="password">Password <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}" placeholder="Enter password" />
@@ -61,7 +57,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Re-enter password" />
@@ -70,10 +65,8 @@
                                 @enderror
                             </div>
                         </div>
-
                        <div class="tab-pane fade" id="step2">
                         <h3 class="mb-2 mt-4 text-center">Professional Info</h3>
-
                             <!-- Specialization -->
                             <div class="form-group">
                                 <label for="specialization_id">Specialization <span class="text-danger">*</span></label>
@@ -88,7 +81,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Designation -->
                             <div class="form-group">
                                 <label for="designation_id">Designation <span class="text-danger">*</span></label>
@@ -103,30 +95,27 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Working Days -->
                             <div class="form-group">
                                 <label>Working Days <span class="text-danger">*</span></label>
                                 <div class="checkbox-container">
                                     <div class="form-check d-block">
                                         <input class="form-check-input" type="checkbox" id="working_day_1" name="working_days[]" value="1"{{ in_array(1, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" >Mon</label>
-                                            <input class="form-check-input" type="checkbox" id="working_day_2" name="working_days[]" value="2"{{ in_array(2, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Tues</label>
-                                            <input class="form-check-input" type="checkbox" id="working_day_3" name="working_days[]" value="3"{{ in_array(3, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Wed</label>
-                                            <input class="form-check-input " type="checkbox" id="working_day_4" name="working_days[]" value="4"{{ in_array(4, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Thursday</label>
-                                            <input class="form-check-input" type="checkbox" id="working_day_5" name="working_days[]" value="5"{{ in_array(5, old('working_days', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Fri</label>
+                                        <label class="form-check-label mx-1" for="working_day_1" >Monday</label>
+                                        <input class="form-check-input" type="checkbox" id="working_day_2" name="working_days[]" value="2"{{ in_array(2, old('working_days', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Tuesday</label>
+                                        <input class="form-check-input" type="checkbox" id="working_day_3" name="working_days[]" value="3"{{ in_array(3, old('working_days', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Wednesday</label>
+                                        <input class="form-check-input " type="checkbox" id="working_day_4" name="working_days[]" value="4"{{ in_array(4, old('working_days', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Thursday</label>
+                                        <input class="form-check-input" type="checkbox" id="working_day_5" name="working_days[]" value="5"{{ in_array(5, old('working_days', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label mx-1" for="working_day_1" class="mx-1">Friday</label>
                                     </div>
-                                    <!-- Repeat the above block for other days -->
                                 </div>
                                 @error('working_days')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Start Time -->
                             <div class="form-group">
                                 <label for="start_time">Start Time <span class="text-danger">*</span></label>
@@ -141,7 +130,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- End Time -->
                             <div class="form-group">
                                 <label for="end_time">End Time <span class="text-danger">*</span></label>
@@ -156,7 +144,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Consultation Fee -->
                             <div class="form-group">
                                 <label for="conusltaion_fee">Consultation Fee <span class="text-danger">*</span></label>
@@ -167,10 +154,8 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="tab-pane fade" id="step3">
                             <h3 class="mb-2 mt-4 text-center">Personal Info</h3>
-
                             <!-- Education -->
                             <div class="form-group">
                                 <label for="education_id">Education </label>
@@ -185,7 +170,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Experience -->
                             <div class="form-group">
                                 <label for="experience">Experience </label>
@@ -195,7 +179,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Date of Birth -->
                             <div class="form-group">
                                 <label for="dob">Date of Birth </label>
@@ -205,7 +188,6 @@
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Gender -->
                             <div class="form-group">
                                 <label>Gender </label>
@@ -222,13 +204,11 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Submit Button -->
                             <div class="text-center">
                                 <input type="submit" class="btn btn-primary login-btn" value="Add" name="submit" />
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-md-5 d-flex justify-content-center align-items-center">

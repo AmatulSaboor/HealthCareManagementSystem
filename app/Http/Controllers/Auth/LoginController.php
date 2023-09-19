@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\PatientDetail;
 use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -70,7 +69,7 @@ class LoginController extends Controller
             } else {
                 return redirect('/');
             }
-            // return $this->sendLoginResponse($request);
+            return $this->sendLoginResponse($request);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

@@ -7,13 +7,19 @@
 @endpush
 @section('content')
 <div class="container" class ="index">
+
+    <!-- Error Message -->
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
+
+    <!-- Patient Profile -->
     <h4>Your Profile</h4>
         <div class="container mt-4">
             <div class="row">
                 <div class="col-md-7">
+
+                    <!-- Stepper -->
                     <ul class="nav nav-tabs" id="stepper-tabs">
                         <li class="nav-item">
                             <a class="nav-link active" id="step1-tab" data-toggle="tab" href="#step1" class="step">Account Info</a>
@@ -26,8 +32,10 @@
                         </li>
                     </ul>
                     <div class="tab-content" id="stepper-content">
+
+                        <!-- Account Info Tab -->
                         <div class="tab-pane fade show active" id="step1">
-                            <h3 class="my-2 text-center">Account Info</h3>
+                            {{-- <h3 class="my-2 text-center">Account Info</h3> --}}
                             <div class="form-group">
                                 <label>Name : {{$patient->name}}</label>
                             </div>
@@ -35,8 +43,10 @@
                                 <label>Email : {{$patient->email}}</label>
                             </div>
                         </div>
+
+                        <!-- Personal Info Tab -->
                        <div class="tab-pane fade" id="step2">
-                        <h3 class="my-2 text-center">Personal Info</h3>
+                            {{-- <h3 class="my-2 text-center">Personal Info</h3> --}}
                             <div class="form-group">
                                 <label>D.O.B. {{$patient->patientDetail->dob}}</label>
                             </div>
@@ -53,8 +63,10 @@
                                 <label>Gender : {{$patient->patientDetail->gender}} </label>
                             </div>
                         </div>
+
+                        <!-- Health Info Tab -->
                         <div class="tab-pane fade" id="step3">
-                            <h3 class="my-2 text-center">Health Info</h3>
+                            {{-- <h3 class="my-2 text-center">Health Info</h3> --}}
                             <div class="form-group">
                                 <label>Weight : {{$patient->patientDetail->weight}} kgs</label>
                             </div>

@@ -13,14 +13,16 @@ class PatientController extends Controller
 {
     public function index()
     {
-        return view('patient/patient');
+        try {
+            return view('patient/patient');
+        } catch (Exception $e) {
+            return redirect('/patient')->with(['error_message', 'something went wrong, please refresh the page and try again']);
+        }
     }
-
-    
 
     public function store(Request $request)
     {
-        
+
     }
 
     public function show($id)
@@ -39,7 +41,7 @@ class PatientController extends Controller
             $patient = User::find($id);
             return view('patient/edit_patient_profile')->with(['patient' => $patient]);
         } catch (Exception $e) {
-            return redirect('patient')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+            return redirect('patient' . '/' . $id)->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 
@@ -52,10 +54,10 @@ class PatientController extends Controller
             $request['user_id'] = $id;
             PatientDetail::where(['user_id' => $id])->first()->update($request->all());
             DB::commit();
-            return redirect('patient/'.$id);
+            return redirect('patient/' . $id);
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect('patient/'.$id)->with(['error_message' => $e->getMessage()]);
+            return redirect('patient/' . $id . '/edit')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 

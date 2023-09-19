@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
 use Exception;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Education;
+use App\Models\Appointment;
 use App\Models\Designation;
 use App\Models\DoctorDetail;
 use App\Models\Specialization;
 use Illuminate\Support\Carbon;
 use App\Models\DoctorWorkingDay;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddDoctorRequest;
 use App\Http\Requests\EditDoctorRequest;
-use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -26,20 +26,18 @@ class DoctorController extends Controller
     public function index()
     {
         try {
-            $doctors = User::where('role_id', Role::ROLE_DOCTOR)->paginate(3);
-            // map working days here may be
+            $doctors = User::where('role_id', Role::ROLE_DOCTOR)->paginate(5);
             return view('admin/show_doctors')->with(['doctors' => $doctors]);
         } catch (Exception $e) {
-            dd($e);
-            return redirect('/doctors')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+            return redirect('/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
     public function create()
     {
         try {
-            $specializations = Specialization::all();
-            $designation = Designation::all();
-            $edcucations = Education::all();
+            $specializations = Specialization::orderBy('name', 'asc')->get();
+            $designation = Designation::orderBy('name', 'asc')->get();
+            $edcucations = Education::orderBy('name', 'asc')->get();
             return view('admin/create_doctor')->with([
                 'start_times' => $this->start_times,
                 'end_times' => $this->end_times,
@@ -48,34 +46,38 @@ class DoctorController extends Controller
                 'specializations' => $specializations
             ]);
         } catch (Exception $e) {
-            return redirect('admin/admin_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+            return redirect('/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
     public function store(AddDoctorRequest $request)
     {
         try {
             DB::beginTransaction();
+            // -------- add doctor in user table ---------------------- //
             $request->merge(['role_id' => Role::ROLE_DOCTOR, 'name' => $request['first_name'] . ' ' . $request['last_name']]);
             $request['password'] = Hash::make($request['password']);
             $user = $request->only('role_id', 'name', 'email', 'password');
             $doctor = User::create($user);
+
+            // -------- add doctor in doctor detail table ---------------------- //
             $request['user_id'] = $doctor->id;
             $request['start_time'] = Carbon::createFromFormat('h:ia', $request['start_time']);
             $request['end_time'] = Carbon::createFromFormat('h:ia', $request['end_time']);
+            DoctorDetail::create($request->all());
+
+            // -------- add doctor working days in working day table ---------------------- //
             foreach ($request['working_days'] as $doctor_day) {
                 DoctorWorkingDay::create(['user_id' => $doctor->id, 'day' => $doctor_day]);
             }
-            DoctorDetail::create($request->all());
             DB::commit();
             return redirect('/doctor')->with(['success_message' => "Doctor added suceessfuly"]);
             ;
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
-            return redirect('/doctor')->with(['error_message' => $e->getMessage()]);
+            return redirect('/doctor/create')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-    
+
     public function show($id)
     {
         //
@@ -84,9 +86,9 @@ class DoctorController extends Controller
     {
         try {
             $doctor = User::find($id);
-            $specializations = Specialization::all();
-            $designation = Designation::all();
-            $edcucations = Education::all();
+            $specializations = Specialization::orderBy('name', 'asc')->get();
+            $designation = Designation::orderBy('name', 'asc')->get();
+            $edcucations = Education::orderBy('name', 'asc')->get();
             return view('admin/edit_doctor')->with([
                 'doctor' => $doctor,
                 'educations' => $edcucations,
@@ -96,51 +98,57 @@ class DoctorController extends Controller
                 'end_times' => $this->end_times
             ]);
         } catch (Exception $e) {
-            return redirect('admin/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+            return redirect('doctor')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
-    
+
     public function update(EditDoctorRequest $request, $id)
     {
         try {
-            // dd('in here');
             DB::beginTransaction();
+
+            // -------- update doctor name in user table ---------------------- //
             $doctor = User::find($id);
             $doctor->update(['name' => $request['first_name'] . ' ' . $request['last_name']]);
+
+            // -------- update doctor in doctor detail table ---------------------- //
             $request['user_id'] = $id;
             $request['start_time'] = Carbon::createFromFormat('h:ia', $request['start_time']);
             $request['end_time'] = Carbon::createFromFormat('h:ia', $request['end_time']);
+            DoctorDetail::where(['user_id' => $id])->first()->update($request->all());
+
+            // -------- delete and then update doctor working days in working day table ----------- //
             foreach ($doctor->doctorWorkingDays as $doctor_day) {
                 $doctor_day->delete();
             }
             foreach ($request['working_days'] as $doctor_day) {
                 DoctorWorkingDay::create(['user_id' => $doctor->id, 'day' => $doctor_day]);
             }
-            DoctorDetail::where(['user_id' => $id])->first()->update($request->all());
             DB::commit();
             return redirect('/doctor');
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
-            return redirect('/doctor')->with(['error_message' => $e->getMessage()]);
+            return redirect('/doctor/' . $id . '/edit')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
     public function destroy($id)
     {
         try {
             $doctor = User::find($id);
-            dd($doctor->doctorAppointments);
-            $upcoming_appointments = $doctor->appointments;
-            if (count($upcoming_appointments) <= 0) {
+            $appointments = Appointment::where('doctor_id', $doctor->id)->where('appointment_date', '>', now())->get();
+
+            //------------------- before delete, make sure that the doctor has not any upcoming appointments ----------- //
+            if (count($appointments) <= 0) {
                 DB::beginTransaction();
                 if ($doctor) {
                     $doctor->doctorDetail()->delete();
+                    $doctor->doctorWorkingDays()->delete();
+                    $doctor->delete();
                 }
-                $doctor->delete();
                 DB::commit();
-                return redirect('doctor')->with(['success_message' => "Doctor deleted suceessfuly"]);
+                return redirect('doctor');
             } else {
-                return redirect('doctor')->with(['error_message' => "You can't delete doctor, becaushe he/she has appointments"]);
+                return redirect('doctor')->with(['doctor_delete_err_msg' => "You can't delete doctor, becaushe he/she has upcoming appointments"]);
             }
         } catch (Exception $e) {
             DB::rollBack();
@@ -161,14 +169,13 @@ class DoctorController extends Controller
             $patient = User::find($id);
             return view('doctor/show_patient_profile')->with(['patient' => $patient]);
         } catch (Exception $e) {
-            dd($e->getMessage());
             return redirect('doctor_appointments')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
     public function get_appointments()
     {
         try {
-            $appointments = Appointment::where(['doctor_id' => Auth::user()->id])->paginate(3);
+            $appointments = Appointment::where(['doctor_id' => Auth::user()->id])->orderBy('appointment_date', 'asc')->paginate(3);
             return view('doctor/show_appointments')->with(['appointments' => $appointments]);
         } catch (Exception $e) {
             return redirect('doctor_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);

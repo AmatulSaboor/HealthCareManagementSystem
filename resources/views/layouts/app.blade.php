@@ -4,13 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="expires" content="0">
     <meta name="csrf-token" id="csrf_token" content="{{ csrf_token() }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Script Files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.3/dist/sweetalert2.all.min.js"></script>
@@ -20,16 +18,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
     
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"> --}}
+    <!-- CSS Files -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.3/dist/sweetalert2.min.css">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+<<<<<<< HEAD
   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
+=======
+>>>>>>> c06828a2bae514bea44f5e72e18a2a11f5d67849
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -43,23 +43,28 @@
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Health Clinic</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
+
+        <!-- Side Bar -->
         <div class="offcanvas-body small">
             <ul >
                 <li class="dropdown-item">{{auth()->user()->name}}</li>
                 <li class="dropdown-item">{{auth()->user()->email}}</li>
-                @if(auth()->user()->role_id == 1)
+                @if(auth()->user()->role_id == \App\Models\Role::ROLE_ADMIN)
+                <li><a class="dropdown-item" href="{{url('admin')}}">Dashboard</a></li>
                 <li><a class="dropdown-item" href="{{url('doctor/create')}}">Add Doctor</a></li>
                 <li><a class="dropdown-item" href="{{url('doctor')}}">Doctors</a></li>
                 <li><a class="dropdown-item" href="{{url('appointment_lists')}}">Appointments</a></li>
                 <li><a class="dropdown-item" href="{{url('patient_lists')}}">Patients</a></li>
                 @endif
-                @if(auth()->user()->role_id == 2)
+                @if(auth()->user()->role_id == \App\Models\Role::ROLE_DOCTOR)
+                <li><a class="dropdown-item" href="{{url('doctor_dashboard')}}">Dashboard</a></li>
                 <li><a class="dropdown-item" href="{{url('doctor_appointments')}}">My Appointments</a></li>
                 @endif
-                @if(auth()->user()->role_id == 3)
-                <li><a class="dropdown-item" href="{{url('patient/'. auth()->id())}}">Show Profile</a></li>
-                <li><a class="dropdown-item" href="{{url('appointment/create')}}">Schedule Appointment</a></li>
-                <li><a class="dropdown-item" href="{{url('appointment')}}">Appointments List</a></li>
+                @if(auth()->user()->role_id == \App\Models\Role::ROLE_PATIENT)
+                <li><a class="dropdown-item" href="{{url('patient')}}">Dashboard</a></li>
+                <li><a class="dropdown-item" href="{{url('patient/'. auth()->id())}}">My Profile</a></li>
+                <li><a class="dropdown-item" href="{{url('appointment/create')}}">Schedule an Appointment</a></li>
+                <li><a class="dropdown-item" href="{{url('appointment')}}">My Appointments</a></li>
                 @endif
             </ul>
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
@@ -76,7 +81,9 @@
                 <img src="{{url('/images/humburger-icon.png')}}" style="height:20px">
             </button>
             @endauth
-            <div class="container ms-5">
+
+            <!-- Nav Bar -->
+            <div class="container ms-0">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{url('/images/logo.PNG')}}" class="logo">
                 </a>
@@ -110,7 +117,6 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -126,6 +132,8 @@
                 </div>
             </div>
         </nav>
+
+        <!-- Content -->
         <main class="py-4">
             @yield('content')
         </main>

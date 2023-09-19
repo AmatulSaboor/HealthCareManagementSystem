@@ -3,7 +3,6 @@
 <link href="{{ asset('css/table.css')}}" rel="stylesheet">
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{ url('css/login.css') }}"> 
-
 @endpush
 @section('content')
 <div class="container" class ="index">

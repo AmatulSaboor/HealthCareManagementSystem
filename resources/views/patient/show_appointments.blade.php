@@ -4,15 +4,22 @@
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-@if(session()->get('error_message'))
-<div class="alert alert-danger">{{session()->get('error_message')}}</div>
-@endif
 <div class="container">
+
+    <!-- Error Message -->
+    @if(session()->get('error_message'))
+    <div class="alert alert-danger">{{session()->get('error_message')}}</div>
+    @endif
+
+    <!-- Appointments Table -->
     <form action="{{url('appointment/create')}}" class="d-flex justify-content-between">
-        <h4 class="d-flex align-items-end mb-0 font-weight-bold">Appointments List</h4>
-        <button class="schedule-btn mb-2">Schedule an Appointment</button>
+        <h4 class="d-flex align-items-end mb-0">Appointments List (recent first)</h4>
+        <button class="schedule-btn">+ Schedule an Appointment</button>
     </form>
     <div>
+        @if($appointments->isEmpty())
+        <label class="null-check">You don't have any scheduled appointments</label>
+        @else
         <table>
             <tr>
                 <th>For</th>
@@ -28,28 +35,41 @@
                 <td>{{$appointment->doctorUser->name}}</td>
                 <td>{{$appointment->appointment_date}}</td>
                 <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
+<<<<<<< HEAD
                 <td><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}"
                             class="reschedule"><button class="reschedule">Reschedule </button></a></td>
                 <th>
+=======
+
+                <!-- Reschedule Appointment -->
+                <td><button class="reschedule"><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}" class="reschedule">
+                    Reschedule</a></button>
+                </td>
+
+                <!-- Cancel Appointment -->
+                <td>
+>>>>>>> c06828a2bae514bea44f5e72e18a2a11f5d67849
                     <form id="delete_form_{{$appointment->id}}" action="{{url('appointment').'/'.$appointment->id}}"
                         method="POST">
                         @csrf
                         @method('delete')
                         <button type="button" class="cancel-app"
-                            onclick="confirmationPopUp({{ $appointment->id }}, 'delete_form_', 'appointment')">Cancel</button>
+                            onclick="confirmationPopUp({{ $appointment->id }}, 'delete_form_', 'appointment')">Cancel
+                        </button>
                     </form>
-                </th>
+                </td>
             </tr>
             @endforeach
         </table>
+        @endif
     </div>    
+    {{$appointments->links()}}   
 </div>
 
 @push('js')
 <script>
 $(document).ready(function() {
     sucessPopUp("{{ session('sent_email_msg') }}");
-    errorPopUp("{{ session('error_message') }}");
 });
 </script>
 @endpush
