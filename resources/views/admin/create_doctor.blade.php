@@ -14,7 +14,7 @@
 
     <!-- Add Doctor Form -->
     <h4>Create Doctor</h4>
-    <form action="{{url('doctor')}}" method="POST" class="form-container add-doc-form">
+    <form action="{{url('doctor')}}" method="POST" class="form-container">
         @csrf
         <div class="container mt-4">
             <div class="row">

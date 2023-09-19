@@ -56,9 +56,9 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="row mb-3" >
+                       
                             <label class="col-md-10 col-form-label text-md-right"><marquee class="note"><b>Note:</b> Only patients can register. If you are a doctor, please contact the admin<marquee></label>
-                        </div>  
+                         
                     </form>
                 </div>
             </div>

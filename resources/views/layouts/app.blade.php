@@ -137,18 +137,7 @@
         </main>
     </div>
 
-    <!-- footer -->
-    <div>
-        <div class="d-flex justify-content-center ">
-            <p class="copyright mx-5">Health Care © copyrights 2023</p>
-        <div>
-        <div>
-            <img src="{{url('/images/facebook.png')}}" class="me-2">
-            <img src="{{url('/images/twitter.png')}}" class="ms-2 me-2">
-            <img src="{{url('/images/skype.png')}}" class="ms-2">
-        </div>        
-    </div>
-    <!-- end footer -->
+  
 </body>
 @stack('js')
 </html>

@@ -177,3 +177,7 @@ button:hover {
 .shadow-none {
     box-shadow: none!important;
 }
+
+.patient-dashboard-cont {
+    height: 70vh;
+}
