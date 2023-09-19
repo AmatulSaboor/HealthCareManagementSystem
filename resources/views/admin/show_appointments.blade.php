@@ -25,8 +25,8 @@
                 <td>{{$appointment->doctorUser->name}}</td>
                 <td>{{$appointment->appointment_date}}</td>
                 <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
-                <td><button class="reschedule"><a href="{{url('show_patient').'/'.$appointment->patientUser->id}}"
-                            class="reschedule">{{$appointment->patientUser->name}}</a></button></td>
+                <td><a href="{{url('show_patient').'/'.$appointment->patientUser->id}}"
+                            class="reschedule"><button class="reschedule">{{$appointment->patientUser->name}} </button></a></td>
                 <th>
                     <form id="delete_form_{{$appointment->id}}" action="{{url('delete_appointment').'/'.$appointment->id}}"
                         method="POST">

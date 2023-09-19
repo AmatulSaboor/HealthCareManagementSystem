@@ -10,7 +10,7 @@
     <h4>Create Doctor</h4>
     {{-- TODO: error span message --}}
     <span>{{session()->get('error_message')}}</span>
-    <form action="{{url('doctor')}}" method="POST" class="form-container add-doc-form">
+    <form action="{{url('doctor')}}" method="POST" class="form-container ">
         @csrf
         <div class="container mt-4">
             <div class="row">
@@ -173,7 +173,7 @@
 
                             <!-- Education -->
                             <div class="form-group">
-                                <label for="education_id">Education <span class="text-danger">*</span></label>
+                                <label for="education_id">Education </label>
                                 <select class="form-control custom-select" id="education_id" name="education_id">
                                     @foreach($educations as $education)
                                         <option value="{{ $education->id }}" {{ old('education_id') == $education->id ? 'selected' : '' }}>
@@ -188,7 +188,7 @@
 
                             <!-- Experience -->
                             <div class="form-group">
-                                <label for="experience">Experience <span class="text-danger">*</span></label>
+                                <label for="experience">Experience </label>
                                 <input type="text" class="form-control" id="experience" name="experience"
                                     value="{{ old('experience') }}" placeholder="Experience in years" />
                                 @error('experience')
@@ -198,7 +198,7 @@
 
                             <!-- Date of Birth -->
                             <div class="form-group">
-                                <label for="dob">Date of Birth <span class="text-danger">*</span></label>
+                                <label for="dob">Date of Birth </label>
                                 <input type="date" class="form-control" id="dob" name="dob"
                                     value="{{ old('dob') }}" min="{{ date('Y-m-d', strtotime("-80 years")) }}" max="{{ date('Y-m-d', strtotime("-20 years")) }}" />
                                 @error('dob')
@@ -208,7 +208,7 @@
 
                             <!-- Gender -->
                             <div class="form-group">
-                                <label>Gender <span class="text-danger">*</span></label>
+                                <label>Gender </label>
                                 <div class="radiobutton-container">
                                     <div class="form-check form-check">
                                         <input class="form-check-input" type="radio" id="male" name="gender" value="Male"

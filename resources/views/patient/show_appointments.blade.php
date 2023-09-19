@@ -9,8 +9,8 @@
 @endif
 <div class="container">
     <form action="{{url('appointment/create')}}" class="d-flex justify-content-between">
-        <h4 class="d-flex align-items-end mb-0">Appointments List</h4>
-        <button class="schedule-btn">Schedule an Appointment</button>
+        <h4 class="d-flex align-items-end mb-0 font-weight-bold">Appointments List</h4>
+        <button class="schedule-btn mb-2">Schedule an Appointment</button>
     </form>
     <div>
         <table>
@@ -28,8 +28,8 @@
                 <td>{{$appointment->doctorUser->name}}</td>
                 <td>{{$appointment->appointment_date}}</td>
                 <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
-                <td><button class="reschedule"><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}"
-                            class="reschedule">Reschedule</a></button></td>
+                <td><a href="{{url('appointment').'/'.$appointment->id.'/edit'}}"
+                            class="reschedule"><button class="reschedule">Reschedule </button></a></td>
                 <th>
                     <form id="delete_form_{{$appointment->id}}" action="{{url('appointment').'/'.$appointment->id}}"
                         method="POST">

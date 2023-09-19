@@ -14,9 +14,9 @@
 <form action="{{ url('appointment') }}" method="POST" class="form-container">
     @csrf
     <div class="form-group">
-        <label for="field_id">Select Field</label>
+        <label for="field_id">Select Field <span class="text-danger">*</span></label>
         <select id="field_id" name="field_id" data-doctorUrl="{{ url('get_doctors_by_field') }}" class="form-control custom-select">
-            <option value="" hidden>Choose field</option>
+            <option value="" hidden>Choose field </option>
             @foreach($fields as $field)
                 <option value="{{ $field->id }}" {{ old('field_id') == $field->id ? 'selected' : '' }}>{{ $field->name }}</option>
             @endforeach
@@ -26,7 +26,7 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="doctor_dropdown">Choose Doctor</label>
+        <label for="doctor_dropdown">Choose Doctor <span class="text-danger">*</span></label>
         <select id="doctor_dropdown" name="doctor_id" data-timeUrl="{{ url('get_time_intervals_by_doctor_id') }}" data-dayUrl="{{ url('get_working_days_by_doctor_id') }}" class="form-control custom-select">
             <option value="" disabled selected>Choose field first</option>
         </select>
@@ -35,7 +35,7 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="appointment_date">Appointment Date</label>
+        <label for="appointment_date">Appointment Date <span class="text-danger">*</span></label>
         <span id="doctor_days"></span>
         <input id="appointment_date" type="date" name="appointment_date" value="{{ old('appointment_date') }}" min="{{ date('Y-m-d', strtotime("+1 day", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d', strtotime("+3 months", strtotime(date('Y-m-d')))) }}" class="form-control "/>
         @error('appointment_date')
@@ -43,7 +43,7 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="appointment_time_dropdwon">Appointment Time</label>
+        <label for="appointment_time_dropdwon">Appointment Time <span class="text-danger">*</span></label>
         <select id="appointment_time_dropdwon" name="appointment_time" class="form-control custom-select">
             <option value="" disabled selected>Choose doctor first</option>
         </select>

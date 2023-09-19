@@ -13,7 +13,7 @@
   
           <h3 class="d-flex align-items-end mb-0 font-weight-bold">Doctors List</h3>  
     
-        <button class="add-doctor-btn">+ Add New Doctor</button>
+        <button class="add-doctor-btn mb-2">+ Add New Doctor</button>
     </form>
 
 <div>
@@ -53,8 +53,8 @@
             <td>{{ date('h:i A', strtotime($doctor->doctorDetail->start_time)). ' to ' .date('h:i A', strtotime($doctor->doctorDetail->end_time))}}</td>
             <td>Rs. {{$doctor->doctorDetail->conusltaion_fee}}</td>
             @endif
-            <td><button class="activate"><a href="" class="activate">Activate</a></button></td>
-            <td><button class="edit"><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}" class="edit">Edit</a></button></td>
+            <td><a href="" class="activate"><button class="activate">Activate </button></a></td>
+            <td><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}" class="edit"><button class="edit">Edit</a></td>
             <th>
                 <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
                 @csrf
