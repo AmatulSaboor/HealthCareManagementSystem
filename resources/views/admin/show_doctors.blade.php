@@ -12,7 +12,7 @@
     @endif
     <form action="{{url('doctor/create')}}" class="d-flex justify-content-between">
         <h3 class="d-flex align-items-end mb-0 font-weight-bold">Doctors List</h3>  
-        <button class="add-doctor-btn">+ Add New Doctor</button>
+        <button class="add-doctor-btn mb-2">+ Add New Doctor</button>
     </form>
 
     <!-- Doctors List Table -->

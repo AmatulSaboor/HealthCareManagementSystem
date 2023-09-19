@@ -4,7 +4,7 @@
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-<div class="container index">
+<div class="container">
 
     <!-- Error Message -->
     @if(session()->get('error_message'))
@@ -206,7 +206,7 @@
     </form>
     <button class="btn btn-primary mt-3" id="prevBtn" onclick="prevStep()">Previous</button>
     <button class="btn btn-primary mt-3 ml-3" id="nextBtn" onclick="nextStep()">Next</button>
-    <button class="btn btn-primary mt-3 ml-3 cancel-btn"><a href="{{url('doctor')}}" class="cancel-btn">Cancel</a></button>
+    <a href="{{url('doctor')}}" class=""><button class="btn btn-primary mt-3 ml-3">Cancel </button></a>
 </div>
 @push('js')
 <script src="{{asset('js/stepper.js')}}"></script>
