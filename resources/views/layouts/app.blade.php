@@ -23,13 +23,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.3/dist/sweetalert2.min.css">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
-<<<<<<< HEAD
-  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-
-=======
->>>>>>> c06828a2bae514bea44f5e72e18a2a11f5d67849
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -46,28 +39,33 @@
 
         <!-- Side Bar -->
         <div class="offcanvas-body small">
-            <ul >
-                <li class="dropdown-item">{{auth()->user()->name}}</li>
-                <li class="dropdown-item">{{auth()->user()->email}}</li>
+            <ul class="sidebar-list  pl-0" >
+                <div class="text-center">
+                    <img src="{{url('/images/user.PNG')}}" class="text-center">
+                </div>
+                <li class="dropdown-item h4 mt-2 text-center">{{auth()->user()->name}}</li>
+                <li class="dropdown-item text-center">{{auth()->user()->email}}</li>
                 @if(auth()->user()->role_id == \App\Models\Role::ROLE_ADMIN)
-                <li><a class="dropdown-item" href="{{url('admin')}}">Dashboard</a></li>
-                <li><a class="dropdown-item" href="{{url('doctor/create')}}">Add Doctor</a></li>
-                <li><a class="dropdown-item" href="{{url('doctor')}}">Doctors</a></li>
-                <li><a class="dropdown-item" href="{{url('appointment_lists')}}">Appointments</a></li>
-                <li><a class="dropdown-item" href="{{url('patient_lists')}}">Patients</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('admin')}}"><img src="{{url('/images/dashboard.png')}}" class="me-3">Dashboard</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor/create')}}"><img src="{{url('/images/doctor-add.png')}}" class="me-3">Add Doctor</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor')}}"><img src="{{url('/images/doctor.png')}}" class="me-3">Doctors</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('appointment_lists')}}"><img src="{{url('/images/appoinments.png')}}" class="me-3">Appointments</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('patient_lists')}}"><img src="{{url('/images/patient.png')}}" class="me-3">Patients</a></li>
                 @endif
                 @if(auth()->user()->role_id == \App\Models\Role::ROLE_DOCTOR)
-                <li><a class="dropdown-item" href="{{url('doctor_dashboard')}}">Dashboard</a></li>
-                <li><a class="dropdown-item" href="{{url('doctor_appointments')}}">My Appointments</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_dashboard')}}"><img src="{{url('/images/dashboard.png')}}" class="me-3">Dashboard</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_appointments')}}"><img src="{{url('/images/appoinments.png')}}" class="me-3">My Appointments</a></li>
                 @endif
                 @if(auth()->user()->role_id == \App\Models\Role::ROLE_PATIENT)
-                <li><a class="dropdown-item" href="{{url('patient')}}">Dashboard</a></li>
-                <li><a class="dropdown-item" href="{{url('patient/'. auth()->id())}}">My Profile</a></li>
-                <li><a class="dropdown-item" href="{{url('appointment/create')}}">Schedule an Appointment</a></li>
-                <li><a class="dropdown-item" href="{{url('appointment')}}">My Appointments</a></li>
+                <li>
+                    <a class="dropdown-item h6 my-3 py-2" href="{{url('patient')}}"><img src="{{url('/images/dashboard.png')}}" class="me-3">Dashboard</a>
+                </li>
+                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('patient/'. auth()->id())}}"> <img src="{{url('/images/profile.png')}}" class="me-3">My Profile</a></li>
+                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('appointment/create')}}"><img src="{{url('/images/schedule.png')}}" class="me-3">Schedule an Appointment</a></li>
+                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('appointment')}}"><img src="{{url('/images/appoinments.png')}}" class="me-3">My Appointments</a></li>
                 @endif
             </ul>
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+            <a class="dropdown-item h6 mt-5 py-2 " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><img src="{{url('/images/logout.png')}}" class="me-3">Log Out</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
@@ -140,14 +138,15 @@
     </div>
 
     <!-- footer -->
-    <div class="footer-basic d-flex justify-content-between ">
-      
-            <div class="social mx-5"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
-          
-            <div>
+    <div>
+        <div class="d-flex justify-content-center ">
             <p class="copyright mx-5">Health Care © copyrights 2023</p>
-            <div>
-     
+        <div>
+        <div>
+            <img src="{{url('/images/facebook.png')}}" class="me-2">
+            <img src="{{url('/images/twitter.png')}}" class="ms-2 me-2">
+            <img src="{{url('/images/skype.png')}}" class="ms-2">
+        </div>        
     </div>
     <!-- end footer -->
 </body>

@@ -12074,3 +12074,12 @@ textarea.form-control-lg {
 .list-inline-item {
   color: #370461;
 }
+
+.swal2-styled.swal2-confirm {
+  background-color: #370461;
+}
+
+.sidebar-list {
+  list-style: none;
+}
+
