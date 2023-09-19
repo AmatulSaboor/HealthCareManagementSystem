@@ -5,11 +5,17 @@
 @endpush
 @section('content')
 <div class="container">
+    <!-- Error Message -->
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
+
+    <!-- Appointments List Table -->
     <h4 class="d-flex align-items-end mb-0">Appointments List (by appointment date order)</h4>
     <div>
+        @if($appointments->isEmpty())
+        <label class="null-check">There are no scheduled appointments</label>
+        @else
         <table>
             <tr>
                 <th>For</th>
@@ -25,8 +31,13 @@
                 <td>{{$appointment->doctorUser->name}}</td>
                 <td>{{$appointment->appointment_date}}</td>
                 <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
-                <td><button class="reschedule"><a href="{{url('show_patient').'/'.$appointment->patientUser->id}}"
-                            class="reschedule">{{$appointment->patientUser->name}}</a></button></td>
+                
+                <!-- Reschedule Appointments -->
+                <td><button class="reschedule"><a href="{{url('show_patient').'/'.$appointment->patientUser->id}}" class="reschedule">
+                    {{$appointment->patientUser->name}}</a></button>
+                </td>
+
+                <!-- Cancel Appointments -->
                 <th>
                     <form id="delete_form_{{$appointment->id}}" action="{{url('delete_appointment').'/'.$appointment->id}}"
                         method="POST">
@@ -39,6 +50,7 @@
             </tr>
             @endforeach
         </table>
+        @endif
     </div> 
 </div>
 {{$appointments->links()}}   

@@ -8,7 +8,7 @@
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
-    <form action="{{url('doctor_appointments')}}"><button>My Appointments</button></form>
+    <form action="{{url('doctor_appointments')}}"><button>Appointments</button></form>
 </div>
 @push('js')
 @endpush
