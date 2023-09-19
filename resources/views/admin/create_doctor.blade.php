@@ -237,7 +237,7 @@
     <div>
         <button class="btn btn-primary mt-3 prev-btn" id="prevBtn" onclick="prevStep()">Previous</button>
         <button class="btn btn-primary mt-3 ml-3 next-btn" id="nextBtn" onclick="nextStep()">Next</button>
-        <button class="btn btn-primary mt-3 ml-3 cancel-btn"><a href="{{url('doctor')}}" class="cancel-btn">Cancel</a></button>
+        <a href="{{url('doctor')}}" class=""><button class="btn btn-primary mt-3 ml-3 ">Cancel </button></a>
     </div>
 </div>
 @push('js')
