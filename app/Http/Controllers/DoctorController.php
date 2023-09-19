@@ -158,7 +158,10 @@ class DoctorController extends Controller
     public function doctor()
     {
         try {
-            return view('doctor/doctor');
+            $response['upcoming_appointments'] = Appointment::where([['appointment_date', '>', now()],['doctor_id', '=', Auth::id()]])->count();
+            $response['prev_appointments'] = Appointment::where([['appointment_date', '<', now()],['doctor_id', '=', Auth::id()]])->count();
+            $response['todays_appointments'] = Appointment::where([['appointment_date', '=' , now()],['doctor_id', '=', Auth::id()]])->count();
+            return view('doctor/doctor')->with('response', $response);
         } catch (Exception $e) {
             return redirect('doctor_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
