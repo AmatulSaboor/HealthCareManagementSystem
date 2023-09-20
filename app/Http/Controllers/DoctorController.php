@@ -27,16 +27,17 @@ class DoctorController extends Controller
     public function index(Request $request)
     {
         try {
+            $doctors = User::where('role_id', Role::ROLE_DOCTOR);
             $search = $request['search'] ?? '';
-            if ($search != "") {
-                $doctors = User::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->paginate(5);
-            } else {
-                $doctors = User::where('role_id', Role::ROLE_DOCTOR)->paginate(5);
-            }
-            return view('admin/show_doctors')->with(['doctors' => $doctors]);
-        } catch (Exception $e) {
-            return redirect('/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
-        } catch (Exception $e) {
+            if (!empty($search)) {
+                $doctors->where(function ($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%")
+                          ->orWhere('email', 'LIKE', "%$search%");
+                });
+            } 
+            $doctors = $doctors->paginate(5);
+            return view('admin/show_doctors')->with(['doctors' => $doctors, 'search' => $search]);
+        }catch (Exception $e) {
             return redirect('/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }

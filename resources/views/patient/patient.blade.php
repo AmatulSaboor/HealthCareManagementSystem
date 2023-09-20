@@ -19,7 +19,7 @@
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <h3 class="text-center">Total No of Previous Appointments : <strong>{{$response['prev_appointments_count']}}</strong></h3>
-                    <a href="{{url('appointment')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show the list</button></a>
+                    <a href="#" class="text-white text-center d-block"><button class="btn btn-primary">We are working on showing previous appointments here, bear with us!!</button></a>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <h3 class="text-center">Total no of today's Appointments are : <strong>{{$response['todays_appointments_count']}}</strong></h3>
-                    <a href="{{url('appointment')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show list</button></a>
+                    <a href="#" class="text-white text-center d-block"><button class="btn btn-primary">We are working on showing today's appointment here, bear with us!!</button></a>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <h3 class="text-center">Total No of Upcoming Appoinments: <strong>{{$response['upcoming_appointments_count']}}</strong></h3>
-                    <a href="{{url('appointment')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show the list</button></a>
+                    <a href="#" class="text-white text-center d-block"><button class="btn btn-primary">We are working on showing upcoming appointment here, bear with us!!</button></a>
                 </div>
             </div>
         </div>

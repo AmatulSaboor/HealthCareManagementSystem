@@ -13,7 +13,7 @@
 
     <!-- Appointments Table -->
     <form action="{{url('appointment/create')}}" class="d-flex justify-content-between">
-        <h4 class="d-flex align-items-end mb-0">Appointments List (recent first)</h4>
+        <h4 class="d-flex align-items-end mb-0">Appointments List (by recent date order)</h4>
         <button class="schedule-btn mb-4">+ Schedule an Appointment</button>
     </form>
     <div>

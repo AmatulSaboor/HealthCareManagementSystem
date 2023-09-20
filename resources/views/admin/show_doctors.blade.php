@@ -11,19 +11,19 @@
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
     <form action="{{url('doctor/create')}}" class="d-flex justify-content-between">
-        <h3 class="d-flex align-items-end mb-0 font-weight-bold">Doctors List</h3>  
+        <h3 class="d-flex align-items-end mb-0 font-weight-bold">Doctor's List</h3>  
         <button class="add-doctor-btn mb-2">+ Add New Doctor</button>
     </form>
 
     <!-- Doctors List Table -->
     <div>
-        @if($doctors->isEmpty())
+        @if($doctors->isEmpty() && $search == null)
         <label class="null-check">No registered doctor available</label>
         @else
         <form>
-            <input type="search" name="search">
-            <button type="submit">Search</button>
-        </form>
+            <input type="search" name="search" value="{{$search}}" placeholder="filter by doctor's name or email">
+            <button type="submit">Filter</button>
+        </form>
         <table>
             <tr>
                 <th>Name</th>
@@ -59,12 +59,12 @@
                 <td>{{ date('h:i A', strtotime($doctor->doctorDetail->start_time)). ' to ' .date('h:i A', strtotime($doctor->doctorDetail->end_time))}}</td>
                 <td>Rs. {{$doctor->doctorDetail->conusltaion_fee}}</td>
                 @endif
-
+                
                 <!-- Edit Doctor -->
                 <td><button class="edit"><a href="{{url('doctor').'/'.$doctor->id.'/edit'}}" class="edit">
                     Edit</a></button>
                 </td>
-
+                
                 <!-- Delete Doctor -->
                 <th>
                     <form id="delete_form_{{$doctor->id}}" action="{{url('doctor').'/'.$doctor->id}}"
@@ -72,14 +72,17 @@
                         @csrf
                         @method('delete')
                         <button type="button" class="cancel-app"
-                            onclick="confirmationPopUp({{ $doctor->id }}, 'delete_form_', 'doctor')">Delete
-                        </button>
-                    </form>
-                </th>
-            </tr>
-            @endforeach
-        </table>
-        @endif
+                        onclick="confirmationPopUp({{ $doctor->id }}, 'delete_form_', 'doctor')">Delete
+                    </button>
+                </form>
+            </th>
+        </tr>
+        @endforeach
+    </table>
+    @if($doctors->isEmpty() && $search != null)
+    <p>No resulst found for {{$search}}</p>
+    @endif
+    @endif
     </div>
 </div>
 {{ $doctors->links() }}

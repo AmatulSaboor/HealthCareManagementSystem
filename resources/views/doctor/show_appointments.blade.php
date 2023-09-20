@@ -12,7 +12,7 @@
     @endif
 
     <!-- Appointments Table -->
-    <h4 class="d-flex align-items-end mb-0">Appointments List (by recent date order)</h4>
+    <h3 class="d-flex align-items-end mb-0 font-weight-bold">Appointment's List (Recent First)</h3>  
     <div>
         @if($appointments->isEmpty())
         <label class="null-check">There are no appointments scheduled for you</label>
