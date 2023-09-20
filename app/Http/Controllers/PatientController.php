@@ -16,9 +16,9 @@ class PatientController extends Controller
     public function index()
     {
         try {
-            $response['upcoming_appointments'] = Appointment::where([['appointment_date', '>', now()],['patient_id', '=', Auth::id()]])->count();
-            $response['prev_appointments'] = Appointment::where([['appointment_date', '<', now()],['patient_id', '=', Auth::id()]])->count();
-            $response['todays_appointments'] = Appointment::where([['appointment_date', '=' , now()],['patient_id', '=', Auth::id()]])->count();
+            $response['upcoming_appointments_count'] = Appointment::where([['appointment_date', '>', now()],['patient_id', '=', Auth::id()]])->count();
+            $response['prev_appointments_count'] = Appointment::where([['appointment_date', '<', now()],['patient_id', '=', Auth::id()]])->count();
+            $response['todays_appointments_count'] = Appointment::where([['appointment_date', '=' , now()],['patient_id', '=', Auth::id()]])->count();
             return view('patient/patient')->with('response', $response);
         } catch (Exception $e) {
             return view('errors.patient_error')->with(['error_message' => 'something went wrong, refresh the page and try again']);

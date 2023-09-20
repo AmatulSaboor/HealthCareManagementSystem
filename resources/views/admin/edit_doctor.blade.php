@@ -171,7 +171,7 @@
                             <!-- Experience -->
                             <div class="form-group">
                                 <label for="experience">Experience</label>
-                                <input type="text" class="form-control" id="experience" name="experience" value="{{ old('experience', $doctor->doctorDetail->experience) }}" placeholder="Experience in years" />
+                                <input type="text" class="form-control" id="experience" name="experience" value="{{ old('experience', $doctor->doctorDetail->experience) }}" placeholder="Experience in whole years" />
                                 @error('experience')
                                 <div class="text-danger mt-2">{{ $message }}</div>
                                 @enderror

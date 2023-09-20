@@ -181,3 +181,10 @@ button:hover {
 .patient-dashboard-cont {
     height: 70vh;
 }
+.null-check {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+}

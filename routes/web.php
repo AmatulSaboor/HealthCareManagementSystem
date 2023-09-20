@@ -38,6 +38,7 @@ Route::group(
         Route::group(['middleware' => 'role:' . Role::ROLE_DOCTOR], function () {
             Route::get('/doctor_dashboard', [DoctorController::class, 'doctor']);
             Route::get('/doctor_appointments', [DoctorController::class, 'get_appointments']);
+            Route::get('/doctor_profile/{id}', [DoctorController::class, 'show']);
             Route::get('/doctor_patient/{id}', [DoctorController::class, 'get_patient']);
         });
         Route::group(['middleware' => 'role:' . Role::ROLE_PATIENT], function () {

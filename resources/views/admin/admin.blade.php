@@ -5,6 +5,8 @@
 @endpush
 @section('content')
 <div class="container">
+    
+    <!-- Error Message -->
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif

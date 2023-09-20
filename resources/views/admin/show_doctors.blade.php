@@ -20,6 +20,10 @@
         @if($doctors->isEmpty())
         <label class="null-check">No registered doctor available</label>
         @else
+        <form>
+            <input type="search" name="search">
+            <button type="submit">Search</button>
+        </form>
         <table>
             <tr>
                 <th>Name</th>
@@ -49,7 +53,7 @@
                 <td>{{$doctor->doctorDetail->gender}}</td>
                 <td>
                     @foreach($doctor->doctorWorkingDays as $doctor_day)
-                    {{$doctor_day->day_name}}
+                    {{$doctor_day->day_name}},
                     @endforeach
                 </td>
                 <td>{{ date('h:i A', strtotime($doctor->doctorDetail->start_time)). ' to ' .date('h:i A', strtotime($doctor->doctorDetail->end_time))}}</td>
@@ -71,11 +75,6 @@
                             onclick="confirmationPopUp({{ $doctor->id }}, 'delete_form_', 'doctor')">Delete
                         </button>
                     </form>
-                    {{-- <form action="{{url('doctor').'/'.$doctor->id}}" method ="POST">
-                    @csrf
-                    @method('delete')
-                        <button type="submit" value="delete" class="delete">Delete</button>
-                    </form> --}}
                 </th>
             </tr>
             @endforeach

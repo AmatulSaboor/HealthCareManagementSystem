@@ -32,7 +32,7 @@ class EditDoctorRequest extends FormRequest
     public function messages()
     {
         return [
-            'experience.integer' => 'The experience must be in years',
+            'experience.integer' => 'The experience must be in whole years',
             'end_time.after' => 'End time must be after start time',
             'working_days.required' => 'Select at least 1 working day',
             'designation_id.required' => 'The designation is required',

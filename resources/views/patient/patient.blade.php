@@ -5,6 +5,7 @@
 @endpush
 @section('content')
 <div class="container">
+    <!-- Error Message -->
     @if(session()->get('error_message'))
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
@@ -17,8 +18,8 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <h3 class="text-center">Total No of Patients: <strong>{{$response['prev_appointments']}}</strong></h3>
-                    <a href="{{url('patient_lists')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show the patients list</button></a>
+                    <h3 class="text-center">Total No of Previous Appointments : <strong>{{$response['prev_appointments_count']}}</strong></h3>
+                    <a href="{{url('appointment')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show the list</button></a>
                 </div>
             </div>
         </div>
@@ -30,9 +31,8 @@
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <h3 class="text-center">Total no of today's Appointments are : <strong>{{$response['todays_appointments']}}</strong></h3>
-                    <a href="{{url('doctor')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show the Doctors list</button></a>
-                    <a href="{{url('doctor/create')}}" class="text-white text-center d-block mt-2"><button class="btn btn-primary">+ Add Doctor</button></a>
+                    <h3 class="text-center">Total no of today's Appointments are : <strong>{{$response['todays_appointments_count']}}</strong></h3>
+                    <a href="{{url('appointment')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show list</button></a>
                 </div>
             </div>
         </div>
@@ -44,8 +44,8 @@
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <h3 class="text-center">Total No of Appoinments: <strong>{{$response['upcoming_appointments']}}</strong></h3>
-                    <a href="{{url('appointment_lists')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show the Appoinments list</button></a>
+                    <h3 class="text-center">Total No of Upcoming Appoinments: <strong>{{$response['upcoming_appointments_count']}}</strong></h3>
+                    <a href="{{url('appointment')}}" class="text-white text-center d-block"><button class="btn btn-primary">Show the list</button></a>
                 </div>
             </div>
         </div>

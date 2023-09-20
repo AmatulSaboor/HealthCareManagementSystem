@@ -10,6 +10,7 @@ use App\Models\Appointment;
 use App\Models\Designation;
 use App\Models\DoctorDetail;
 use App\Models\Specialization;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\DoctorWorkingDay;
 use Illuminate\Support\Facades\DB;
@@ -23,11 +24,18 @@ class DoctorController extends Controller
     private $start_times = ['09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'];
     private $end_times = ['11:00 AM', '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM'];
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $doctors = User::where('role_id', Role::ROLE_DOCTOR)->paginate(5);
+            $search = $request['search'] ?? '';
+            if ($search != "") {
+                $doctors = User::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->paginate(5);
+            } else {
+                $doctors = User::where('role_id', Role::ROLE_DOCTOR)->paginate(5);
+            }
             return view('admin/show_doctors')->with(['doctors' => $doctors]);
+        } catch (Exception $e) {
+            return redirect('/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         } catch (Exception $e) {
             return redirect('/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
@@ -80,7 +88,12 @@ class DoctorController extends Controller
 
     public function show($id)
     {
-        //
+        try {
+            $doctor = User::find($id);
+            return view('doctor/show_doctor_profile')->with(['doctor' => $doctor]);
+        } catch (Exception $e) {
+            return redirect('doctor_dashboard')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+        }
     }
     public function edit($id)
     {
@@ -158,9 +171,9 @@ class DoctorController extends Controller
     public function doctor()
     {
         try {
-            $response['upcoming_appointments'] = Appointment::where([['appointment_date', '>', now()],['doctor_id', '=', Auth::id()]])->count();
-            $response['prev_appointments'] = Appointment::where([['appointment_date', '<', now()],['doctor_id', '=', Auth::id()]])->count();
-            $response['todays_appointments'] = Appointment::where([['appointment_date', '=' , now()],['doctor_id', '=', Auth::id()]])->count();
+            $response['upcoming_appointments_count'] = Appointment::where([['appointment_date', '>', now()], ['doctor_id', '=', Auth::id()]])->count();
+            $response['prev_appointments_count'] = Appointment::where([['appointment_date', '<', now()], ['doctor_id', '=', Auth::id()]])->count();
+            $response['todays_appointments_count'] = Appointment::where([['appointment_date', '=', now()], ['doctor_id', '=', Auth::id()]])->count();
             return view('doctor/doctor')->with('response', $response);
         } catch (Exception $e) {
             return view('errors.doctor_error')->with(['error_message' => 'something went wrong, refresh the page and try again']);

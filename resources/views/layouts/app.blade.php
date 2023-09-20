@@ -54,6 +54,7 @@
                 @endif
                 @if(auth()->user()->role_id == \App\Models\Role::ROLE_DOCTOR)
                 <li><a class="dropdown-item h5 my-3" href="{{url('doctor_dashboard')}}"><img src="{{url('/images/dashboard.png')}}" class="me-3">Dashboard</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_profile/' .auth()->id())}}"><img src="{{url('/images/profile.png')}}" class="me-3">My Profile</a></li>
                 <li><a class="dropdown-item h5 my-3" href="{{url('doctor_appointments')}}"><img src="{{url('/images/appoinments.png')}}" class="me-3">My Appointments</a></li>
                 @endif
                 @if(auth()->user()->role_id == \App\Models\Role::ROLE_PATIENT)
