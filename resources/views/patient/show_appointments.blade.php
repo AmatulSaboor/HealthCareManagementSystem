@@ -14,7 +14,7 @@
     <!-- Appointments Table -->
     <form action="{{url('appointment/create')}}" class="d-flex justify-content-between">
         <h4 class="d-flex align-items-end mb-0">Appointments List (recent first)</h4>
-        <button class="schedule-btn mb-2">+ Schedule an Appointment</button>
+        <button class="schedule-btn mb-4">+ Schedule an Appointment</button>
     </form>
     <div>
         @if($appointments->isEmpty())

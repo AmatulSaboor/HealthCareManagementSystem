@@ -12,7 +12,7 @@
     @endif
 
     <!-- Patients List Table -->
-    <h3 class="d-flex align-items-end mb-0 font-weight-bold">Patients List</h3>  
+    <h3 class="d-flex align-items-end mb-4 mt-3 font-weight-bold">Patients List</h3>  
     <div>
         @if($patients->isEmpty())
         <label class="null-check">No patients have registered yet</label>

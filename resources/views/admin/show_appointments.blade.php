@@ -11,7 +11,7 @@
     @endif
 
     <!-- Appointments List Table -->
-    <h4 class="d-flex align-items-end mb-0">Appointments List (by appointment date order)</h4>
+    <h4 class="d-flex align-items-end mb-4 mt-3">Appointments List (by appointment date order)</h4>
     <div>
         @if($appointments->isEmpty())
         <label class="null-check">There are no scheduled appointments</label>
@@ -33,8 +33,8 @@
                 <td>{{date('h:i A', strtotime($appointment->appointment_time))}}</td>
                 
                 <!-- Reschedule Appointments -->
-                <td><button class="reschedule"><a href="{{url('show_patient').'/'.$appointment->patientUser->id}}" class="reschedule">
-                    {{$appointment->patientUser->name}}</a></button>
+                <td><a href="{{url('show_patient').'/'.$appointment->patientUser->id}}" class="reschedule">
+                <button class="reschedule">{{$appointment->patientUser->name}}</button></a>
                 </td>
 
                 <!-- Cancel Appointments -->
