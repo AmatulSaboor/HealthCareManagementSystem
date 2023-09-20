@@ -21,7 +21,7 @@
         <label class="null-check">No registered doctor available</label>
         @else
         <form>
-            <input type="search" name="search" value="{{$search}}" placeholder="filter by doctor's name or email">
+            <input type="search" name="search" autofocus value="{{$search}}" placeholder="filter by doctor's name or email">
             <button type="submit">Filter</button>
         </form>
         <table>

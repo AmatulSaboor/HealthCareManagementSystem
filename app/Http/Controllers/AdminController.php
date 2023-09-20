@@ -5,6 +5,7 @@ use Exception;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Appointment;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -51,11 +52,19 @@ class AdminController extends Controller
     }
 
     //  -------------- get all patients list ---------------- //
-    public function get_patients()
+    public function get_patients(Request $request)
     {
         try {
-            $patients = User::where('role_id', Role::ROLE_PATIENT)->paginate(5);
-            return view('admin/show_patients')->with(['patients' => $patients]);
+            $patients = User::where('role_id', Role::ROLE_PATIENT);
+            $search = $request['search'] ?? '';
+            if (!empty($search)) {
+                $patients->where(function ($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%")
+                          ->orWhere('email', 'LIKE', "%$search%");
+                });
+            }
+            $patients = $patients->paginate(5);
+            return view('admin/show_patients')->with(['patients' => $patients, 'search' => $search]);
         } catch (Exception $e) {
             return redirect('admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }

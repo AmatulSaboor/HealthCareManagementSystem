@@ -14,9 +14,13 @@
     <!-- Patients List Table -->
     <h3 class="d-flex align-items-end mb-4 mt-3 font-weight-bold">Patients List</h3>  
     <div>
-        @if($patients->isEmpty())
+        @if($patients->isEmpty()  && $search == null)
         <label class="null-check">No patients have registered yet</label>
         @else
+        <form>
+            <input type="search" name="search" autofocus value="{{$search}}" placeholder="filter by doctor's name or email">
+            <button type="submit">Filter</button>
+        </form>
         <table>
             <tr>
                 <th>Name</th>
@@ -45,6 +49,9 @@
             </tr>
             @endforeach
         </table>
+        @if($patients->isEmpty() && $search != null)
+        <p>No resulst found for {{$search}}</p>
+        @endif
         @endif
     </div>
 </div>
