@@ -16,7 +16,7 @@ class EditPatientRequest extends FormRequest
         return [
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
-            'dob' => 'nullable|date|after:' . now()->subYears(80)->format('Y-m-d') . '|before:' . now()->subYears(20)->format('Y-m-d'),
+            'dob' => 'nullable|date|after:' . now()->subYears(100)->format('Y-m-d') . '|before:' . now(),
             'gender' => '',
             'phone_number' => 'required',
             'weight' => 'required',

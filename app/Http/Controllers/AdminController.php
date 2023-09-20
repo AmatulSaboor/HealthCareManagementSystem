@@ -16,7 +16,7 @@ class AdminController extends Controller
             $response['appointment_count'] = Appointment::all()->count();
             return view('admin/admin')->with('response', $response);
         } catch (Exception $e) {
-            return redirect('/admin')->with(['error_message' => 'something went wrong, refresh the page and try again']);
+            return view('errors.admin_error')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 

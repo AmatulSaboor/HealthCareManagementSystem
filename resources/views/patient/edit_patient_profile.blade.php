@@ -92,7 +92,7 @@
                             <h3 class="my-2 text-center">Personal Info</h3>
                             <div class="form-group">
                                 <label for="dob">Date of Birth</label>
-                                <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $patient->patientDetail->dob) }}" min="{{ date('Y-m-d', strtotime("-80 years", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d', strtotime("-20 years", strtotime(date('Y-m-d')))) }}" />
+                                <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $patient->patientDetail->dob) }}" min="{{ date('Y-m-d', strtotime("-100 years", strtotime(date('Y-m-d')))) }}" max="{{ date('Y-m-d') }}" />
                                 @error('dob')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

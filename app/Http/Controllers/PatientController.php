@@ -21,7 +21,7 @@ class PatientController extends Controller
             $response['todays_appointments'] = Appointment::where([['appointment_date', '=' , now()],['patient_id', '=', Auth::id()]])->count();
             return view('patient/patient')->with('response', $response);
         } catch (Exception $e) {
-            return redirect('/patient')->with(['error_message', 'something went wrong, please refresh the page and try again']);
+            return view('errors.patient_error')->with(['error_message' => 'something went wrong, refresh the page and try again']);
         }
     }
 
