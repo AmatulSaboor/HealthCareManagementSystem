@@ -2,7 +2,7 @@
 @push('css')
 <link href="{{ asset('css/table.css')}}" rel="stylesheet">
 <link href="{{ asset('css/form.css')}}" rel="stylesheet">
-<link href="{{ url('css/login.css') }}" rel="stylesheet"> 
+<link href="{{ asset('css/login.css') }}" rel="stylesheet"> 
 @endpush
 @section('content')
 <div class="container">

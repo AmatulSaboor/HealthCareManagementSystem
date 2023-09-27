@@ -2,7 +2,7 @@
 @push('css')
     <link href="{{ asset('css/table.css')}}" rel="stylesheet">
     <link href="{{ asset('css/form.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url('css/login.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}"> 
 @endpush
 @section('content')
 <div class="container" >
@@ -229,7 +229,7 @@
                     </div>
                 </div>
                 <div class="col-md-5 d-flex justify-content-center align-items-center">
-                    <img src="{{'/images/add-doctor.png'}}" style="height:400px">
+                    <img src="{{asset('/images/add-doctor.png')}}" style="height:400px">
                 </div>
             </div> 
         </div>

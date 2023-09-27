@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<link rel="stylesheet" href="{{ url('css/login.css') }}"> 
+<link rel="stylesheet" href="{{ asset('css/login.css') }}"> 
  
-<div class="container login-cont" style="background-image: url('{{ 'images/login-bg.jpeg' }}');">
+<div class="container login-cont" style="background-image: url('{{ asset('images/login-bg.jpeg') }}');">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card login-card">

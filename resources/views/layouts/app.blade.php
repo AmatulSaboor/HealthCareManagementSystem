@@ -41,32 +41,32 @@
         <div class="offcanvas-body small">
             <ul class="sidebar-list  pl-0" >
                 <div class="text-center">
-                    <img src="{{url('/images/user.PNG')}}" class="text-center">
+                    <img src="{{asset('/images/user.png')}}" class="text-center">
                 </div>
                 <li class="dropdown-item h4 mt-2 text-center">{{auth()->user()->name}}</li>
                 <li class="dropdown-item text-center">{{auth()->user()->email}}</li>
                 @if(auth()->user()->role_id == \App\Models\Role::ROLE_ADMIN)
-                <li><a class="dropdown-item h5 my-3" href="{{url('admin')}}"><img src="{{url('/images/dashboard.png')}}" class="me-3">Dashboard</a></li>
-                <li><a class="dropdown-item h5 my-3" href="{{url('doctor/create')}}"><img src="{{url('/images/doctor-add.png')}}" class="me-3">Add Doctor</a></li>
-                <li><a class="dropdown-item h5 my-3" href="{{url('doctor')}}"><img src="{{url('/images/doctor.png')}}" class="me-3">Doctors</a></li>
-                <li><a class="dropdown-item h5 my-3" href="{{url('appointment_lists')}}"><img src="{{url('/images/appoinments.png')}}" class="me-3">Appointments</a></li>
-                <li><a class="dropdown-item h5 my-3" href="{{url('patient_lists')}}"><img src="{{url('/images/patient.png')}}" class="me-3">Patients</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('admin')}}"><img src="{{asset('/images/dashboard.png')}}" class="me-3">Dashboard</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor/create')}}"><img src="{{asset('/images/doctor-add.png')}}" class="me-3">Add Doctor</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor')}}"><img src="{{asset('/images/doctor.png')}}" class="me-3">Doctors</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('appointment_lists')}}"><img src="{{asset('/images/appoinments.png')}}" class="me-3">Appointments</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('patient_lists')}}"><img src="{{asset('/images/patient.png')}}" class="me-3">Patients</a></li>
                 @endif
                 @if(auth()->user()->role_id == \App\Models\Role::ROLE_DOCTOR)
-                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_dashboard')}}"><img src="{{url('/images/dashboard.png')}}" class="me-3">Dashboard</a></li>
-                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_profile/' .auth()->id())}}"><img src="{{url('/images/profile.png')}}" class="me-3">My Profile</a></li>
-                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_appointments')}}"><img src="{{url('/images/appoinments.png')}}" class="me-3">My Appointments</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_dashboard')}}"><img src="{{asset('/images/dashboard.png')}}" class="me-3">Dashboard</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_profile/' .auth()->id())}}"><img src="{{asset('/images/profile.png')}}" class="me-3">My Profile</a></li>
+                <li><a class="dropdown-item h5 my-3" href="{{url('doctor_appointments')}}"><img src="{{asset('/images/appoinments.png')}}" class="me-3">My Appointments</a></li>
                 @endif
                 @if(auth()->user()->role_id == \App\Models\Role::ROLE_PATIENT)
                 <li>
-                    <a class="dropdown-item h6 my-3 py-2" href="{{url('patient')}}"><img src="{{url('/images/dashboard.png')}}" class="me-3">Dashboard</a>
+                    <a class="dropdown-item h6 my-3 py-2" href="{{url('patient')}}"><img src="{{asset('/images/dashboard.png')}}" class="me-3">Dashboard</a>
                 </li>
-                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('patient/'. auth()->id())}}"> <img src="{{url('/images/profile.png')}}" class="me-3">My Profile</a></li>
-                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('appointment/create')}}"><img src="{{url('/images/schedule.png')}}" class="me-3">Schedule an Appointment</a></li>
-                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('appointment')}}"><img src="{{url('/images/appoinments.png')}}" class="me-3">My Appointments</a></li>
+                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('patient/'. auth()->id())}}"> <img src="{{asset('/images/profile.png')}}" class="me-3">My Profile</a></li>
+                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('appointment/create')}}"><img src="{{asset('/images/schedule.png')}}" class="me-3">Schedule an Appointment</a></li>
+                <li><a class="dropdown-item h6 my-3 py-2" href="{{url('appointment')}}"><img src="{{asset('/images/appoinments.png')}}" class="me-3">My Appointments</a></li>
                 @endif
             </ul>
-            <a class="dropdown-item h6 mt-5 py-2 " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><img src="{{url('/images/logout.png')}}" class="me-3">Log Out</a>
+            <a class="dropdown-item h6 mt-5 py-2 " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><img src="{{asset('/images/logout.png')}}" class="me-3">Log Out</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
@@ -77,14 +77,14 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             @auth
             <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" class="humburger-icon ms-3">
-                <img src="{{url('/images/humburger-icon.png')}}" style="height:20px">
+                <img src="{{asset('/images/humburger-icon.png')}}" style="height:20px">
             </button>
             @endauth
 
             <!-- Nav Bar -->
             <div class="container ms-0">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{url('/images/logo.PNG')}}" class="logo">
+                    <img src="{{asset('/images/logo.PNG')}}" class="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

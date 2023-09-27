@@ -2,7 +2,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ url('css/register.css') }}"> 
 
-<div class="container register-cont " style="background-image: url('{{ 'images/login-bg.jpeg' }}');">
+<div class="container register-cont " style="background-image: url('{{ asset('images/login-bg.jpeg') }}');">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card register-card">
