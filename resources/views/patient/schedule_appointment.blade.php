@@ -120,6 +120,7 @@
 
     // --------- FUNCTION : load doctor drop down on field selection --------------
     function loadDoctors(params, doctorUrl, timeUrl, dayUrl) {
+        $("#appointment_date").val("");
         ajaxGet(doctorUrl + '/' +params,{},(status,data)=>{
             if (status){
                 $("#doctor_dropdown").empty();

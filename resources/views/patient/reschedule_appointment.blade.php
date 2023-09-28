@@ -94,6 +94,7 @@
             loadDoctors($("#field_id").val(), doctorUrl, timeUrl, dayUrl)
         }
         $("#field_id").on('change',function () {
+            $("#appointment_date").val("");
             let params = $(this).val(); 
             loadDoctors(params, doctorUrl, timeUrl, dayUrl);
         })
