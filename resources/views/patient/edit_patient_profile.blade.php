@@ -13,7 +13,7 @@
 
     <!-- Patient Profile Update Form -->
     <h4>Update Profile</h4>
-    <form action="{{url('patient'.'/'.$patient->id)}}" method="POST" class="form-container">
+    <form action="{{url('patient'.'/'.$patient->id)}}" method="POST" class="form-container" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="container mt-4">
@@ -128,6 +128,13 @@
                                     <input class="form-check-input" type="radio" id="gender_female" name="gender" value="Female" {{ old('gender', $patient->patientDetail->gender) == 'Female' ? 'checked' : '' }}>
                                     <label class="form-check-label ms-2" for="gender_female">Female</label>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Upload Image</label>
+                                <input type="file" name ="image_link" accept="image/jpeg, image/jpg, image/png, image/gif"/>
+                                @error('image_link')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <input type="submit" class="btn btn-primary update-btn" value="Update" name="submit" />
                         </div>

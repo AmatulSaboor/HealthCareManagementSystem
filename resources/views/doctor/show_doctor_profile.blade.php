@@ -103,7 +103,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-primary " target="__blank" href="{{url('doctor_dashboard')}}">Back</a>
+                                        <a class="btn btn-primary " href="{{url('doctor_dashboard')}}">Back</a>
                                     </div>
                                 </div>
                             </div>

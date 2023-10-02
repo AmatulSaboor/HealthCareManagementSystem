@@ -22,7 +22,7 @@ class EditPatientRequest extends FormRequest
             'weight' => 'required',
             'height' => 'required',
             'allergies' => 'required',
-            'image_link' => 'nullable|string',
+            'image_link' => 'nullable|image|mimes:jpeg,jpg,png,gif',
         ];
     }
 }

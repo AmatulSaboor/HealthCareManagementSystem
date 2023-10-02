@@ -12,6 +12,7 @@
     <div class="alert alert-danger">{{session()->get('error_message')}}</div>
     @endif
 
+    {{-- {{/storage/DcRg8y65kyjIpyOiLOyzc4hS8DGdYiPEK4EjFIc4.}} --}}
     <!-- Patient Profile -->
     <h4 class="text-center font-weight-bold">Your Profile</h4>
     <section class="bg-light">
@@ -22,7 +23,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                                    <img src="{{$patient->patientDetail->image_link ? $patient->patientDetail->image_link :'https://bootdey.com/img/Content/avatar/avatar7.png'}}" alt="src not found" class="rounded-circle" width="150">
                                     <div class="mt-3">
                                         <h4>{{$patient->name}}</h4>
                                         <p class="text-secondary mb-1">{{$patient->email}}</p>
@@ -120,7 +121,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-primary " target="__blank" href="{{url('patient/'.$patient->id.'/edit')}}">Edit</a>
+                                        <a class="btn btn-primary" href="{{url('patient/'.$patient->id.'/edit')}}">Edit</a>
                                     </div>
                                 </div>
                             </div>

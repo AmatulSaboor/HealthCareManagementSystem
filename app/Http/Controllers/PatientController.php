@@ -10,6 +10,7 @@ use App\Models\PatientDetail;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class PatientController extends Controller
 {
@@ -54,10 +55,19 @@ class PatientController extends Controller
     {
         try {
             DB::beginTransaction();
+
+            // update patient in user table
             $patient = User::find($id);
             $patient->update(['name' => $request['first_name'] . ' ' . $request['last_name']]);
             $request['user_id'] = $id;
-            PatientDetail::where(['user_id' => $id])->first()->update($request->all());
+
+            // update patient details
+            $input = $request->all();
+            if ($request->hasFile('image_link')) {
+                $file = $request->file('image_link');
+                $input['image_link'] = Storage::putFile('public/ProfileImages', $file, 'public');
+            }
+            PatientDetail::where(['user_id' => $id])->first()->update($input);
             DB::commit();
             return redirect('patient/' . $id);
         } catch (Exception $e) {

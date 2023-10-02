@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 
 class PatientDetail extends Model
 {
@@ -13,5 +14,10 @@ class PatientDetail extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getImageLinkAttribute($image_link)
+    {
+        return Storage::url($image_link);
     }
 }
